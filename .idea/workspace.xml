@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1478bca5-2739-4a17-998d-d72eb88b4c83" name="Changes" comment="Test first display of all courses on homepage with Tailwind styling">
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+    <list default="true" id="1478bca5-2739-4a17-998d-d72eb88b4c83" name="Changes" comment="feat: create core entities and define their relationships">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +17,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="footer" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -25,12 +30,12 @@
     &quot;assignee&quot;: &quot;Amr69130&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Amr69130/ll_academy.git",
-    "accountId": "df123d79-8a7b-4efa-b59c-e4754a59958f"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Amr69130/ll_academy.git&quot;,
+    &quot;accountId&quot;: &quot;df123d79-8a7b-4efa-b59c-e4754a59958f&quot;
   }
-}]]></component>
+}</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\PHP\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
@@ -164,28 +169,26 @@
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 7
+  &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="30m5WhugKW3DLVi1KOhgTLo6ywC" />
+  <component name="ProjectId" id="30orKdDV3urj9jIuuyZw96jaCNp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/laragon/www/ll_school&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -197,84 +200,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1478bca5-2739-4a17-998d-d72eb88b4c83" name="Changes" comment="" />
-      <created>1754219943279</created>
+      <changelist id="1478bca5-2739-4a17-998d-d72eb88b4c83" name="Changes" comment="feat: create core entities and define their relationships" />
+      <created>1754304704278</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1754219943279</updated>
-      <workItem from="1754219945162" duration="5527000" />
-      <workItem from="1754291515663" duration="4333000" />
+      <updated>1754304704278</updated>
+      <workItem from="1754304705435" duration="1290000" />
+      <workItem from="1754306030743" duration="334000" />
     </task>
-    <task id="LOCAL-00001" summary="Initial project setup and Tailwind CSS integration">
-      <option name="closed" value="true" />
-      <created>1754221408537</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1754221408537</updated>
-    </task>
-    <task id="LOCAL-00002" summary="add test button">
-      <option name="closed" value="true" />
-      <created>1754221714015</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1754221714015</updated>
-    </task>
-    <task id="LOCAL-00003" summary="add test button">
-      <option name="closed" value="true" />
-      <created>1754221947170</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1754221947170</updated>
-    </task>
-    <task id="LOCAL-00004" summary="add test button">
-      <option name="closed" value="true" />
-      <created>1754222095607</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1754222095607</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add .env.local, first entity (Course), fixtures test">
-      <option name="closed" value="true" />
-      <created>1754224054375</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1754224054375</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Test first display of all courses on homepage with Tailwind styling">
-      <option name="closed" value="true" />
-      <created>1754224858453</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1754224858453</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial project setup and Tailwind CSS integration" />
-    <MESSAGE value="add test button" />
-    <MESSAGE value="add .env.local, first entity (Course), fixtures test" />
-    <MESSAGE value="Test first display of all courses on homepage with Tailwind styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test first display of all courses on homepage with Tailwind styling" />
   </component>
 </project>
