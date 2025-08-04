@@ -13,22 +13,22 @@
         <a href="{{ path('app_user_edit', {id: user.id}) }}">Modifier le profil</a>
     </section>
 
-    <section>
-        <h2>Mes enfants</h2>
-        {% if user.enfants is not empty %}
-            <ul>
-                {% for enfant in user.enfants %}
-                    <li>
-                        {{ enfant.prenom }} ({{ enfant.age }} ans)
-                        <a href="{{ path('app_enfant_show', {id: enfant.id}) }}">Voir</a>
-                        <a href="{{ path('app_enfant_edit', {id: enfant.id}) }}">Modifier</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucun enfant inscrit.</p>
-        {% endif %}
-    </section>
+{#    <section>#}
+{#        <h2>Mes enfants</h2>#}
+{#        {% if user.enfants is not empty %}#}
+{#            <ul>#}
+{#                {% for enfant in user.enfants %}#}
+{#                    <li>#}
+{#                        {{ enfant.prenom }} ({{ enfant.age }} ans)#}
+{#                        <a href="{{ path('app_enfant_show', {id: enfant.id}) }}">Voir</a>#}
+{#                        <a href="{{ path('app_enfant_edit', {id: enfant.id}) }}">Modifier</a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        {% else %}#}
+{#            <p>Aucun enfant inscrit.</p>#}
+{#        {% endif %}#}
+{#    </section>#}
 
     <form method="post" action="{{ path('app_logout') }}">
         <button type="submit">Se déconnecter</button>
