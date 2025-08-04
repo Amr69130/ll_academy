@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-6xl font-extrabold text-center text-blue-600 bg-yellow-300 p-8 rounded-lg shadow-lg">
+        Tailwind CSS fonctionne parfaitement !!
+    </h1>
+
+    <span class="inline-block bg-green-500 text-white text-sm font-semibold px-4 py-2 rounded-full shadow-md">
+  Tailwind Badge TEST
+</span>
+
+    <h1 class="text-3xl font-bold mb-6 text-blue-700">Courses List</h1>
+
+    <ul class="space-y-3 max-w-md mx-auto">
+        {% for course in courses %}
+            {% set colors = [
+                'bg-yellow-200 text-yellow-900',
+                'bg-green-200 text-green-900',
+                'bg-blue-200 text-blue-900',
+                'bg-pink-200 text-pink-900',
+                'bg-purple-200 text-purple-900'
+            ] %}
+            {% set color = colors[(loop.index0) % colors|length] %}
+            <li class="{{ color }} p-4 rounded shadow font-semibold">
+                {{ course.name }}
+            </li>
+        {% else %}
+            <li class="text-red-500 font-medium">No courses found.</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
