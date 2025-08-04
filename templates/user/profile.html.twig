@@ -7,10 +7,10 @@
 
     <section>
         <h2>Informations du parent</h2>
-        <p><strong>Nom :</strong> {{ user.nom }}</p>
-        <p><strong>Email :</strong> {{ user.email }}</p>
+        <p><strong>Nom :</strong> {{ app.user.firstname }}</p>
+        <p><strong>Email :</strong> {{ app.user.email }}</p>
 
-        <a href="{{ path('app_user_edit', {id: user.id}) }}">Modifier le profil</a>
+        {# <a href="{{ path('app_user_edit', {id: user.id}) }}">Modifier le profil</a> #}
     </section>
 
 {#    <section>#}

@@ -13,7 +13,7 @@ final class HomeController extends AbstractController
     public function index(CourseRepository $courseRepository): Response
     {
         $courses = $courseRepository->findAll();
-        return $this->render('home/profile.html.twig', [
+        return $this->render('home/index.html.twig', [
             'courses' => $courses,
         ]);
     }
