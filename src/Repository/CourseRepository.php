@@ -15,7 +15,6 @@ class CourseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Course::class);
     }
-
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */
