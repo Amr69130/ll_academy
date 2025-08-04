@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Course;
+use App\Entity\Schedule;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -10,7 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-//4 langues disponibles dans l'école ll_academy
+        //4 langues disponibles dans l'école ll_academy
         $languages = ['Anglais', 'Espagnol', 'Italien', 'Arabe'];
 
         //4 niveaux pour chaque langues
@@ -33,7 +34,7 @@ class AppFixtures extends Fixture
                 $manager->persist($course);
             }
         }
-
         $manager->flush();
     }
+
 }
