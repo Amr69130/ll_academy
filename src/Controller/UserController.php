@@ -19,8 +19,12 @@ final class UserController extends AbstractController
             throw $this->createAccessDeniedException('Vous devez être connecté pour voir cette page.');
         }
 
+        // Récupérer les élèves liés au parent (User)
+        $students = $user->getStudents();
+
         return $this->render('user/profile.html.twig', [
             'user' => $user,
+            'students' => $students,
         ]);
     }
 }

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche de {{ student.firstname }}{% endblock %}
+
+{% block body %}
+    <h1>Fiche élève : {{ student.firstname }} {{ student.lastname }}</h1>
+
+    <section>
+        <p><strong>Prénom :</strong> {{ student.firstname }}</p>
+        <p><strong>Nom :</strong> {{ student.lastname }}</p>
+        {# Ajouter ici d’autres infos de l’élève, par ex : #}
+        {# <p><strong>Âge :</strong> {{ student.age }}</p> #}
+        {# <p><strong>Classe :</strong> {{ student.class }}</p> #}
+    </section>
+
+    <a href="{{ path('app_user_profile') }}" class="text-blue-600 hover:underline">Retour au profil</a>
+{% endblock %}

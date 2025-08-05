@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle fiche élève{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl w-full bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Créer une fiche élève</h1>
+
+            {{ form_start(form) }}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{ form_row(form.firstName, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.lastName, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.adress, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.city, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.zipCode, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.birthDate, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.profilePicture, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+                {{ form_row(form.level, {'attr': {'class': 'w-full p-3 border border-gray-300 rounded-lg'}}) }}
+            </div>
+
+            <div class="mt-8 text-center">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-300">
+                    Enregistrer
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

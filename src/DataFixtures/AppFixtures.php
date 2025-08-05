@@ -3,25 +3,29 @@
 namespace App\DataFixtures;
 
 use App\Entity\Course;
-use App\Entity\Schedule;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
-        //4 langues disponibles dans l'école ll_academy
+        // Langues disponibles
         $languages = ['Anglais', 'Espagnol', 'Italien', 'Arabe'];
 
-        //4 niveaux pour chaque langues
+        // Niveaux
         $levels = ['A1', 'A2', 'B1', 'B2'];
 
-        //tous on le même nombre d'heures réparties dans l'année donc valeur commune à tous
         $commonDuration = 80;
-
-        //tous ont le même prix
         $commonPrice = 350;
 
         foreach ($languages as $language) {
@@ -35,7 +39,21 @@ class AppFixtures extends Fixture
                 $manager->persist($course);
             }
         }
+
+        // Création d'un utilisateur
+        $user = new User();
+        $user->setEmail('test@example.com');
+        $user->setFirstName('Jean');
+        $user->setLastName('Dupont');
+        $user->setPhoneNumber('0102030405');
+        $user->setCreatedAt(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
+
+        $hashedPassword = $this->passwordHasher->hashPassword($user, 'password123');
+        $user->setPassword($hashedPassword);
+
+        $manager->persist($user);
+
         $manager->flush();
     }
-
 }
