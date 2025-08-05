@@ -1,14 +1,15 @@
-<header class="bg-gray-800 text-[#FAF1DC] py-6 px-4 text-center font-sans text-sm">
-  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+{# templates/parts/header.html.twig #}
+<header class="bg-gray-800 text-[#FAF1DC] py-6 px-4 font-sans text-sm">
+  <div class="mx-auto flex justify-between items-center">
 
     <!-- Logo -->
-    <div class="flex items-center gap-2">
-      <img src="/images/logo.png" alt="Logo" class="h-8 w-auto" />
-      <span class="font-serif text-xl font-semibold">LL<br>School</span>
+    <div class="flex items-center">
+      <img src="{{ asset('images/logo_circle_llacademy.png') }}" alt="LL Academy" class="h-10 w-auto mr-3" />
+      <span class="font-serif text-2xl font-semibold">LL Academy</span>
     </div>
 
     <!-- Navigation -->
-    <nav class="flex flex-wrap justify-center gap-4 items-center">
+    <nav class="flex space-x-6 pr-25">
       <a href="" class="hover:underline hover:text-white transition">Accueil</a>
       <a href="" class="hover:underline hover:text-white transition">Cours</a>
       <a href="" class="hover:underline hover:text-white transition">Panier</a>
@@ -16,21 +17,19 @@
     </nav>
 
     <!-- Utilisateur connecté / non connecté -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center mr-4">
       {% if app.user %}
-      <div class="flex flex-col items-center gap-2">
-        <!-- Bienvenue avec séparation -->
-        <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
-        <div class="w-full border-b border-gray-500"></div>
-        <!-- Liens Paramètres et Déconnexion avec barre latérale -->
-        <nav class="flex items-center gap-2 text-sm">
-          <a href="" class="hover:underline hover:text-white transition">Paramètres</a>
-          <span class="border-l border-gray-500 h-4"></span>
-          <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
-        </nav>
-      </div>
+        <div class="flex flex-col items-center space-y-1">
+          <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
+          <div class="w-full border-b border-gray-500"></div>
+          <nav class="flex items-center space-x-2 text-sm pt-1">
+            <a href="{{ path('app_settings') }}" class="hover:underline hover:text-white transition">Paramètres</a>
+            <span class="border-l border-gray-500 h-4"></span>
+            <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
+          </nav>
+        </div>
       {% else %}
-      <a href="{{ path('app_login') }}" class="hover:underline hover:text-white transition">Se connecter</a>
+        <a href="{{ path('app_login') }}" class="hover:underline hover:text-white transition pr-20">Se connecter</a>
       {% endif %}
     </div>
 
