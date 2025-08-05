@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+<main class="min-h-screen bg-[#1e293b] flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-6">
+    {% for flash_error in app.flashes('reset_password_error') %}
+      <div class="p-4 bg-[#f97316] text-white rounded-md">
+        {{ flash_error }}
+      </div>
+    {% endfor %}
+
+    <h1 class="text-3xl font-semibold text-center text-white">Réinitialiser le mot de passe</h1>
+
+    {{ form_start(requestForm, { 'attr': { 'class': 'bg-[#1e293b] p-8 rounded-lg shadow-lg space-y-6' } }) }}
+      {{ form_row(requestForm.email, {
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]'}
+      }) }}
+
+      <div>
+        <small class="text-sm text-gray-300">
+          Entrez votre adresse email, et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+        </small>
+      </div>
+
+      <button type="submit" class="w-full py-3 rounded-md bg-[#f97316] text-white font-semibold hover:bg-[#ea580c] transition">
+        Envoyer le lien de réinitialisation
+      </button>
+    {{ form_end(requestForm) }}
+
+    <div class="text-center">
+      <a href="{{ path('app_login') }}" class="text-sm text-[#f97316] hover:underline">
+        Retour à la connexion
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}
