@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<main class="min-h-screen bg-[#1e293b] flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-6">
+    {% for flash_error in app.flashes('verify_email_error') %}
+      <div class="p-4 bg-[#f97316] text-white rounded-md">
+        {{ flash_error }}
+      </div>
+    {% endfor %}
+
+    <h1 class="text-3xl font-semibold text-center text-white">Créer un compte</h1>
+
+    {{ form_start(registrationForm, { 'attr': { 'class': 'bg-[#1e293b] p-8 rounded-lg shadow-lg space-y-6' } }) }}
+      {{ form_row(registrationForm.email, {
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]' }
+      }) }}
+
+      {{ form_row(registrationForm.firstName, {
+        'label': 'Prénom',
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]' }
+      }) }}
+
+      {{ form_row(registrationForm.lastName, {
+        'label': 'Nom',
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]' }
+      }) }}
+
+      {{ form_row(registrationForm.phoneNumber, {
+        'label': 'Téléphone',
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]' }
+      }) }}
+
+      {{ form_row(registrationForm.plainPassword, {
+        'label': 'Mot de passe',
+        'label_attr': {'class': 'block text-sm font-medium text-white'},
+        'attr': {'class': 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]' }
+      }) }}
+
+      {# Terms checkbox with extra spacing and indent #}
+      <div class="flex items-start space-x-2 ml-4">
+        <label for="{{ registrationForm.agreeTerms.vars.id }}" class="text-sm text-white">
+          J'accepte les termes
+        </label>
+        {{ form_widget(registrationForm.agreeTerms, {
+          'attr': {'class': 'h-4 w-4 text-[#f97316] focus:ring-[#f97316] border-gray-300 rounded'}
+        }) }}
+      </div>
+
+      <button type="submit" class="w-full py-3 rounded-md bg-[#f97316] text-white font-semibold hover:bg-[#ea580c] transition">
+        S'inscrire
+      </button>
+    {{ form_end(registrationForm) }}
+  </div>
+</main>
+{% endblock %}
