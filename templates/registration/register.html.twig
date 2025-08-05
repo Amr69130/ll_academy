@@ -57,6 +57,15 @@
         S'inscrire
       </button>
     {{ form_end(registrationForm) }}
+  {# ===== Lien de retour vers le login ===== #}
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-300">
+        Vous avez déjà un compte ?
+        <a href="{{ path('app_login') }}" class="text-[#f97316] hover:underline ml-1">
+          Se connecter
+        </a>
+      </p>
+    </div>
   </div>
 </main>
 {% endblock %}
