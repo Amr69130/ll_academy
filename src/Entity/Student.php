@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 class Student
@@ -17,21 +18,34 @@ class Student
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire.")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le prénom doit faire au moins {{ limit }} caractères.")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le nom doit faire au moins {{ limit }} caractères.")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
     private ?string $adress = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La ville est obligatoire.")]
     private ?string $city = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message: "Le code postal est obligatoire.")]
+    #[Assert\Regex(
+        pattern: "/^\d{5}$/",
+        message: "Le code postal doit contenir exactement 5 chiffres."
+    )]
     private ?string $zipCode = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: "La date de naissance est obligatoire.")]
+    #[Assert\LessThan("-5 years", message: "L'élève doit avoir au moins 5 ans.")]
     private ?\DateTime $birthDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -188,7 +202,6 @@ class Student
     public function removeEnrollment(Enrollment $enrollment): static
     {
         if ($this->enrollments->removeElement($enrollment)) {
-            // set the owning side to null (unless already changed)
             if ($enrollment->getStudent() === $this) {
                 $enrollment->setStudent(null);
             }
