@@ -19,8 +19,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Langues disponibles
-        $languages = ['Anglais', 'Espagnol', 'Italien', 'Arabe'];
+        // Langues disponibles (en minuscules pour la correspondance image)
+        $languages = ['anglais', 'espagnol', 'italien', 'arabe'];
 
         // Niveaux
         $levels = ['A1', 'A2', 'B1', 'B2'];
@@ -31,16 +31,17 @@ class AppFixtures extends Fixture
         foreach ($languages as $language) {
             foreach ($levels as $level) {
                 $course = new Course();
-                $course->setName("$language $level");
+                $course->setName(ucfirst($language) . " " . $level);
                 $course->setLevel($level);
                 $course->setDuration($commonDuration);
-                $course->setDescription("Cours de $language niveau $level");
+                $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
                 $course->setPrice($commonPrice);
+                $course->setFlagPicture($language . '.png'); // Image associée à la langue
                 $manager->persist($course);
             }
         }
 
-        // Création d'un utilisateur
+        // Création d'un utilisateur exemple
         $user = new User();
         $user->setEmail('test@example.com');
         $user->setFirstName('Jean');

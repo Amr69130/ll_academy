@@ -43,6 +43,9 @@ class Course
     #[ORM\OneToMany(targetEntity: Schedule::class, mappedBy: 'course')]
     private Collection $schedules;
 
+    #[ORM\Column(length: 255)]
+    private ?string $flagPicture = null;
+
     public function __construct()
     {
         $this->enrollments = new ArrayCollection();
@@ -170,6 +173,18 @@ class Course
                 $schedule->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFlagPicture(): ?string
+    {
+        return $this->flagPicture;
+    }
+
+    public function setFlagPicture(string $flagPicture): static
+    {
+        $this->flagPicture = $flagPicture;
 
         return $this;
     }
