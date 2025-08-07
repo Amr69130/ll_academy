@@ -20,7 +20,7 @@ final class Version20250807134121 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE messenger_messages');
+        $this->addSql('DROP TABLE IF EXISTS messenger_messages');
         $this->addSql('ALTER TABLE course DROP duration');
     }
 
