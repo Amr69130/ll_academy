@@ -8,9 +8,29 @@
     <section>
         <p><strong>Prénom :</strong> {{ student.firstname }}</p>
         <p><strong>Nom :</strong> {{ student.lastname }}</p>
-        {# Ajouter ici d’autres infos de l’élève, par ex : #}
-        {# <p><strong>Âge :</strong> {{ student.age }}</p> #}
-        {# <p><strong>Classe :</strong> {{ student.class }}</p> #}
+    </section>
+    <section>
+        {% if student.enrollments|length > 0 %}
+            <h2 class="mt-4 font-semibold">Inscriptions :</h2>
+            <ul>
+                {% for enrollment in student.enrollments %}
+                    <li>
+                        {{ enrollment.course.name }}
+                        ({{ enrollment.enrollmentPeriod.title }}) –
+                        <em>Status : {{ enrollment.status }}</em>
+                        <p>
+                            <em>Date d'inscription : </em>{{ enrollment.enrollmentDate|date('d/m/Y') }}
+                        </p>
+                        <a href="{{ path('payment_new', { enrollment: enrollment.id }) }}"
+                           class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition inline-block mt-2">
+                            Payer maintenant
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune inscription pour cet élève.</p>
+        {% endif %}
     </section>
 
     <a href="{{ path('app_user_profile') }}" class="text-blue-600 hover:underline">Retour au profil</a>
