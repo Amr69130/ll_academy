@@ -165,6 +165,11 @@ class ResetPasswordController extends AbstractController
 
         dump("email");
         $email = (new TemplatedEmail())
+
+            // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
+            // Supprimer le messenger qui permet de filtrer les mails en les affichant dans notre bdd 
+            // enlever messenger via cette commande "composer remove symfony/doctrine-messenger"
+
             ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
             ->to((string) $user->getEmail())
             ->subject('Your password reset request')
