@@ -1,5 +1,7 @@
 <?php
 
+// Génération du registraionController avec php bin/console make:registration-form 
+
 namespace App\Controller;
 
 use App\Entity\User;

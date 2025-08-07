@@ -1,5 +1,7 @@
 <?php
 
+// Génération du ResetPasswordController avec php bin/console make:reset-password 
+
 namespace App\Controller;
 
 use App\Entity\User;
