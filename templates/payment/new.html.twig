@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement pour {{ enrollment.student.firstName }}{% endblock %}
+
+{% block body %}
+    <h1>Paiement pour {{ enrollment.student.firstName }} {{ enrollment.student.lastName }}</h1>
+    <p>Montant à payer : {{ enrollment.course.price }} €</p>
+
+    <form method="post">
+        <button type="submit" class="btn btn-primary">Payer maintenant</button>
+    </form>
+
+    <a href="{{ path('app_user_profile') }}">Retour au profil</a>
+{% endblock %}

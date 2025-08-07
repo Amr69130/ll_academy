@@ -37,11 +37,13 @@
                 <div class="mt-4 flex gap-2">
                   <a href="{{ path('student_show', {id: student.id}) }}" class="text-blue-600 hover:underline">Voir détails</a>
                   <a href="{{ path('student_edit', {id: student.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
+                  <a href="{{ path('student_enroll', {id: student.id}) }}" class="text-green-600 hover:underline">Inscrire</a>
                   <form method="post" action="{{ path('student_delete', {id: student.id}) }}" onsubmit="return confirm('Supprimer cet élève ?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
                     <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
                   </form>
                 </div>
+
               </div>
             {% endfor %}
           </section>

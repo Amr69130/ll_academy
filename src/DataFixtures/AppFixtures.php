@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Course;
+use App\Entity\EnrollmentPeriod;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -36,7 +37,7 @@ class AppFixtures extends Fixture
                 $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
                 $course->setPrice($commonPrice);
                 $course->setFlagPicture($language . '.png'); // Image associée à la langue
-                $course->setIsOpen(false);
+                $course->setIsOpen(true);
                 $manager->persist($course);
 
             }
@@ -55,6 +56,30 @@ class AppFixtures extends Fixture
         $user->setPassword($hashedPassword);
 
         $manager->persist($user);
+
+        //Création d'un User avec vrai mail
+        $user = new User();
+        $user->setEmail('amrouche.ndev@gmail.com');
+        $user->setFirstName('Norri');
+        $user->setLastName('Amrouche');
+        $user->setPhoneNumber('0102030405');
+        $user->setCreatedAt(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
+
+        $hashedPassword = $this->passwordHasher->hashPassword($user, 'password123');
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+        //Creation de 2EnrollmentPeriods
+        $period2025 = new EnrollmentPeriod();
+        $period2025->setTitle(2025);
+        $period2025->setIsOpen(false);
+        $manager->persist($period2025);
+
+        $period2026 = new EnrollmentPeriod();
+        $period2026->setTitle(2026);
+        $period2026->setIsOpen(true);
+        $manager->persist($period2026);
+
 
         $manager->flush();
     }
