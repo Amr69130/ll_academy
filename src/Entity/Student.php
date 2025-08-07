@@ -51,8 +51,7 @@ class Student
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $level = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'students')]
     private ?User $user = null;
@@ -157,17 +156,7 @@ class Student
         return $this;
     }
 
-    public function getLevel(): ?string
-    {
-        return $this->level;
-    }
 
-    public function setLevel(string $level): static
-    {
-        $this->level = $level;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {

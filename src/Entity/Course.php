@@ -25,8 +25,6 @@ class Course
     #[ORM\Column(length: 255)]
     private ?string $level = null;
 
-    #[ORM\Column]
-    private ?int $duration = null;
 
     #[ORM\Column]
     private ?float $price = null;
@@ -45,6 +43,9 @@ class Course
 
     #[ORM\Column(length: 255)]
     private ?string $flagPicture = null;
+
+    #[ORM\Column]
+    private ?bool $isOpen = null;
 
     public function __construct()
     {
@@ -93,17 +94,7 @@ class Course
         return $this;
     }
 
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
 
-    public function setDuration(int $duration): static
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
 
     public function getPrice(): ?float
     {
@@ -185,6 +176,18 @@ class Course
     public function setFlagPicture(string $flagPicture): static
     {
         $this->flagPicture = $flagPicture;
+
+        return $this;
+    }
+
+    public function isOpen(): ?bool
+    {
+        return $this->isOpen;
+    }
+
+    public function setIsOpen(bool $isOpen): static
+    {
+        $this->isOpen = $isOpen;
 
         return $this;
     }

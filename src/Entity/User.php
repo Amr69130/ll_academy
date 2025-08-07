@@ -9,10 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,6 +22,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Email(message: "L'adresse email n'est pas valide.")]
     private ?string $email = null;
 
     /**
@@ -36,12 +39,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire.")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le prénom doit faire au moins {{ limit }} caractères.")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le nom doit faire au moins {{ limit }} caractères.")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone est obligatoire.")]
+    #[Assert\Regex(
+        pattern: "/^0[1-9](\d{2}){4}$/",
+        message: "Le numéro de téléphone doit être un numéro français valide."
+    )]
     private ?string $phoneNumber = null;
 
     #[ORM\Column]
@@ -55,6 +67,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingAdress = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingCity = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $billingZipCode = null;
 
     public function __construct()
     {
@@ -74,45 +95,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -121,14 +124,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
     #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // @deprecated, to be removed when upgrading to Symfony 8
+        // METHODE QUI SERA INVALIDE DANS LES PROCHAINES VERSIONS PHP
     }
 
     public function getFirstName(): ?string
@@ -139,7 +141,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(string $firstName): static
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -151,7 +152,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -163,7 +163,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoneNumber(string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
-
         return $this;
     }
 
@@ -175,7 +174,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTime $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -193,19 +191,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->students->add($student);
             $student->setUser($this);
         }
-
         return $this;
     }
 
     public function removeStudent(Student $student): static
     {
         if ($this->students->removeElement($student)) {
-            // set the owning side to null (unless already changed)
             if ($student->getUser() === $this) {
                 $student->setUser(null);
             }
         }
-
         return $this;
     }
 
@@ -217,7 +212,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+        return $this;
+    }
 
+    public function getBillingAdress(): ?string
+    {
+        return $this->billingAdress;
+    }
+
+    public function setBillingAdress(?string $billingAdress): static
+    {
+        $this->billingAdress = $billingAdress;
+        return $this;
+    }
+
+    public function getBillingCity(): ?string
+    {
+        return $this->billingCity;
+    }
+
+    public function setBillingCity(?string $billingCity): static
+    {
+        $this->billingCity = $billingCity;
+        return $this;
+    }
+
+    public function getBillingZipCode(): ?string
+    {
+        return $this->billingZipCode;
+    }
+
+    public function setBillingZipCode(?string $billingZipCode): static
+    {
+        $this->billingZipCode = $billingZipCode;
         return $this;
     }
 }
