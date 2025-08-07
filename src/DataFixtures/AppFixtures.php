@@ -33,11 +33,12 @@ class AppFixtures extends Fixture
                 $course = new Course();
                 $course->setName(ucfirst($language) . " " . $level);
                 $course->setLevel($level);
-                $course->setDuration($commonDuration);
                 $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
                 $course->setPrice($commonPrice);
                 $course->setFlagPicture($language . '.png'); // Image associée à la langue
+                $course->setIsOpen(false);
                 $manager->persist($course);
+
             }
         }
 
