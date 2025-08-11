@@ -1,0 +1,37 @@
+<nav class="bg-gray-800 text-gray-100 w-64 min-h-screen">
+    <div class="p-6 text-2xl font-bold border-b border-gray-700">
+        Admin Panel
+    </div>
+    <ul class="mt-6">
+        <li>
+            <a href="{{ path('admin_dashboard_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_dashboard' ? 'bg-gray-700' : '' }}">
+                Tableau de bord
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_courses_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_courses' ? 'bg-gray-700' : '' }}">
+                Cours
+            </a>
+        </li>
+    <li>
+        <a href="{{ path('admin_users_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_courses' ? 'bg-gray-700' : '' }}">
+            Users
+        </a>
+    </li>
+        <li>
+            <a href="{{ path('admin_enrollments_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_enrollments' ? 'bg-gray-700' : '' }}">
+                Inscriptions
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_payments_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_payments' ? 'bg-gray-700' : '' }}">
+                Paiements
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_students_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_students' ? 'bg-gray-700' : '' }}">
+                Étudiants
+            </a>
+        </li>
+    </ul>
+</nav>

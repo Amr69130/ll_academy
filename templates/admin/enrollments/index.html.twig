@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des inscriptions{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold mb-4">Liste des inscriptions</h1>
+
+    <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+        <tr class="bg-gray-200 text-gray-700">
+            <th class="py-2 px-4">ID</th>
+            <th class="py-2 px-4">Date d'inscription</th>
+            <th class="py-2 px-4">Statut</th>
+            <th class="py-2 px-4">Étudiant</th>
+            <th class="py-2 px-4">Cours</th>
+            <th class="py-2 px-4">Période d'inscription</th>
+            <th class="py-2 px-4">Nombre de paiements</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for enrollment in enrollments %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-2 px-4">{{ enrollment.id }}</td>
+                <td class="py-2 px-4">{{ enrollment.enrollmentDate ? enrollment.enrollmentDate|date('d/m/Y') : 'N/A' }}</td>
+                <td class="py-2 px-4">{{ enrollment.status }}</td>
+                <td class="py-2 px-4">
+                    {{ enrollment.student ? enrollment.student.firstName ~ ' ' ~ enrollment.student.lastName : 'N/A' }}
+                </td>
+                <td class="py-2 px-4">{{ enrollment.course ? enrollment.course.name : 'N/A' }}</td>
+                <td class="py-2 px-4">{{ enrollment.enrollmentPeriod ? enrollment.enrollmentPeriod.title : 'N/A' }}</td>
+                <td class="py-2 px-4">{{ enrollment.payments|length }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="py-4 text-center">Aucune inscription trouvée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

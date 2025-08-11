@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des paiements{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold mb-4">Liste des paiements</h1>
+
+    <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+        <tr class="bg-gray-200 text-gray-700">
+            <th class="py-2 px-4">ID</th>
+            <th class="py-2 px-4">Date de paiement</th>
+            <th class="py-2 px-4">Montant (€)</th>
+            <th class="py-2 px-4">Statut</th>
+            <th class="py-2 px-4">Référence transaction</th>
+            <th class="py-2 px-4">Type de paiement</th>
+            <th class="py-2 px-4">Cours</th>
+            <th class="py-2 px-4">Étudiant</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-2 px-4">{{ payment.id }}</td>
+                <td class="py-2 px-4">{{ payment.paymentDate ? payment.paymentDate|date('d/m/Y') : 'N/A' }}</td>
+                <td class="py-2 px-4">{{ payment.amount|number_format(2, ',', ' ') }}</td>
+                <td class="py-2 px-4">{{ payment.status }}</td>
+                <td class="py-2 px-4">{{ payment.transactionRef ?: 'N/A' }}</td>
+                <td class="py-2 px-4">{{ payment.paymentType ? payment.paymentType.name : 'N/A' }}</td>
+                <td class="py-2 px-4">{{ payment.enrollment and payment.enrollment.course ? payment.enrollment.course.name : 'N/A' }}</td>
+                <td class="py-2 px-4">
+                    {% if payment.enrollment and payment.enrollment.student %}
+                        {{ payment.enrollment.student.firstName }} {{ payment.enrollment.student.lastName }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8" class="py-4 text-center">Aucun paiement trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des cours{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold mb-4">Liste des cours</h1>
+
+    <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+        <tr class="bg-gray-200 text-gray-700">
+            <th class="py-2 px-4">Nom</th>
+            <th class="py-2 px-4">Niveau</th>
+            <th class="py-2 px-4">Prix (€)</th>
+            <th class="py-2 px-4">Statut</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-2 px-4">{{ course.name }}</td>
+                <td class="py-2 px-4">{{ course.level }}</td>
+                <td class="py-2 px-4">{{ course.price|number_format(2, ',', ' ') }}</td>
+                <td class="py-2 px-4">
+                    {% if course.isOpen %}
+                        <span class="text-green-600 font-semibold">Ouvert</span>
+                    {% else %}
+                        <span class="text-red-600 font-semibold">Fermé</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="py-4 text-center">Aucun cours trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
