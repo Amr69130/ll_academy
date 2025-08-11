@@ -23,7 +23,7 @@
           <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
           <div class="w-full border-b border-gray-500"></div>
           <nav class="flex items-center space-x-2 text-sm pt-1">
-            <a href="" class="hover:underline hover:text-white transition">Paramètres</a>
+            <a href="{{ path("app_user_profile")}}" class="hover:underline hover:text-white transition">Mon compte</a>
             <span class="border-l border-gray-500 h-4"></span>
             <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
           </nav>

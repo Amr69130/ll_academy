@@ -21,7 +21,7 @@
         </a>
       </section>
     {% else %}
-      <section class="flex justify-center">
+      <section class="flex justify-center gap-3">
         <a href="{{ path('student_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
           Créer une fiche élève
         </a>
@@ -50,10 +50,15 @@
     {% endif %}
 
     <form method="post" action="{{ path('app_logout') }}" class="mt-8 text-center">
+        <a href="{{ path('app_user_profile_settings') }}"
+           class="bg-[#f97316] text-white px-4 py-2 rounded hover:bg-[#ea580c] transition mr-5">
+          Paramètres
+        </a>
       <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
         Se déconnecter
       </button>
     </form>
+
   </div>
 </main>
 {% endblock %}

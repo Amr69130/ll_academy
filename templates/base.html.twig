@@ -18,7 +18,7 @@
 
 {# templates/partials/_flash_messages.html.twig #}
 {% for type, messages in app.flashes %}
-  {% set color = { 'success':'green', 'error':'red', 'danger':'red', 'warning':'yellow' }[type]|default('blue') %}
+  {% set color = type|default('blue') %}
   <div class="fixed inset-x-0 top-16 flex flex-col items-center space-y-2 z-50">
     {% for message in messages %}
       <div class="w-1/2 bg-{{ color }}-100 text-{{ color }}-800 border border-{{ color }}-300 rounded-md shadow-md px-4 py-3">
