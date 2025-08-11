@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold mb-4">Liste des utilisateurs</h1>
+
+    <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+        <tr class="bg-gray-200 text-gray-700">
+            <th class="py-2 px-4">ID</th>
+            <th class="py-2 px-4">Prénom</th>
+            <th class="py-2 px-4">Nom</th>
+            <th class="py-2 px-4">Email</th>
+            <th class="py-2 px-4">Rôle(s)</th>
+            <th class="py-2 px-4">Téléphone</th>
+            <th class="py-2 px-4">Créé le</th>
+            <th class="py-2 px-4">Adresse de facturation</th>
+            <th class="py-2 px-4">Ville de facturation</th>
+            <th class="py-2 px-4">Code postal</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-2 px-4">{{ user.id }}</td>
+                <td class="py-2 px-4">{{ user.firstName }}</td>
+                <td class="py-2 px-4">{{ user.lastName }}</td>
+                <td class="py-2 px-4">{{ user.email }}</td>
+                <td class="py-2 px-4">{{ user.roles|join(', ') }}</td>
+                <td class="py-2 px-4">{{ user.phoneNumber }}</td>
+                <td class="py-2 px-4">{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : '' }}</td>
+                <td class="py-2 px-4">{{ user.billingAdress }}</td>
+                <td class="py-2 px-4">{{ user.billingCity }}</td>
+                <td class="py-2 px-4">{{ user.billingZipCode }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10" class="py-4 text-center">Aucun utilisateur trouvé.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

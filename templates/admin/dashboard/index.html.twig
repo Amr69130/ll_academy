@@ -1,0 +1,31 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold mb-8">Tableau de bord</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+        <div class="bg-white p-6 rounded shadow text-center">
+            <h2 class="text-xl font-semibold mb-2">Étudiants inscrits</h2>
+            <p class="text-3xl font-bold">{{ totalStudents }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow text-center">
+            <h2 class="text-xl font-semibold mb-2">Cours actifs</h2>
+            <p class="text-3xl font-bold">{{ totalActiveCourses }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow text-center">
+            <h2 class="text-xl font-semibold mb-2">Inscriptions validées</h2>
+            <p class="text-3xl font-bold">{{ totalEnrollments }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow text-center">
+            <h2 class="text-xl font-semibold mb-2">Paiements en attente</h2>
+            <p class="text-3xl font-bold">{{ pendingPayments }}</p>
+        </div>
+
+    </div>
+{% endblock %}
