@@ -3,29 +3,29 @@
 {% block title %}Tableau de bord{% endblock %}
 
 {% block body %}
-    <h1 class="text-3xl font-bold mb-8">Tableau de bord</h1>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Tableau de bord</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Étudiants inscrits</h2>
+                <p class="text-4xl font-extrabold text-indigo-600">{{ totalStudents }}</p>
+            </div>
 
-        <div class="bg-white p-6 rounded shadow text-center">
-            <h2 class="text-xl font-semibold mb-2">Étudiants inscrits</h2>
-            <p class="text-3xl font-bold">{{ totalStudents }}</p>
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Cours actifs</h2>
+                <p class="text-4xl font-extrabold text-indigo-600">{{ totalActiveCourses }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Inscriptions validées</h2>
+                <p class="text-4xl font-extrabold text-indigo-600">{{ totalEnrollments }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Paiements en attente</h2>
+                <p class="text-4xl font-extrabold text-indigo-600">{{ pendingPayments }}</p>
+            </div>
         </div>
-
-        <div class="bg-white p-6 rounded shadow text-center">
-            <h2 class="text-xl font-semibold mb-2">Cours actifs</h2>
-            <p class="text-3xl font-bold">{{ totalActiveCourses }}</p>
-        </div>
-
-        <div class="bg-white p-6 rounded shadow text-center">
-            <h2 class="text-xl font-semibold mb-2">Inscriptions validées</h2>
-            <p class="text-3xl font-bold">{{ totalEnrollments }}</p>
-        </div>
-
-        <div class="bg-white p-6 rounded shadow text-center">
-            <h2 class="text-xl font-semibold mb-2">Paiements en attente</h2>
-            <p class="text-3xl font-bold">{{ pendingPayments }}</p>
-        </div>
-
     </div>
 {% endblock %}

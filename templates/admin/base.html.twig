@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Admin - LL Academy{% endblock %}</title>
-    <link href="{{ asset('build/tailwind.css') }}" rel="stylesheet" />
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 </head>
-<body class="bg-gray-100 flex min-h-screen">
+<body class="bg-gray-100 min-h-screen flex flex-col md:flex-row">
 
-{# Sidebar #}
 {% include 'admin/parts/sidebar.html.twig' %}
 
-{# Main content #}
-<main class="flex-1 p-8">
+<main class="flex-1 p-6 md:p-8 max-w-full overflow-x-auto">
     {% block body %}{% endblock %}
 </main>
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 </body>
 </html>

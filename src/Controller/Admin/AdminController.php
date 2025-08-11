@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AdminController extends AbstractController
 {
-    #[Route('/admin/dashboard', name: 'admin_dashboard_index')]
+    #[Route('/admin', name: 'admin_dashboard_index')]
     public function index(StudentRepository $studentRepo, CourseRepository $courseRepo, EnrollmentRepository $enrollmentRepo, PaymentRepository $paymentRepo): Response
     {
         $totalStudents = $studentRepo->count([]);
