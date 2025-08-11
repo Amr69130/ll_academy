@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Admin - LL Academy{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col md:flex-row">
+
+{% include 'admin/parts/sidebar.html.twig' %}
+
+<main class="flex-1 p-6 md:p-8 max-w-full overflow-x-auto">
+    {% block body %}{% endblock %}
+</main>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>

@@ -11,8 +11,7 @@
     <!-- Navigation -->
     <nav class="flex space-x-6 pr-25">
       <a href="{{ path('app_home') }}" class="hover:underline hover:text-white transition">Accueil</a>
-      <a href="{{ path('course_index') }}" class="hover:underline hover:text-white transition">Cours</a>
-      <a href="" class="hover:underline hover:text-white transition">Panier</a>
+      <a href="{{ path('course_index') }}" class="hover:underline hover:text-white transition">Nos Cours de Langues</a>
       <a href="{{ path('team') }}" class="hover:underline hover:text-white transition">Notre équipe</a>
     </nav>
 
@@ -23,7 +22,12 @@
           <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
           <div class="w-full border-b border-gray-500"></div>
           <nav class="flex items-center space-x-2 text-sm pt-1">
-            <a href="{{ path("app_user_profile")}}" class="hover:underline hover:text-white transition">Mon compte</a>
+
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+              <a href="{{ path('admin_dashboard_index') }}" class="hover:underline hover:text-white transition">Admin</a>
+            {% else %}
+              <a href="{{ path('app_user_profile') }}" class="hover:underline hover:text-white transition">Mon Compte</a>
+            {% endif %}
             <span class="border-l border-gray-500 h-4"></span>
             <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
           </nav>

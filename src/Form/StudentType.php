@@ -28,17 +28,7 @@ class StudentType extends AbstractType
             ->add('profilePicture', TextType::class, [
                 'required' => false,
             ])
-            ->add('level', ChoiceType::class, [
-                'choices' => [
-                    'A1 - Débutant' => 'A1',
-                    'A2 - Élémentaire' => 'A2',
-                    'B1 - Intermédiaire' => 'B1',
-                    'B2 - Intermédiaire avancé' => 'B2',
-                    'C1 - Avancé' => 'C1',
-                    'C2 - Maîtrise' => 'C2',
-                ],
-                'placeholder' => 'Choisissez un niveau',
-            ])
+
         ;
     }
 
