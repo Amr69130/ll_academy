@@ -3,16 +3,24 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePhoneNumberType;
+use App\Form\Settings\ChangePasswordFormType;
 use App\Security\EmailVerifier;
+use App\Service\EmailService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mime\Address;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class UserController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    public function __construct(private EmailVerifier $emailVerifier, private EmailService $emailService)
     {
     }
 
@@ -34,6 +42,48 @@ final class UserController extends AbstractController
             'students' => $students,
         ]);
     }
+
+    #[Route('/profile/settings', name: 'app_user_profile_settings')]
+
+    public function params(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour voir cette page.');
+        }
+
+        return $this->render('user/params.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profile/settings/resetPassword', name: 'app_user_profile_settings_password', methods: ['GET', 'POST'])]
+    public function password(
+        Request $request,
+        UserPasswordHasherInterface $hasher,
+        MailerInterface $mailer,
+        TranslatorInterface $translator
+    ): Response {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var User $user */
+        $user = $this->getUser();
+        $resultSendEmail = $this->emailService->processSendingPasswordResetEmail(
+            $user->getEmail(),
+            $mailer,
+            $translator
+        );
+        if ($resultSendEmail) {
+            $this->addFlash('', 'Votre email est envoyer');
+            return $this->redirectToRoute('app_user_profile_settings');
+
+        }
+        $this->addFlash('', 'Email à déjà été envoyer');
+        return $this->redirectToRoute('app_user_profile_settings');
+    }
+
 
     #[Route('/verify/mail', name: 'app_user_verify_mail')]
     public function verifyMail()
@@ -57,5 +107,29 @@ final class UserController extends AbstractController
         );
 
         return $this->redirectToRoute("app_user_profile");
+    }
+
+    #[Route('/profile/settings/resetNumber', name: 'app_user_profile_settings_number', methods: ['GET', 'POST'])]
+
+    public function number(Request $request, EntityManagerInterface $em): Response
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePhoneNumberType::class, $user);
+
+        $form->handleRequest($request);
+        dump($form);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("", "Votre numéro à bien été modifier");
+            return $this->redirectToRoute("app_user_profile");
+        }
+        return $this->render("user/changePhoneNumber.html.twig", [
+            "resetNumber" => $form
+        ]);
     }
 }

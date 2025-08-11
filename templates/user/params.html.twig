@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paramètres du compte{% endblock %}
+
+{% block body %}
+<main class="min-h-screen bg-[#1e293b] px-4 py-10">
+  <div class="max-w-4xl mx-auto space-y-8">
+
+    <h1 class="text-3xl font-bold text-white text-center">Paramètres du compte</h1>
+
+    <!-- Mes informations -->
+    <section class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Mes informations</h2>
+
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
+        <div>
+          <dt class="text-sm text-gray-500">Prénom</dt>
+          <dd class="text-base font-medium">{{ app.user.firstname }}</dd>
+        </div>
+
+        <div>
+          <dt class="text-sm text-gray-500">Nom</dt>
+          <dd class="text-base font-medium">{{ app.user.lastname ?? '—' }}</dd>
+        </div>
+
+        <div class="sm:col-span-2">
+          <dt class="text-sm text-gray-500">Email</dt>
+          <dd class="text-base font-medium break-all">{{ app.user.email }}</dd>
+        </div>
+
+        <div class="sm:col-span-2">
+          <dt class="text-sm text-gray-500">Création du compte</dt>
+          <dd class="text-base font-medium">
+            {{ app.user.createdAt ? app.user.createdAt|date('d/m/Y H:i') : '—' }}
+          </dd>
+        </div>
+
+        <div class="sm:col-span-2">
+          <dt class="text-sm text-gray-500">Numéro de téléphone</dt>
+          <dd class="text-base font-medium break-all flex items-center gap-3">
+            <span>{{ app.user.phoneNumber ?? '—' }}</span>
+            <span class="inline-block h-4 w-px bg-gray-300"></span>
+            {% set hasPhone = app.user.phoneNumber is not empty %}
+            <a href="{{ path('app_user_profile_settings_number') }}"
+               class="inline-flex items-center gap-2 text-[#f97316] hover:text-[#ea580c] font-medium transition">
+              <!-- Icône crayon -->
+              <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M13.586 3.586a2 2 0 0 1 2.828 2.828l-8.486 8.486a2 2 0 0 1-.878.513l-3.06.765a.5.5 0 0 1-.606-.606l.765-3.06a2 2 0 0 1 .513-.878l8.486-8.486zM12.172 5 5 12.172V15h2.828L15 7.828 12.172 5z"/>
+              </svg>
+              {{ hasPhone ? 'Modifier mon numéro' : 'Ajouter mon numéro' }}
+            </a>
+          </dd>
+        </div>
+
+        <div class="sm:col-span-2">
+          <dt class="text-sm text-gray-500">Statut de vérification</dt>
+          <dd class="text-base font-medium">
+            {% if app.user.isVerified %}
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded">Vérifié</span>
+            {% else %}
+              <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 rounded">Non vérifié</span>
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+
+      <!-- Lien interne à la section -->
+      <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+        <a href="{{ path('app_user_profile_settings_password') }}"
+           class="inline-flex items-center justify-center bg-[#1640f9] hover:bg-[#001556] text-white font-semibold px-5 py-2 rounded transition">
+          Modifier mon mot de passe
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+{% endblock %}
