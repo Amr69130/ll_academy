@@ -16,6 +16,17 @@ class EnrollmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Enrollment::class);
     }
 
+    public function countByPeriodAndStatus($period, string $status): int
+    {
+        return (int) $this->createQueryBuilder('e')
+            ->select('COUNT(e.id)')
+            ->andWhere('e.status = :status')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->setParameter('status', $status)
+            ->setParameter('period', $period)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     //    /**
     //     * @return Enrollment[] Returns an array of Enrollment objects
     //     */
