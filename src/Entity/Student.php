@@ -198,4 +198,21 @@ class Student
 
         return $this;
     }
+
+    // ↓↓  2 METHODES FULL QUI REGROUPENT DES INFOS POUR APPELER EN 1 FOIS DANS LES TEMPLATES  ↓↓
+
+    public function getFullAddress(): string
+    {
+        if (!$this->adress || !$this->zipCode || !$this->city) {
+            return 'Non communiqué';
+        }
+
+        return $this->adress . ', ' . $this->zipCode . ' ' . $this->city;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
 }

@@ -247,4 +247,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->billingZipCode = $billingZipCode;
         return $this;
     }
+
+
+// ↓↓  2 METHODES FULL QUI REGROUPENT DES INFOS POUR APPELER EN 1 FOIS DANS LES TEMPLATES  ↓↓
+
+    public function getFullBillingAddress(): string
+    {
+        if (!$this->billingAdress || !$this->billingZipCode || !$this->billingCity) {
+            return 'Non communiqué';
+        }
+
+        return $this->billingAdress . ', ' . $this->billingZipCode . ' ' . $this->billingCity;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 }

@@ -17,6 +17,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Référence transaction</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type de paiement</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Cours</th>
+                    {# ↓↓ UNE COLONNE ETUDIANT QUI REGROUPE (LastName + FirstName du student) VIA LA METHODE GETFULLNAME CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Étudiant</th>
                 </tr>
                 </thead>
@@ -30,9 +31,11 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.transactionRef ?: 'N/A' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.paymentType ? payment.paymentType.name : 'N/A' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.enrollment and payment.enrollment.course ? payment.enrollment.course.name : 'N/A' }}</td>
+
+                        {# ↓↓ UNE COLONNE ETUDIANT QUI REGROUPE (LastName + FirstName du student) VIA LA METHODE GETFULLNAME CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                             {% if payment.enrollment and payment.enrollment.student %}
-                                {{ payment.enrollment.student.firstName }} {{ payment.enrollment.student.lastName }}
+                                {{ payment.enrollment.student.fullName }}
                             {% else %}
                                 N/A
                             {% endif %}
