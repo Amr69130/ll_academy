@@ -12,7 +12,8 @@ class AdminStudentsController extends AbstractController
     #[Route('/admin/students', name: 'admin_students_index')]
     public function index(StudentRepository $studentRepository): Response
     {
-        $students = $studentRepository->findAll();
+        $students = $studentRepository->findAllWithParentsAndEnrollments();
+
 
         return $this->render('admin/students/index.html.twig', [
             'students' => $students,

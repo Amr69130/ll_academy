@@ -28,7 +28,6 @@ class AppFixtures extends Fixture
         $languages = ['anglais', 'espagnol', 'italien', 'arabe'];
         $levels = ['A1', 'A2', 'B1', 'B2'];
 
-        // Prix par niveau (en euros) indicatif pour 1 an de cours
         $priceByLevel = [
             'A1' => 300,
             'A2' => 350,
@@ -44,7 +43,7 @@ class AppFixtures extends Fixture
                 $course->setName(ucfirst($language) . " " . $level);
                 $course->setLevel($level);
                 $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
-                $course->setPrice($priceByLevel[$level]);  // Prix par niveau
+                $course->setPrice($priceByLevel[$level]);
                 $course->setFlagPicture($language . '.png');
                 $course->setIsOpen(true);
                 $manager->persist($course);
@@ -163,26 +162,85 @@ class AppFixtures extends Fixture
 
         // ---------- CREATION DES ENROLLMENTS + PAYMENTS ----------
         foreach ($students as $student) {
-            $enrollment = new Enrollment();
-            $enrollment->setStudent($student);
-            $enrollment->setEnrollmentDate(new \DateTime());
-            $enrollment->setStatus(rand(0, 1) ? 'Validé' : 'En attente');
-            $enrollment->setCourse($courses[array_rand($courses)]);
-            $enrollment->setEnrollmentPeriod($periods[array_rand($periods)]);
+            // Décide aléatoirement si l’élève a plusieurs inscriptions ou une seule
+            if (rand(0, 1) === 1) {
+                // Inscription multiple (anglais B1 en 2024 + B2 en 2025)
 
-            $manager->persist($enrollment);
 
-            $paymentCount = rand(1, 2);
-            for ($p = 1; $p <= $paymentCount; $p++) {
-                $payment = new Payment();
-                $payment->setEnrollment($enrollment);
-                $payment->setPaymentDate(new \DateTime('-' . rand(1, 90) . ' days'));
-                $payment->setAmount($enrollment->getCourse()->getPrice() / $paymentCount);
-                $payment->setStatus(rand(0, 1) ? 'Payé' : 'En attente');
-                $payment->setTransactionRef('TX-' . strtoupper(bin2hex(random_bytes(4))));
-                $payment->setPaymentType($paymentTypes[array_rand($paymentTypes)]);
+                $random_index = array_rand($courses);
+                $random_course = $courses[$random_index];
 
-                $manager->persist($payment);
+                if ($random_index < count($courses) - 1) {
+                    $nextLevelCourse = $courses[$random_index + 1];
+                }
+                else {
+                    $nextLevelCourse = $courses[0];
+                }
+
+                $enrollment1 = new Enrollment();
+                $enrollment1->setStudent($student);
+                $enrollment1->setEnrollmentDate(new \DateTime('2024-01-10'));
+                $enrollment1->setStatus('Validé');
+                $enrollment1->setCourse($random_course);
+                $enrollment1->setEnrollmentPeriod($period2024);
+                $manager->persist($enrollment1);
+
+                // Paiements pour inscription 2024
+                $paymentCount = rand(1, 2);
+                for ($p = 1; $p <= $paymentCount; $p++) {
+                    $payment = new Payment();
+                    $payment->setEnrollment($enrollment1);
+                    $payment->setPaymentDate(new \DateTime('2024-02-0' . $p));
+                    $payment->setAmount($enrollment1->getCourse()->getPrice() / $paymentCount);
+                    $payment->setStatus('Payé');
+                    $payment->setTransactionRef('TX-' . strtoupper(bin2hex(random_bytes(4))));
+                    $payment->setPaymentType($paymentTypes[array_rand($paymentTypes)]);
+                    $manager->persist($payment);
+                }
+
+
+                $enrollment2 = new Enrollment();
+                $enrollment2->setStudent($student);
+                $enrollment2->setEnrollmentDate(new \DateTime('2025-01-10'));
+                $enrollment2->setStatus('En attente');
+                $enrollment2->setCourse($nextLevelCourse);
+                $enrollment2->setEnrollmentPeriod($period2025);
+                $manager->persist($enrollment2);
+
+                // Paiements pour inscription 2025
+                $paymentCount = rand(1, 2);
+                for ($p = 1; $p <= $paymentCount; $p++) {
+                    $payment = new Payment();
+                    $payment->setEnrollment($enrollment2);
+                    $payment->setPaymentDate(new \DateTime('2025-02-0' . $p));
+                    $payment->setAmount($enrollment2->getCourse()->getPrice() / $paymentCount);
+                    $payment->setStatus('En attente');
+                    $payment->setTransactionRef('TX-' . strtoupper(bin2hex(random_bytes(4))));
+                    $payment->setPaymentType($paymentTypes[array_rand($paymentTypes)]);
+                    $manager->persist($payment);
+                }
+
+            } else {
+                // Inscription simple aléatoire
+                $enrollment = new Enrollment();
+                $enrollment->setStudent($student);
+                $enrollment->setEnrollmentDate(new \DateTime());
+                $enrollment->setStatus(rand(0, 1) ? 'Validé' : 'En attente');
+                $enrollment->setCourse($courses[array_rand($courses)]);
+                $enrollment->setEnrollmentPeriod($periods[array_rand($periods)]);
+                $manager->persist($enrollment);
+
+                $paymentCount = rand(1, 2);
+                for ($p = 1; $p <= $paymentCount; $p++) {
+                    $payment = new Payment();
+                    $payment->setEnrollment($enrollment);
+                    $payment->setPaymentDate(new \DateTime('-' . rand(1, 90) . ' days'));
+                    $payment->setAmount($enrollment->getCourse()->getPrice() / $paymentCount);
+                    $payment->setStatus(rand(0, 1) ? 'Payé' : 'En attente');
+                    $payment->setTransactionRef('TX-' . strtoupper(bin2hex(random_bytes(4))));
+                    $payment->setPaymentType($paymentTypes[array_rand($paymentTypes)]);
+                    $manager->persist($payment);
+                }
             }
         }
 
