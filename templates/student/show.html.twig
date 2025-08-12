@@ -3,7 +3,7 @@
 {% block title %}Fiche de {{ student.firstname }}{% endblock %}
 
 {% block body %}
-    <h1>Fiche élève : {{ student.firstname }} {{ student.lastname }}</h1>
+    <h1>Fiche élève : {{ student.fullName }}</h1>
 
     <section>
         <p><strong>Prénom :</strong> {{ student.firstname }}</p>

@@ -19,7 +19,7 @@ class StudentType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
-            ->add('adress')
+            ->add('address')
             ->add('city')
             ->add('zipCode')
             ->add('birthDate', DateType::class, [

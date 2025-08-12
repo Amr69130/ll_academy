@@ -29,7 +29,7 @@ class Student
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
-    private ?string $adress = null;
+    private ?string $address = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "La ville est obligatoire.")]
@@ -96,14 +96,14 @@ class Student
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(string $adress): static
+    public function setAddress(string $address): static
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
@@ -203,11 +203,11 @@ class Student
 
     public function getFullAddress(): string
     {
-        if (!$this->adress || !$this->zipCode || !$this->city) {
+        if (!$this->address || !$this->zipCode || !$this->city) {
             return 'Non communiqué';
         }
 
-        return $this->adress . ', ' . $this->zipCode . ' ' . $this->city;
+        return $this->address . ', ' . $this->zipCode . ' ' . $this->city;
     }
 
     public function getFullName(): string

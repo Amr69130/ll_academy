@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $billingAdress = null;
+    private ?string $billingAddress = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $billingCity = null;
@@ -215,14 +215,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBillingAdress(): ?string
+    public function getBillingAddress(): ?string
     {
-        return $this->billingAdress;
+        return $this->billingAddress;
     }
 
-    public function setBillingAdress(?string $billingAdress): static
+    public function setBillingAddress(?string $billingAddress): static
     {
-        $this->billingAdress = $billingAdress;
+        $this->billingAddress = $billingAddress;
         return $this;
     }
 
@@ -253,11 +253,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getFullBillingAddress(): string
     {
-        if (!$this->billingAdress || !$this->billingZipCode || !$this->billingCity) {
+        if (!$this->billingAddress || !$this->billingZipCode || !$this->billingCity) {
             return 'Non communiqué';
         }
 
-        return $this->billingAdress . ', ' . $this->billingZipCode . ' ' . $this->billingCity;
+        return $this->billingAddress . ', ' . $this->billingZipCode . ' ' . $this->billingCity;
     }
 
     public function getFullName(): string

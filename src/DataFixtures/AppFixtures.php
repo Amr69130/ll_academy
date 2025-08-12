@@ -122,11 +122,11 @@ class AppFixtures extends Fixture
         ];
 
         $fakeAddresses = [
-            ['adress' => '10 rue de Paris', 'city' => 'Paris', 'zipCode' => '75001'],
-            ['adress' => '15 avenue de Lyon', 'city' => 'Lyon', 'zipCode' => '69002'],
-            ['adress' => '7 boulevard Marseille', 'city' => 'Marseille', 'zipCode' => '13003'],
-            ['adress' => '22 place Nantes', 'city' => 'Nantes', 'zipCode' => '44000'],
-            ['adress' => '5 rue Lille', 'city' => 'Lille', 'zipCode' => '59000'],
+            ['address' => '10 rue de Paris', 'city' => 'Paris', 'zipCode' => '75001'],
+            ['address' => '15 avenue de Lyon', 'city' => 'Lyon', 'zipCode' => '69002'],
+            ['address' => '7 boulevard Marseille', 'city' => 'Marseille', 'zipCode' => '13003'],
+            ['address' => '22 place Nantes', 'city' => 'Nantes', 'zipCode' => '44000'],
+            ['address' => '5 rue Lille', 'city' => 'Lille', 'zipCode' => '59000'],
         ];
 
         $students = [];
@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
             $student->setLastName($data['nom']);
 
             $address = $fakeAddresses[array_rand($fakeAddresses)];
-            $student->setAdress($address['adress']);
+            $student->setAddress($address['address']);
             $student->setCity($address['city']);
             $student->setZipCode($address['zipCode']);
 
