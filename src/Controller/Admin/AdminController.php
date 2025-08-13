@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\EnrollmentPeriod;
 use App\Repository\CourseRepository;
 use App\Repository\EnrollmentRepository;
 use App\Repository\EnrollmentPeriodRepository;
@@ -14,21 +15,26 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'admin_dashboard_index')]
+    #[Route('/admin/dashboard/{selectedPeriodId}', name: 'admin_dashboard_index', defaults: ['selectedPeriodId' => '0'])]
     public function index(
-        Request $request,
-        StudentRepository $studentRepo,
-        CourseRepository $courseRepo,
-        EnrollmentRepository $enrollmentRepo,
-        PaymentRepository $paymentRepo,
+        int    $selectedPeriodId,
+        Request                    $request,
+        StudentRepository          $studentRepo,
+        CourseRepository           $courseRepo,
+        EnrollmentRepository       $enrollmentRepo,
+        PaymentRepository          $paymentRepo,
         EnrollmentPeriodRepository $periodRepo
     ): Response {
         // 1️⃣ Récupérer toutes les périodes
         $periods = $periodRepo->findAll();
+        if ($selectedPeriodId == 0) {
+            $selectedPeriod = $periodRepo->findOneBy(['isOpen' => true], ['id' => 'DESC']);
+        }
+        else{
 
-        // 2️⃣ Période sélectionnée (GET ?period=)
-        $selectedPeriodId = $request->query->get('period');
         $selectedPeriod = $selectedPeriodId ? $periodRepo->find($selectedPeriodId) : null;
+        }
+
 
         // 3️⃣ Compter avec filtre sur la période
         if ($selectedPeriod) {
@@ -36,11 +42,13 @@ final class AdminController extends AbstractController
             $totalActiveCourses = $courseRepo->countByPeriod($selectedPeriod, true);
             $totalEnrollments = $enrollmentRepo->countByPeriodAndStatus($selectedPeriod, 'valid');
             $pendingPayments = $paymentRepo->countByPeriodAndStatus($selectedPeriod, 'pending');
+            $pendingEnrollments = $enrollmentRepo->countByPeriodAndStatus($selectedPeriod, 'pending');
         } else {
             $totalStudents = $studentRepo->count([]);
             $totalActiveCourses = $courseRepo->count(['isOpen' => true]);
             $totalEnrollments = $enrollmentRepo->count(['status' => 'valid']);
             $pendingPayments = $paymentRepo->count(['status' => 'pending']);
+            $pendingEnrollments = $enrollmentRepo->count(['status' => 'pending']);
         }
 
         return $this->render('admin/dashboard/index.html.twig', [
@@ -48,8 +56,9 @@ final class AdminController extends AbstractController
             'totalActiveCourses' => $totalActiveCourses,
             'totalEnrollments' => $totalEnrollments,
             'pendingPayments' => $pendingPayments,
+            'pendingEnrollments' => $pendingEnrollments,
             'periods' => $periods,
-            'selectedPeriodId' => $selectedPeriodId,
+            'selectedPeriod' => $selectedPeriod,
         ]);
     }
 }
