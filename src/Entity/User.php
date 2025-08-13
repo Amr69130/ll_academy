@@ -105,9 +105,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
+
+        return $this->roles;
     }
 
     public function setRoles(array $roles): static
@@ -249,7 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-// ↓↓  2 METHODES FULL QUI REGROUPENT DES INFOS POUR APPELER EN 1 FOIS DANS LES TEMPLATES  ↓↓
+    // ↓↓  2 METHODES FULL QUI REGROUPENT DES INFOS POUR APPELER EN 1 FOIS DANS LES TEMPLATES  ↓↓
 
     public function getFullBillingAddress(): string
     {

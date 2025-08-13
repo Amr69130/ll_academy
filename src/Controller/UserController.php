@@ -16,15 +16,18 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route("/profile")]
+#[IsGranted("ROLE_USER")]
 final class UserController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier, private EmailService $emailService)
     {
     }
 
-    #[Route('/profile', name: 'app_user_profile')]
+    #[Route('/', name: 'app_user_profile')]
     public function profile(): Response
     {
         /** @var User $user */
@@ -43,7 +46,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/settings', name: 'app_user_profile_settings')]
+    #[Route('/settings', name: 'app_user_profile_settings')]
 
     public function params(): Response
     {
@@ -59,7 +62,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/settings/resetPassword', name: 'app_user_profile_settings_password', methods: ['GET', 'POST'])]
+    #[Route('/settings/resetPassword', name: 'app_user_profile_settings_password', methods: ['GET', 'POST'])]
     public function password(
         Request $request,
         UserPasswordHasherInterface $hasher,
@@ -109,7 +112,7 @@ final class UserController extends AbstractController
         return $this->redirectToRoute("app_user_profile");
     }
 
-    #[Route('/profile/settings/resetNumber', name: 'app_user_profile_settings_number', methods: ['GET', 'POST'])]
+    #[Route('/settings/resetNumber', name: 'app_user_profile_settings_number', methods: ['GET', 'POST'])]
 
     public function number(Request $request, EntityManagerInterface $em): Response
     {
