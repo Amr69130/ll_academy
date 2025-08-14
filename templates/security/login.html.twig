@@ -31,16 +31,44 @@
         />
       </div>
 
-      <div class="space-y-2">
+      <!-- Mot de passe + icône œil -->
+      <div data-controller="password-visibility" class="space-y-2">
         <label for="password" class="block text-sm font-medium text-white">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          name="_password"
-          autocomplete="current-password"
-          required
-          class="w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]"
-        />
+
+        <div class="relative">
+          <input
+            type="password"
+            id="password"
+            name="_password"
+            autocomplete="current-password"
+            required
+            class="w-full px-4 pr-12 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316]"
+            data-password-visibility-target="input"
+            spellcheck="false"
+          />
+
+          <button
+            type="button"
+            class="absolute inset-y-0 right-3 flex items-center justify-center p-1 rounded"
+            data-action="password-visibility#toggle"
+            aria-label="Afficher/masquer le mot de passe"
+          >
+            <img
+              src="{{ asset('images/password-Icon/eye-password-hide-svgrepo-com.svg') }}"
+              alt=""
+              aria-hidden="true"
+              class="h-5 w-5"
+              data-password-visibility-target="icon"
+            />
+            <img
+              src="{{ asset('images/password-Icon/eye-password-show-svgrepo-com.svg') }}"
+              alt=""
+              aria-hidden="true"
+              class="h-5 w-5 hidden"
+              data-password-visibility-target="icon"
+            />
+          </button>
+        </div>
       </div>
 
       <button
@@ -51,7 +79,7 @@
       </button>
     </form>
 
-    <!-- Lien vers l'inscription -->
+    <!-- Liens secondaires -->
     <div class="text-center space-y-2">
       <p class="text-sm text-gray-300">
         Pas encore de compte ?
@@ -60,7 +88,7 @@
         </a>
       </p>
       <p class="text-sm text-gray-300">
-        <a href="{{ path("app_forgot_password_request")}}" class="text-[#f97316] hover:underline">
+        <a href="{{ path('app_forgot_password_request') }}" class="text-[#f97316] hover:underline">
           Mot de passe oublié
         </a>
       </p>
