@@ -70,7 +70,6 @@ final class UserController extends AbstractController
         TranslatorInterface $translator
     ): Response {
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         /** @var User $user */
         $user = $this->getUser();
         $resultSendEmail = $this->emailService->processSendingPasswordResetEmail(
