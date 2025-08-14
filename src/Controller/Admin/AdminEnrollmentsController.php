@@ -5,13 +5,20 @@ namespace App\Controller\Admin;
 use App\Entity\Enrollment;
 use App\Repository\CourseRepository;
 use App\Repository\EnrollmentRepository;
+use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class AdminEnrollmentsController extends AbstractController
 {
+    public function __construct(private EmailService $emailService)
+    {
+    }
+
     #[Route('/admin/enrollments', name: 'admin_enrollments_index')]
 
 
@@ -37,10 +44,17 @@ final class AdminEnrollmentsController extends AbstractController
     }
 
     #[Route('/admin/enrollments/{id}/validate', name: 'admin_enrollments_validate', methods: ['POST'])]
-    public function validate(Enrollment $enrollment, EntityManagerInterface $em): Response
+    public function validate(Enrollment $enrollment, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         $enrollment->setStatus('valid');
         $em->flush();
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->emailService->emailStudentValidated(
+            $user->getEmail(),
+            $mailer,
+        );
 
         $this->addFlash('success', 'Inscription validée avec succès !');
 
@@ -48,10 +62,17 @@ final class AdminEnrollmentsController extends AbstractController
     }
 
     #[Route('/admin/enrollments/{id}/reject', name: 'admin_enrollments_reject', methods: ['POST'])]
-    public function reject(Enrollment $enrollment, EntityManagerInterface $em): Response
+    public function reject(Enrollment $enrollment, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         $enrollment->setStatus('rejected');
         $em->flush();
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->emailService->emailStudentRefuse(
+            $user->getEmail(),
+            $mailer,
+        );
 
         $this->addFlash('success', 'Inscription refusée avec succès !');
 
