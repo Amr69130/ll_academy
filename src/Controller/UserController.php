@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePhoneNumberType;
 use App\Form\Settings\ChangePasswordFormType;
+use App\Form\UserSettingType;
 use App\Security\EmailVerifier;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,17 +48,30 @@ final class UserController extends AbstractController
 
     #[Route('/settings', name: 'app_user_profile_settings')]
 
-    public function params(): Response
+    public function params(Request $request, EntityManagerInterface $em): Response
     {
         /** @var User $user */
         $user = $this->getUser();
+        $form = $this->createForm(UserSettingType::class, $user);
+
+        $form->handleRequest($request);
+        dump($form);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("", "Votre profile à bien été modifier");
+            return $this->redirectToRoute("app_user_profile");
+        }
 
         if (!$user) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour voir cette page.');
         }
 
+
         return $this->render('user/params.html.twig', [
             'user' => $user,
+            "resetProfil" => $form
         ]);
     }
 
@@ -108,29 +122,5 @@ final class UserController extends AbstractController
         );
 
         return $this->redirectToRoute("app_user_profile");
-    }
-
-    #[Route('/settings/resetNumber', name: 'app_user_profile_settings_number', methods: ['GET', 'POST'])]
-
-    public function number(Request $request, EntityManagerInterface $em): Response
-    {
-
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        /** @var User $user */
-        $user = $this->getUser();
-        $form = $this->createForm(ChangePhoneNumberType::class, $user);
-
-        $form->handleRequest($request);
-        dump($form);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);
-            $em->persist($user);
-            $em->flush();
-            $this->addFlash("", "Votre numéro à bien été modifier");
-            return $this->redirectToRoute("app_user_profile");
-        }
-        return $this->render("user/changePhoneNumber.html.twig", [
-            "resetNumber" => $form
-        ]);
     }
 }

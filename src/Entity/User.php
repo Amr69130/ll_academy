@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le numéro de téléphone est obligatoire.")]
     #[Assert\Regex(
-        pattern: "/^0[1-9](\d{2}){4}$/",
+        pattern: "/^(?:(?:\+33|0{2}\s?33)\s?(?:\(0\)\s?)?|0)(?:[1-9](?:[\s.\-]?\d{2}){4})$/",
         message: "Le numéro de téléphone doit être un numéro français valide."
     )]
     private ?string $phoneNumber = null;
@@ -75,6 +75,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $billingCity = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\Regex(
+        pattern: "/^\d{5}$/",
+        message: "Le code postal dois contenir 5 nombres."
+    )]
     private ?string $billingZipCode = null;
 
     public function __construct()
