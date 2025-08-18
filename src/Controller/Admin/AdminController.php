@@ -12,27 +12,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted("ROLE_ADMIN")]
 final class AdminController extends AbstractController
 {
     #[Route('/admin/dashboard/{selectedPeriodId}', name: 'admin_dashboard_index', defaults: ['selectedPeriodId' => '0'])]
     public function index(
-        int    $selectedPeriodId,
-        Request                    $request,
-        StudentRepository          $studentRepo,
-        CourseRepository           $courseRepo,
-        EnrollmentRepository       $enrollmentRepo,
-        PaymentRepository          $paymentRepo,
+        int $selectedPeriodId,
+        Request $request,
+        StudentRepository $studentRepo,
+        CourseRepository $courseRepo,
+        EnrollmentRepository $enrollmentRepo,
+        PaymentRepository $paymentRepo,
         EnrollmentPeriodRepository $periodRepo
     ): Response {
         // 1️⃣ Récupérer toutes les périodes
         $periods = $periodRepo->findAll();
         if ($selectedPeriodId == 0) {
             $selectedPeriod = $periodRepo->findOneBy(['isOpen' => true], ['id' => 'DESC']);
-        }
-        else{
+        } else {
 
-        $selectedPeriod = $selectedPeriodId ? $periodRepo->find($selectedPeriodId) : null;
+            $selectedPeriod = $selectedPeriodId ? $periodRepo->find($selectedPeriodId) : null;
         }
 
 
