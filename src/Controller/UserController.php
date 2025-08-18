@@ -20,7 +20,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route("/profile")]
-#[IsGranted("ROLE_USER")]
 final class UserController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier, private EmailService $emailService)
