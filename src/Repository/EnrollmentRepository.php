@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Enrollment;
+use App\Entity\EnrollmentPeriod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,6 +28,19 @@ class EnrollmentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function findByPeriodAndStatus(EnrollmentPeriod $period, string $status)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->andWhere('e.status = :status')
+            ->setParameter('period', $period)
+            ->setParameter('status', $status)
+            ->orderBy('e.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Enrollment[] Returns an array of Enrollment objects
     //     */
