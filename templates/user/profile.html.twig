@@ -28,19 +28,6 @@
         </a>
       </section>
 
-      {% if not app.user.isVerified %}
-        <section class="bg-white text-black p-6 rounded-lg shadow text-center">
-          <p class="mb-4 ">Pour accéder pleinement à votre compte, veuillez confirmer votre adresse e-mail.</p>
-          <a href="{{ path('app_user_verify_mail') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            Recevoir le lien de confirmation
-          </a>
-        </section>
-      {% else %}
-        <section class="flex justify-center">
-          <a href="{{ path('student_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            Créer une fiche élève
-          </a>
-        </section>
 
         {% if students is not empty %}
           <section class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -67,7 +54,6 @@
         {% endif %}
       {% endif %}
 
-
     <form method="post" action="{{ path('app_logout') }}" class="mt-8 text-center">
         <a href="{{ path('app_user_profile_settings') }}"
            class="bg-[#f97316] text-white px-4 py-2 rounded hover:bg-[#ea580c] transition mr-5">
@@ -80,5 +66,4 @@
 
   </div>
 </main>
-
 {% endblock %}

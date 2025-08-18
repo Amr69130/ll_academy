@@ -26,6 +26,20 @@ class CourseRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countByPeriod($period, bool $onlyOpen = false): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(DISTINCT c.id)')
+            ->join('c.enrollments', 'e')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->setParameter('period', $period);
+
+        if ($onlyOpen) {
+            $qb->andWhere('c.isOpen = :open')->setParameter('open', true);
+        }
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */

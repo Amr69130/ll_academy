@@ -16,9 +16,12 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Rôle(s)</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Téléphone</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Créé le</th>
+
+                    {# ↓↓ UNE SEULE COLONNE BILLINGADRESSE QUI REGROUPE (ADDRESS + ZIPCODE + CITY) VIA LE GETFULLADDRESS CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Adresse de facturation</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Ville de facturation</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Code postal</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Etudiants ASSOCIES</th>
+
+
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -30,10 +33,25 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.roles|join(', ') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.phoneNumber }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : '' }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.billingAdress }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.billingCity }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.billingZipCode }}</td>
-{#                         @TODO afficher noms des students liés#}
+
+                        {# ↓↓ UNE SEULE COLONNE BILLINGADRESSE QUI REGROUPE (ADDRESS + ZIPCODE + CITY) VIA LE GETFULLADDRESS CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ user.FullBillingAddress }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {% if user.students|length > 0 %}
+                                <ul>
+                                    {% for student in user.students %}
+                                        <li>{{ student.fullName }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                Aucun étudiant associé
+                            {% endif %}
+                        </td>
+
+
+
+
+
                     </tr>
                 {% else %}
                     <tr>

@@ -16,6 +16,19 @@ class PaymentRepository extends ServiceEntityRepository
         parent::__construct($registry, Payment::class);
     }
 
+    public function countByPeriodAndStatus($period, string $status): int
+    {
+        return (int) $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->join('p.enrollment', 'e')
+            ->andWhere('p.status = :status')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->setParameter('status', $status)
+            ->setParameter('period', $period)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Payment[] Returns an array of Payment objects
     //     */

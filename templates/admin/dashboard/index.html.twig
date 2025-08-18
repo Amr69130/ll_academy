@@ -6,6 +6,49 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Tableau de bord</h1>
 
+{#        #}{# ---- FILTRE PAR PÉRIODE ---- #}
+{#        <form method="get" action="{{ path('admin_dashboard_index') }}" class="mb-6 flex items-center gap-4">#}
+{#            <label for="period" class="text-gray-700 font-semibold">Période :</label>#}
+{#            <select name="period" id="period" class="border border-gray-300 rounded-lg p-2">#}
+{#                {% for period in periods %}#}
+{#                    <option value="{{ period.id }}" {% if period.id == selectedPeriod.id %}selected{% endif %}>#}
+{#                        {{ period.title }}#}
+{#                    </option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">#}
+{#                Filtrer#}
+{#            </button>#}
+{#        </form>#}
+        {# ---- DROPDOWN TAILWIND ---- #}
+        <div class="relative inline-block text-left mb-6">
+            <div>
+                <button type="button"
+                        class="inline-flex justify-between w-56 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        id="dropdownButton"
+                        aria-expanded="true"
+                        aria-haspopup="true"
+                        onclick="document.getElementById('dropdownMenu').classList.toggle('hidden')">
+                    {{ selectedPeriod ? selectedPeriod.title : 'Sélectionner une période' }}
+                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="dropdownMenu" class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10">
+                <div class="py-1">
+                    {% for period in periods %}
+                        <a href="{{ path('admin_dashboard_index', {'selectedPeriodId': period.id}) }}"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {% if selectedPeriod and period.id == selectedPeriod.id %}font-bold{% endif %}">
+                            {{ period.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {# ---- FIN FILTRE ---- #}
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
                 <h2 class="text-lg font-semibold text-gray-700 mb-3">Étudiants inscrits</h2>
@@ -26,6 +69,16 @@
                 <h2 class="text-lg font-semibold text-gray-700 mb-3">Paiements en attente</h2>
                 <p class="text-4xl font-extrabold text-indigo-600">{{ pendingPayments }}</p>
             </div>
+
+            <a href="{{ path('admin_enrollments_pending', {'selectedPeriodId': selectedPeriod.id}) }}">
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Inscriptions en attente</h2>
+                    <p class="text-4xl font-extrabold text-indigo-600">{{ pendingEnrollments }}</p>
+                </div>
+            </a>
+
+
+
         </div>
     </div>
 {% endblock %}

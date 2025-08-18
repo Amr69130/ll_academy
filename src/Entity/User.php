@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $billingAdress = null;
+    private ?string $billingAddress = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $billingCity = null;
@@ -105,9 +105,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
+
+        return $this->roles;
     }
 
     public function setRoles(array $roles): static
@@ -215,14 +214,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBillingAdress(): ?string
+    public function getBillingAddress(): ?string
     {
-        return $this->billingAdress;
+        return $this->billingAddress;
     }
 
-    public function setBillingAdress(?string $billingAdress): static
+    public function setBillingAddress(?string $billingAddress): static
     {
-        $this->billingAdress = $billingAdress;
+        $this->billingAddress = $billingAddress;
         return $this;
     }
 
@@ -246,5 +245,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->billingZipCode = $billingZipCode;
         return $this;
+    }
+
+
+    // ↓↓  2 METHODES FULL QUI REGROUPENT DES INFOS POUR APPELER EN 1 FOIS DANS LES TEMPLATES  ↓↓
+
+    public function getFullBillingAddress(): string
+    {
+        if (!$this->billingAddress || !$this->billingZipCode || !$this->billingCity) {
+            return 'Non communiqué';
+        }
+
+        return $this->billingAddress . ', ' . $this->billingZipCode . ' ' . $this->billingCity;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }

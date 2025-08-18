@@ -80,4 +80,50 @@ class EmailService
 
         return true;
     }
+
+    public function emailStudentValidated(string $emailFormData, MailerInterface $mailer): bool
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([
+            'email' => $emailFormData,
+        ]);
+        $email = (new TemplatedEmail())
+
+            // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
+            // Supprimer le messenger qui permet de filtrer les mails en les affichant dans notre bdd 
+            // enlever messenger via cette commande "composer remove symfony/doctrine-messenger"
+
+            ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
+            ->to((string) $user->getEmail())
+            ->subject('Votre enfant à été accepté')
+            ->htmlTemplate('email_notif/student_validated.html.twig');
+
+        dump($email);
+
+        $mailer->send($email);
+
+        return true;
+    }
+
+    public function emailStudentRefuse(string $emailFormData, MailerInterface $mailer): bool
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([
+            'email' => $emailFormData,
+        ]);
+        $email = (new TemplatedEmail())
+
+            // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
+            // Supprimer le messenger qui permet de filtrer les mails en les affichant dans notre bdd 
+            // enlever messenger via cette commande "composer remove symfony/doctrine-messenger"
+
+            ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
+            ->to((string) $user->getEmail())
+            ->subject('Votre enfant à été refusé')
+            ->htmlTemplate('email_notif/student_refuse.html.twig');
+
+        dump($email);
+
+        $mailer->send($email);
+
+        return true;
+    }
 }

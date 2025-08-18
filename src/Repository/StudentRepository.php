@@ -16,6 +16,28 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
+    public function findAllWithParentsAndEnrollments(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.user', 'u')
+            ->addSelect('u')
+            ->leftJoin('s.enrollments', 'e')
+            ->addSelect('e')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countByPeriod($period): int
+    {
+        return (int) $this->createQueryBuilder('s')
+            ->select('COUNT(DISTINCT s.id)')
+            ->join('s.enrollments', 'e')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->setParameter('period', $period)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Student[] Returns an array of Student objects
     //     */
