@@ -57,7 +57,7 @@ final class AdminEnrollmentsController extends AbstractController
             ? $enrollmentRepository->findByPeriodAndStatus($selectedPeriod, 'pending')
             : $enrollmentRepository->findBy(['status' => 'pending']);
 
-        // cela me envoie vers le Twig avec la période sélectionnée
+        // cela me renvoie vers le Twig avec la période sélectionnée
         return $this->render('admin/enrollments/pending.html.twig', [
             'enrollments' => $enrollments,
             'selectedPeriod' => $selectedPeriod,
