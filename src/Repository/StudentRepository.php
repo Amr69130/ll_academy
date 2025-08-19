@@ -16,6 +16,10 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
+
+
+
+//    ICI LA METHODE QUI RECUPERE TOUS LES ETUDIANTS MËME NON INSCRITS (inutilisée pour le moment)
     public function findAllWithParentsAndEnrollments(): array
     {
         return $this->createQueryBuilder('s')
@@ -26,6 +30,35 @@ class StudentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+//    ICI LA METHODE QUI RECUPERE TOUS LES ETUDIANTS MËME NON INSCRITS (inutilisée pour le moment)
+
+
+
+
+    public function findAllWithEnrollmentsOnly(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.enrollments', 'e') // ce inner join va joindre que ceux qui ont une inscription
+            ->addSelect('e')
+            ->leftJoin('s.user', 'u')
+            ->addSelect('u')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findWithEnrollmentsByPeriod($period): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.enrollments', 'e')
+            ->addSelect('e')
+            ->leftJoin('s.user', 'u')
+            ->addSelect('u')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->setParameter('period', $period)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function countByPeriod($period): int
     {
