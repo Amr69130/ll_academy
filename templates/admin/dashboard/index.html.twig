@@ -62,15 +62,21 @@
                 <p class="text-4xl font-extrabold text-indigo-600">{{ totalActiveCourses }}</p>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+        <a href="{{ path('admin_enrollments_approved', {'selectedPeriodId': selectedPeriod.id}) }}">
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
                 <h2 class="text-lg font-semibold text-gray-700 mb-3">Inscriptions validées</h2>
                 <p class="text-4xl font-extrabold text-indigo-600">{{ totalEnrollments }}</p>
             </div>
+        </a>
 
-            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+
+        <a href="{{ path('admin_payments_pending', {'selectedPeriodId': selectedPeriod.id}) }}">
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
                 <h2 class="text-lg font-semibold text-gray-700 mb-3">Paiements en attente</h2>
                 <p class="text-4xl font-extrabold text-indigo-600">{{ pendingPayments }}</p>
             </div>
+        </a>
+
 
             <a href="{{ path('admin_enrollments_pending', {'selectedPeriodId': selectedPeriod.id}) }}">
                 <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">

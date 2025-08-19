@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EnrollmentRepository::class)]
 class Enrollment
 {
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -56,7 +60,6 @@ class Enrollment
     public function setEnrollmentDate(\DateTime $enrollmentDate): static
     {
         $this->enrollmentDate = $enrollmentDate;
-
         return $this;
     }
 
@@ -68,7 +71,6 @@ class Enrollment
     public function setStatus(string $status): static
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -80,7 +82,6 @@ class Enrollment
     public function setStudent(?Student $student): static
     {
         $this->student = $student;
-
         return $this;
     }
 
@@ -92,7 +93,6 @@ class Enrollment
     public function setEnrollmentPeriod(?EnrollmentPeriod $enrollmentPeriod): static
     {
         $this->enrollmentPeriod = $enrollmentPeriod;
-
         return $this;
     }
 
@@ -110,19 +110,16 @@ class Enrollment
             $this->payments->add($payment);
             $payment->setEnrollment($this);
         }
-
         return $this;
     }
 
     public function removePayment(Payment $payment): static
     {
         if ($this->payments->removeElement($payment)) {
-            // set the owning side to null (unless already changed)
             if ($payment->getEnrollment() === $this) {
                 $payment->setEnrollment(null);
             }
         }
-
         return $this;
     }
 
@@ -134,7 +131,6 @@ class Enrollment
     public function setCourse(?Course $course): static
     {
         $this->course = $course;
-
         return $this;
     }
 }
