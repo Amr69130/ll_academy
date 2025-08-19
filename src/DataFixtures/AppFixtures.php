@@ -44,7 +44,11 @@ class AppFixtures extends Fixture
                 $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
                 $course->setPrice($priceByLevel[$level]);
                 $course->setFlagPicture($language . '.png');
-                $course->setIsOpen(true);
+
+                // pour alterner le statut ouvert / fermé
+                $isOpen = rand(0, 1) === 1;
+                $course->setIsOpen($isOpen);
+
                 $manager->persist($course);
                 $courses[] = $course;
             }

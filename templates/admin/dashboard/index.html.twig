@@ -57,8 +57,10 @@
             </div>
         </a>
 
-            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
-                <h2 class="text-lg font-semibold text-gray-700 mb-3">Cours actifs</h2>
+        <a href="{{ path('admin_courses_open', {'selectedPeriodId': selectedPeriod.id}) }}">
+
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">Cours ouverts</h2>
                 <p class="text-4xl font-extrabold text-indigo-600">{{ totalActiveCourses }}</p>
             </div>
 

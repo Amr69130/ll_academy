@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Course;
+use App\Entity\EnrollmentPeriod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,6 +40,21 @@ class CourseRepository extends ServiceEntityRepository
         }
 
         return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findOpenCoursesByPeriod(?EnrollmentPeriod $period = null): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->andWhere('c.isOpen = :open')
+            ->setParameter('open', true);
+
+        if ($period) {
+            $qb->join('c.enrollments', 'e')
+                ->andWhere('e.enrollmentPeriod = :period')
+                ->setParameter('period', $period);
+        }
+
+        return $qb->getQuery()->getResult();
     }
     //    /**
     //     * @return Course[] Returns an array of Course objects

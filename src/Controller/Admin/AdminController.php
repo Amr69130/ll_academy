@@ -40,26 +40,30 @@ final class AdminController extends AbstractController
         // 3️⃣ Compter avec filtre sur la période
         if ($selectedPeriod) {
             $totalStudents = $studentRepo->countByPeriod($selectedPeriod);
-            $totalActiveCourses = $courseRepo->countByPeriod($selectedPeriod, true);
+            $openCourses = $courseRepo->findOpenCoursesByPeriod($selectedPeriod);
+            $totalOpenCourses = count($openCourses);
             $totalEnrollments = $enrollmentRepo->countByPeriodAndStatus($selectedPeriod, 'approved');
             $pendingPayments = $paymentRepo->countByPeriodAndStatus($selectedPeriod, 'pending');
             $pendingEnrollments = $enrollmentRepo->countByPeriodAndStatus($selectedPeriod, 'pending');
         } else {
             $totalStudents = $studentRepo->count([]);
-            $totalActiveCourses = $courseRepo->count(['isOpen' => true]);
+            $openCourses = $courseRepo->findOpenCoursesByPeriod();
+            $totalOpenCourses = count($openCourses);
             $totalEnrollments = $enrollmentRepo->count(['status' => 'approved']);
             $pendingPayments = $paymentRepo->count(['status' => 'pending']);
             $pendingEnrollments = $enrollmentRepo->count(['status' => 'pending']);
         }
 
+
         return $this->render('admin/dashboard/index.html.twig', [
             'totalStudents' => $totalStudents,
-            'totalActiveCourses' => $totalActiveCourses,
+            'totalActiveCourses' => $totalOpenCourses, // <-- remplacé
             'totalEnrollments' => $totalEnrollments,
             'pendingPayments' => $pendingPayments,
             'pendingEnrollments' => $pendingEnrollments,
             'periods' => $periods,
             'selectedPeriod' => $selectedPeriod,
         ]);
+
     }
 }
