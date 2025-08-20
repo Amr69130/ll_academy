@@ -7,27 +7,56 @@
     <div class="max-w-4xl mx-auto space-y-6">
       <h1 class="text-3xl font-bold text-center">Mon Profil</h1>
 
+      <section class="bg-white text-gray-800 p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">Informations du parent</h2>
 
-    <section class="bg-white text-gray-800 p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">Informations du parent</h2>
-      <p><strong>Nom :</strong> {{ app.user.firstname }}</p>
-      <p><strong>Email :</strong> {{ app.user.email }}</p>
-    </section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Colonne gauche : prénom + email -->
+          <div class="space-y-2">
+            <p><strong>Nom :</strong> {{ app.user.firstname }}</p>
+            <p class="break-all"><strong>Email :</strong> {{ app.user.email }}</p>
+          </div>
 
-    {% if not app.user.isVerified %}
-      <section class="bg-white text-black p-6 rounded-lg shadow text-center">
-        <p class="mb-4 ">Pour accéder pleinement à votre compte, veuillez confirmer votre adresse e-mail.</p>
-        <a href="{{ path('app_user_verify_mail') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-          Recevoir le lien de confirmation
-        </a>
+          <!-- Colonne droite : téléphone + adresse -->
+          <div class="space-y-2">
+            <p><strong>Téléphone :</strong>
+            {% if app.user.phonenumber %}
+                {{ app.user.phonenumber }}</p>
+              {% else %}
+                <span class="text-red-600 font-medium ml-1">À remplir</span>
+              {% endif %}
+
+            {% set has_all_adress =
+            app.user.billingAddress
+            and app.user.billingCity
+            and app.user.billingZipCode
+            %}
+               
+            <p class="break-words">
+              <strong>Adresse :</strong>
+              {% if has_all_adress %}
+                {{ app.user.billingaddress }}
+              {% else %}
+                <span class="text-red-600 font-medium ml-1">À remplir</span>
+              {% endif %}
+            </p>
+          </div>
+        </div>
       </section>
-    {% else %}
-      <section class="flex justify-center gap-3">
-        <a href="{{ path('student_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-          Créer une fiche élève
-        </a>
-      </section>
 
+      {% if not app.user.isVerified %}
+        <section class="bg-white text-black p-6 rounded-lg shadow text-center">
+          <p class="mb-4">Pour accéder pleinement à votre compte, veuillez confirmer votre adresse e-mail.</p>
+          <a href="{{ path('app_user_verify_mail') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            Recevoir le lien de confirmation
+          </a>
+        </section>
+      {% else %}
+        <section class="flex justify-center gap-3">
+          <a href="{{ path('student_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            Créer une fiche élève
+          </a>
+        </section>
 
         {% if students is not empty %}
           <section class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -45,7 +74,6 @@
                     <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
                   </form>
                 </div>
-
               </div>
             {% endfor %}
           </section>
@@ -54,16 +82,16 @@
         {% endif %}
       {% endif %}
 
-    <form method="post" action="{{ path('app_logout') }}" class="mt-8 text-center">
+      <form method="post" action="{{ path('app_logout') }}" class="mt-8 text-center">
         <a href="{{ path('app_user_profile_settings') }}"
            class="bg-[#f97316] text-white px-4 py-2 rounded hover:bg-[#ea580c] transition mr-5">
           Paramètres
         </a>
-      <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
-        Se déconnecter
-      </button>
-    </form>
+        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+          Se déconnecter
+        </button>
+      </form>
 
-  </div>
-</main>
+    </div>
+  </main>
 {% endblock %}
