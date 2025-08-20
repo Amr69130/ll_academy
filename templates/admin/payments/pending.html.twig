@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des paiements en attente{% endblock %}
+
+{% block body %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Liste des paiements en attente</h1>
+
+        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date de paiement</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Montant (€)</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Référence transaction</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type de paiement</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Cours</th>
+                    {# ↓↓ UNE COLONNE ETUDIANT QUI REGROUPE (LastName + FirstName du student) VIA LA METHODE GETFULLNAME CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Étudiant</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                {% for payment in payments %}
+                    <tr class="hover:bg-gray-100 transition-colors duration-200">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ payment.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.paymentDate ? payment.paymentDate|date('d/m/Y') : 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.amount|number_format(2, ',', ' ') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.transactionRef ?: 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.paymentType ? payment.paymentType.name : 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ payment.enrollment and payment.enrollment.course ? payment.enrollment.course.name : 'N/A' }}</td>
+
+                        {# ↓↓ UNE COLONNE ETUDIANT QUI REGROUPE (LastName + FirstName du student) VIA LA METHODE GETFULLNAME CRÉÉ À LA MAIN DANS L'ENTITY ↓↓ #}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {% if payment.enrollment and payment.enrollment.student %}
+                                {{ payment.enrollment.student.fullName }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-500 text-sm">Aucun paiement trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

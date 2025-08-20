@@ -29,6 +29,24 @@ class PaymentRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function findByPeriodAndStatus($period, string $status)
+    {
+        // cela récupère les paiements filtrés par période et status
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.enrollment', 'e') // joindre l'inscription associée
+            ->addSelect('e')
+            ->innerJoin('e.student', 's') // joindre l'étudiant pour info
+            ->addSelect('s')
+            ->andWhere('e.enrollmentPeriod = :period')
+            ->andWhere('p.status = :status')
+            ->setParameter('period', $period)
+            ->setParameter('status', $status)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Payment[] Returns an array of Payment objects
     //     */
