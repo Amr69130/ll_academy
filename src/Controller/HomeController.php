@@ -14,10 +14,20 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(CourseRepository $courseRepository, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAll();
+        $posts = $postRepository->findByTypeId(1);
         $courses = $courseRepository->findAll();
         return $this->render('home/index.html.twig', [
             'courses' => $courses,
+            "posts" => $posts,
+        ]);
+    }
+
+    #[Route('/accueil/faq', name: 'app_faq')]
+    public function faq(CourseRepository $courseRepository, PostRepository $postRepository): Response
+    {
+        $posts = $postRepository->findByTypeId(2);
+
+        return $this->render('footer/faq.html.twig', [
             "posts" => $posts,
         ]);
     }
