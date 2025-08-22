@@ -39,7 +39,7 @@ class StudentType extends AbstractType
                             'image/jpeg',
                             'image/webp',
                         ],
-                        'mimeTypesMessage' => "Veuillez s'il vous plait téléverser une image valide (JPEG, PNG)",
+                        'mimeTypesMessage' => "Veuillez s'il vous plait téléverser une image valide (JPG, JPEG, PNG)",
                     ])
                 ]
             ])
