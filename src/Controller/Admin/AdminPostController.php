@@ -12,17 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/post')]
-final class PostController extends AbstractController
+final class AdminPostController extends AbstractController
 {
     #[Route("/home", name: 'app_post_index', methods: ['GET'])]
     public function indexs(PostRepository $postRepository): Response
     {
-
-        $post = $postRepository->findAll();
+        $actualite = $postRepository->findByTypeId(1);
+        $faq = $postRepository->findByTypeId(2);
 
 
         return $this->render('post/index.html.twig', [
-            'posts' => $post,
+            'actualite' => $actualite,
         ]);
     }
 
