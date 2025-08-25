@@ -34,6 +34,11 @@
                 Étudiants
             </a>
         </li>
+        <li>
+            <a href="{{ path('admin_post_index') }}" class="block py-3 px-6 hover:bg-gray-700 {{ app.request.get('_route') == 'admin_post_index' ? 'bg-gray-700' : '' }}">
+                Post
+            </a>
+        </li>
     </ul>
 
     <div class="border-t border-gray-700">
