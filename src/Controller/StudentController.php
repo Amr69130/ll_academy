@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 final class StudentController extends AbstractController
 {
     #[Route('/student/new', name: 'student_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em, FileUploader $fileUploader): Response
     {
         $student = new Student();
         $student->setUser($this->getUser());
@@ -23,6 +25,13 @@ final class StudentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form->get('profilePicture')->getData(); // 'picture' = nom du champ dans StudentType
+            if ($pictureFile) {
+                $fileName = $fileUploader->upload($pictureFile);
+                $student->setProfilePicture($fileName); // setter de l'entité
+            }
+
             $em->persist($student);
             $em->flush();
 
@@ -46,11 +55,13 @@ final class StudentController extends AbstractController
 
         return $this->render('student/show.html.twig', [
             'student' => $student,
+            'profilePictureUrl' => $student->getProfilePicture() ? '/uploads/profile/' . $student->getProfilePicture() : null
+
         ]);
     }
 
     #[Route('/student/{id}/edit', name: 'student_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Student $student, EntityManagerInterface $em): Response
+    public function edit(Request $request, Student $student, EntityManagerInterface $em, FileUploader $fileUploader): Response
     {
         if ($student->getUser() !== $this->getUser()) {
             throw new AccessDeniedException('Accès refusé.');
@@ -60,6 +71,13 @@ final class StudentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form->get('profilePicture')->getData();
+            if ($pictureFile) {
+                $fileName = $fileUploader->upload($pictureFile);
+                $student->setProfilePicture($fileName);
+            }
+
             $em->flush();
 
             $this->addFlash('success', 'Fiche élève modifiée avec succès.');
@@ -70,6 +88,8 @@ final class StudentController extends AbstractController
         return $this->render('student/edit.html.twig', [
             'form' => $form->createView(),
             'student' => $student,
+            'profilePictureUrl' => $student->getProfilePicture() ? '/uploads/profile/' . $student->getProfilePicture() : null
+
         ]);
     }
 

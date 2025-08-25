@@ -8,8 +8,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Mime\Part\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StudentType extends AbstractType
@@ -25,8 +27,21 @@ class StudentType extends AbstractType
             ->add('birthDate', DateType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('profilePicture', TextType::class, [
+            ->add('profilePicture', FileType::class, [
+                'label' => 'Photo de profil',
+                'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\File([
+                        'maxSize' => '2000k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => "Veuillez s'il vous plait téléverser une image valide (JPG, JPEG, PNG)",
+                    ])
+                ]
             ])
 
         ;
