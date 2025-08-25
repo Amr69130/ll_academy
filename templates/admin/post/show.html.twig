@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block title %}Détails du Post{% endblock %}
+
+
+{% block body %}
+<main class="max-w-4xl mx-auto p-6 bg-white rounded shadow mt-10">
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Détails de la publication</h1>
+
+
+<div class="grid grid-cols-1 gap-4 text-gray-800">
+<div><strong>ID :</strong> {{ post.id }}</div>
+<div><strong>Titre :</strong> {{ post.title }}</div>
+<div><strong>Contenu :</strong> {{ post.content }}</div>
+<div><strong>Image :</strong> {{ post.image }}</div>
+<div><strong>Créé le :</strong> {{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</div>
+</div>
+
+
+<div class="mt-6 flex justify-between">
+<a href="{{ path('admin_post_index') }}" class="text-blue-600 hover:underline">← Retour à la liste</a>
+<a href="{{ path('admin_post_edit', {'id': post.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
+{{ include('admin/post/_delete_form.html.twig') }}
+</div>
+</main>
+{% endblock %}

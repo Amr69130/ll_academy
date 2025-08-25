@@ -1,0 +1,71 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+<section data-controller="post-type" class="p-8 space-y-8">
+
+  <h1 class="text-3xl font-bold text-gray-800">📄 Liste des publications</h1>
+
+  <!-- Filtre par type -->
+  <div>
+    <label for="post" class="block mb-2 text-sm font-medium text-gray-700">Filtrer par type :</label>
+    <select name="post" id="post"
+            data-action="change->post-type#post"
+            class="block w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500">
+      <option value="">Tous les types</option>
+      <option value="1">Actualité</option>
+      <option value="2">FAQ</option>
+      <option value="3">Équipe</option>
+    </select>
+  </div>
+
+  <!-- Tableau -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 border border-gray-300 shadow-sm bg-white text-sm">
+      <thead class="bg-gray-100 text-gray-700 font-semibold">
+        <tr>
+          <th class="px-4 py-3 border">ID</th>
+          <th class="px-4 py-3 border">Type</th>
+          <th class="px-4 py-3 border">Titre</th>
+          <th class="px-4 py-3 border">Contenu</th>
+          <th class="px-4 py-3 border">Image</th>
+          <th class="px-4 py-3 border">Créé le</th>
+          <th class="px-4 py-3 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        {% for post in posts %}
+          <tr data-post-type-target="row" data-type-id="{{ post.type.id }}" class="hover:bg-gray-50 transition">
+            <td class="px-4 py-2 border">{{ post.id }}</td>
+            <td class="px-4 py-2 border">{{ post.type.type }}</td>
+            <td class="px-4 py-2 border">{{ post.title }}</td>
+            <td class="px-4 py-2 border">{{ post.content }}</td>
+            <td class="px-4 py-2 border">{{ post.image }}</td>
+            <td class="px-4 py-2 border">{{ post.createdAt ? post.createdAt|date('Y-m-d') : '' }}</td>
+            <td class="px-4 py-2 border space-x-2">
+              <a href="{{ path('admin_post_show', {'id': post.id}) }}"
+                 class="text-blue-600 hover:underline">Voir</a>
+              <a href="{{ path('admin_post_edit', {'id': post.id}) }}"
+                 class="text-yellow-600 hover:underline">Modifier</a>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="7" class="text-center py-4 text-gray-500">Aucun post trouvé.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Lien création -->
+  <div class="pt-4">
+    <a href="{{ path('admin_post_new') }}"
+       class="inline-block bg-orange-600 text-white px-5 py-2 rounded shadow hover:bg-orange-700 transition">
+      ➕ Ajouter un post
+    </a>
+  </div>
+
+</section>
+{% endblock %}

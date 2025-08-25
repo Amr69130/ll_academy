@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
+
 
 use App\Entity\Post;
 use App\Form\PostFormType;
@@ -10,23 +11,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/post')]
+#[Route("/admin/post")]
+#[IsGranted("ROLE_ADMIN")]
 final class AdminPostController extends AbstractController
 {
-    #[Route("/home", name: 'app_post_index', methods: ['GET'])]
+    #[Route("/", name: 'admin_post_index', methods: ['GET'])]
     public function indexs(PostRepository $postRepository): Response
     {
-        $actualite = $postRepository->findByTypeId(1);
-        $faq = $postRepository->findByTypeId(2);
+        $post = $postRepository->findAll();
 
 
-        return $this->render('post/index.html.twig', [
-            'actualite' => $actualite,
+        return $this->render('admin/post/index.html.twig', [
+            'posts' => $post,
         ]);
     }
 
-    #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
@@ -37,24 +39,24 @@ final class AdminPostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('post/new.html.twig', [
+        return $this->render('admin/post/new.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'admin_post_show', methods: ['GET'])]
     public function show(Post $post): Response
     {
-        return $this->render('post/show.html.twig', [
+        return $this->render('admin/post/show.html.twig', [
             'post' => $post,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'admin_post_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PostFormType::class, $post);
@@ -63,16 +65,16 @@ final class AdminPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('post/_form.html.twig', [
+        return $this->render('admin/post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'admin_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->getPayload()->getString('_token'))) {
@@ -80,6 +82,6 @@ final class AdminPostController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
     }
 }
