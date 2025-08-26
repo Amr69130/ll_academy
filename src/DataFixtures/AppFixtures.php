@@ -7,6 +7,8 @@ use App\Entity\Enrollment;
 use App\Entity\EnrollmentPeriod;
 use App\Entity\Payment;
 use App\Entity\PaymentType;
+use App\Entity\Post;
+use App\Entity\PostType;
 use App\Entity\User;
 use App\Entity\Student;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -208,6 +210,121 @@ class AppFixtures extends Fixture
                 $manager->persist($payment);
             }
         }
+        // Création des types de post
+        $typeActualite = new PostType();
+        $typeActualite->setType('Actualité');
+        $manager->persist($typeActualite);
+
+        $typeFaq = new PostType();
+        $typeFaq->setType('FAQ');
+        $manager->persist($typeFaq);
+
+
+        $staff = new PostType();
+        $staff->setType('Staff');
+        $manager->persist($staff);
+
+        // -------- POSTS ACTUALITÉS --------
+        $post1 = new Post();
+        $post1->setTitle('Lancement du nouveau site');
+        $post1->setContent('Notre nouveau site est enfin en ligne ! Explorez nos cours et nos nouveautés.');
+        $post1->setImage('site_launch.jpg');
+        $post1->setType($typeActualite);
+        $post1->setCreatedAt(new \DateTime());
+        $manager->persist($post1);
+
+        $post2 = new Post();
+        $post2->setTitle('Rentrée 2025 : nouvelles classes');
+        $post2->setContent('De nouveaux créneaux sont disponibles pour les débutants en anglais et espagnol.');
+        $post2->setImage('rentree2025.jpg');
+        $post2->setType($typeActualite);
+        $post2->setCreatedAt(new \DateTime());
+        $manager->persist($post2);
+
+        // === Professeurs d’anglais ===
+        $prof1 = new Post();
+        $prof1->setType($staff);
+        $prof1->setTitle('Emily Watson');
+        $prof1->setContent('Professeure d’anglais passionnée, spécialisée dans l’oral et les échanges culturels.');
+        $prof1->setImage('emily_watson.jpg');
+        $prof1->setCreatedAt(new \DateTime());
+        $manager->persist($prof1);
+
+        $prof2 = new Post();
+        $prof2->setType($staff);
+        $prof2->setTitle('John Miller');
+        $prof2->setContent('Expert en grammaire anglaise et préparation aux certifications TOEIC et IELTS.');
+        $prof2->setImage('john_miller.jpg');
+        $prof2->setCreatedAt(new \DateTime());
+        $manager->persist($prof2);
+
+        // === Professeurs d’arabe ===
+        $prof3 = new Post();
+        $prof3->setType($staff);
+        $prof3->setTitle('Mariam El Hadi');
+        $prof3->setContent('Spécialiste de l’arabe littéraire et des dialectes du Maghreb.');
+        $prof3->setImage('mariam_el_hadi.jpg');
+        $prof3->setCreatedAt(new \DateTime());
+        $manager->persist($prof3);
+
+        $prof4 = new Post();
+        $prof4->setType($staff);
+        $prof4->setTitle('Youssef Ben Ali');
+        $prof4->setContent('Enseignant expérimenté en arabe moderne, passionné de poésie classique.');
+        $prof4->setImage('youssef_ben_ali.jpg');
+        $prof4->setCreatedAt(new \DateTime());
+        $manager->persist($prof4);
+
+        // === Professeurs d’espagnol ===
+        $prof5 = new Post();
+        $prof5->setType($staff);
+        $prof5->setTitle('Lucía Romero');
+        $prof5->setContent('Née à Madrid, elle enseigne l’espagnol depuis 10 ans avec une approche ludique.');
+        $prof5->setImage('lucia_romero.jpg');
+        $prof5->setCreatedAt(new \DateTime());
+        $manager->persist($prof5);
+
+        $prof6 = new Post();
+        $prof6->setType($staff);
+        $prof6->setTitle('Carlos Fernandez');
+        $prof6->setContent('Professeur d’espagnol spécialisé dans les affaires et la communication professionnelle.');
+        $prof6->setImage('carlos_fernandez.jpg');
+        $prof6->setCreatedAt(new \DateTime());
+        $manager->persist($prof6);
+
+        // === Professeurs d’italien ===
+        $prof7 = new Post();
+        $prof7->setType($staff);
+        $prof7->setTitle('Giulia Bianchi');
+        $prof7->setContent('Italienne native, elle enseigne la langue et la culture à travers la cuisine et la musique.');
+        $prof7->setImage('giulia_bianchi.jpg');
+        $prof7->setCreatedAt(new \DateTime());
+        $manager->persist($prof7);
+
+        $prof8 = new Post();
+        $prof8->setType($staff);
+        $prof8->setTitle('Marco Rossi');
+        $prof8->setContent('Professeur dynamique d’italien, adepte de méthodes immersives et interactives.');
+        $prof8->setImage('marco_rossi.jpg');
+        $prof8->setCreatedAt(new \DateTime());
+        $manager->persist($prof8);
+
+        // -------- POSTS FAQ --------
+        $faq1 = new Post();
+        $faq1->setTitle('Comment s\'inscrire à un cours ?');
+        $faq1->setContent('Rendez-vous sur la page Inscriptions et suivez les étapes indiquées.');
+        $faq1->setImage(null);
+        $faq1->setType($typeFaq);
+        $faq1->setCreatedAt(new \DateTime());
+        $manager->persist($faq1);
+
+        $faq2 = new Post();
+        $faq2->setTitle('Peut-on payer en plusieurs fois ?');
+        $faq2->setContent('Oui, le paiement en 2 ou 3 fois est possible par carte bancaire.');
+        $faq2->setImage(null);
+        $faq2->setType($typeFaq);
+        $faq2->setCreatedAt(new \DateTime());
+        $manager->persist($faq2);
 
         $manager->flush();
     }
