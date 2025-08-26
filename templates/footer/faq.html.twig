@@ -17,7 +17,7 @@
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="mt-4">
-                        <a href="{{ path('app_post_edit', { 'id': post.id }) }}"
+                        <a href="{{ path('admin_post_edit', { 'id': post.id }) }}"
                            class="inline-flex items-center px-4 py-2 rounded bg-[#f97316] text-white font-medium hover:bg-[#ea580c] transition">
                             Modifier
                         </a>
