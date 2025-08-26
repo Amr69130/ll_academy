@@ -27,8 +27,33 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // ---------- CREATION DES COURS ----------
-        $languages = ['anglais', 'espagnol', 'italien', 'arabe'];
-        $levels = ['A1', 'A2', 'B1', 'B2'];
+
+        $languages = [
+            'anglais' => [
+                'A1' => 'Découvrez les bases de l’anglais à travers des exercices simples et des conversations guidées. Idéal pour les débutants.',
+                'A2' => 'Renforcez vos connaissances en anglais avec des dialogues plus complexes et un vocabulaire élargi.',
+                'B1' => 'Approfondissez votre anglais avec des conversations avancées, lecture de textes authentiques et préparation professionnelle.',
+                'B2' => 'Perfectionnez votre anglais à un niveau avancé, avec grammaire fine et communication fluide.'
+            ],
+            'espagnol' => [
+                'A1' => 'Initiez-vous à l’espagnol en découvrant le vocabulaire essentiel et les expressions de base.',
+                'A2' => 'Consolidez vos compétences avec des dialogues simples et des lectures faciles.',
+                'B1' => 'Maîtrisez des conversations complexes et améliorez votre compréhension écrite et orale.',
+                'B2' => 'Perfectionnez votre espagnol avec un focus sur la grammaire subtile et l’expression fluide.'
+            ],
+            'italien' => [
+                'A1' => 'Apprenez les bases de l’italien grâce à des exercices interactifs et des situations de la vie quotidienne.',
+                'A2' => 'Renforcez votre italien avec des dialogues plus structurés et la découverte de la culture italienne.',
+                'B1' => 'Progressez vers un niveau intermédiaire avec des textes authentiques et des conversations guidées.',
+                'B2' => 'Atteignez un niveau avancé avec fluidité, grammaire avancée et compréhension culturelle.'
+            ],
+            'arabe' => [
+                'A1' => 'Introduction à l’arabe moderne avec apprentissage de l’alphabet et phrases simples pour communiquer rapidement.',
+                'A2' => 'Approfondissez vos bases avec des dialogues simples, lecture de textes courts et exercices de prononciation.',
+                'B1' => 'Développez votre arabe avec des conversations intermédiaires et compréhension orale et écrite.',
+                'B2' => 'Perfectionnez votre arabe pour atteindre un niveau avancé, expression écrite et orale fluide.'
+            ]
+        ];
 
         $priceByLevel = [
             'A1' => 300,
@@ -38,16 +63,17 @@ class AppFixtures extends Fixture
         ];
 
         $courses = [];
-        foreach ($languages as $language) {
-            foreach ($levels as $level) {
+
+        foreach ($languages as $language => $levelsDescriptions) {
+            foreach ($levelsDescriptions as $level => $description) {
                 $course = new Course();
                 $course->setName(ucfirst($language) . " " . $level);
                 $course->setLevel($level);
-                $course->setDescription("Cours de " . ucfirst($language) . " niveau " . $level);
+                $course->setDescription($description);
                 $course->setPrice($priceByLevel[$level]);
                 $course->setFlagPicture($language . '.png');
 
-                // pour alterner le statut ouvert / fermé
+                // alterner le statut ouvert / fermé
                 $isOpen = rand(0, 1) === 1;
                 $course->setIsOpen($isOpen);
 
@@ -55,6 +81,8 @@ class AppFixtures extends Fixture
                 $courses[] = $course;
             }
         }
+
+
 
         // ---------- CREATION DES PAYMENT TYPES ----------
         $paymentTypes = [];
