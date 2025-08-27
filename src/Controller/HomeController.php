@@ -14,7 +14,10 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(CourseRepository $courseRepository, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findByTypeId(1);
+
+        //        ICI ON DOIT TROUVER PAR TYPE NAME ET PAS ID SINON A LA RECHARGE DES FIXTURES ON NE TROUVE PLUS
+
+        $posts = $postRepository->findByTypeName('Actualité');
         $courses = $courseRepository->findAll();
         return $this->render('home/index.html.twig', [
             'courses' => $courses,
@@ -25,7 +28,10 @@ final class HomeController extends AbstractController
     #[Route('/accueil/faq', name: 'app_faq')]
     public function faq(CourseRepository $courseRepository, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findByTypeId(2);
+
+        //        ICI ON DOIT TROUVER PAR TYPE NAME ET PAS ID SINON A LA RECHARGE DES FIXTURES ON NE TROUVE PLUS
+
+        $posts = $postRepository->findByTypeName('FAQ');
 
         return $this->render('footer/faq.html.twig', [
             "posts" => $posts,

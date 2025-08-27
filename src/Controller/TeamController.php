@@ -13,7 +13,9 @@ class TeamController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
 
-        $posts = $postRepository->findByTypeId(3);
+        //        ICI ON DOIT TROUVER PAR TYPE NAME ET PAS ID SINON A LA RECHARGE DES FIXTURES ON NE TROUVE PLUS
+
+        $posts = $postRepository->findByTypeName('Staff');
 
         return $this->render('team/index.html.twig', [
             "posts" => $posts
