@@ -29,6 +29,19 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+//    ICI LA METHODE FIND BY NAME PERMET DE TOUJOURS TROUVER MALGRE LA RECHARGE DES FIXTURES CONTRAIREMENT A FIND BY ID
+    public function findByTypeName(string $typeName): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.type', 't')
+            ->andWhere('t.type = :typeName')
+            ->setParameter('typeName', $typeName)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    public function findOneBySomeField($value): ?Post
 //    {
 //        return $this->createQueryBuilder('p')
