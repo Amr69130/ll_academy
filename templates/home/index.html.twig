@@ -32,44 +32,22 @@
         <!-- Sous-titre centré -->
         <h2 class="text-3xl font-semibold mb-8 text-gray-700 text-center">Voici nos cours</h2>
 
-        <!-- Grille des 4 cards simple sans action modal -->
-{#        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto px-4">#}
-{#            {% set languages = [#}
-{#                {'name': 'Anglais', 'color': 'bg-blue-100 text-blue-900'},#}
-{#                {'name': 'Espagnol', 'color': 'bg-pink-100 text-pink-900'},#}
-{#                {'name': 'Italien', 'color': 'bg-yellow-100 text-yellow-900'},#}
-{#                {'name': 'Arabe', 'color': 'bg-green-100 text-green-900'}#}
-{#            ] %}#}
-
-{#            {% for lang in languages %}#}
-{#                <li>#}
-{#                    <a href="#"#}
-{#                       title="Voir les cours de {{ lang.name }}"#}
-{#                       class="{{ lang.color }} block p-8 rounded-lg shadow-md font-semibold cursor-pointer transform transition hover:scale-105 hover:shadow-xl hover:border hover:border-blue-300 text-center">#}
-{#                        {{ lang.name }}#}
-{#                    </a>#}
-{#                </li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </div>#}
-
-
-    <!-- Grille des 4 cards avec action modal -->
-
+    <!-- Section Cours -->
     <div data-controller="modal">
-        <!-- Overlay + contenu modal -->
+        <!-- Overlay + le contenu de modal -->
         <div
                 data-modal-target="modal"
                 data-action="click->modal#closeModal"
-                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50"
+                class="fixed inset-0 flex items-center justify-center hidden z-50"
+                style="background-color: rgba(0,0,0,0.8);"
         >
-            <!-- Conteneur interne de la modal -->
+            <!-- Le Conteneur interne de la modal -->
             <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full flex flex-col items-center gap-4">
                 <!-- Contenu injecté par Stimulus -->
             </div>
         </div>
 
-        <!-- Grille des cours -->
+        <!-- La Grid des cours -->
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto px-4">
             {% for course in courses %}
                 <li>
@@ -81,10 +59,8 @@
                             data-price="{{ course.price }}€"
                             data-isopen="{{ course.isOpen ? 'Session ouverte' : 'Session Fermée' }}"
                             data-flag="{{ course.flagPicture }}"
-
                             class="block p-8 rounded-lg shadow-md font-semibold cursor-pointer text-center bg-blue-100 text-blue-900 hover:scale-105 hover:shadow-xl"
                     >
-
                         {{ course.name }}
                     </button>
                 </li>

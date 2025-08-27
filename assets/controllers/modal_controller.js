@@ -4,19 +4,16 @@ export default class extends Controller {
     static targets = ["modal"]
 
     openModal(event) {
-        // On sélectionne le "conteneur interne"
+        // ICI ON SELECTIONNE LE CONTENEUR INTERNE
         let modalBox = this.modalTarget.querySelector("div")
 
         modalBox.innerHTML = `
-        <img src="/images/${event.target.dataset.flag}" alt="${event.target.dataset.name}" class="mb-2 w-24 h-16 object-cover rounded">
-
+            <img src="/images/${event.target.dataset.flag}" alt="${event.target.dataset.name}" class="mb-2 w-24 h-16 object-cover rounded">
             <h3 class="text-xl font-bold mb-2">${event.target.dataset.name}</h3>
             <p class="text-gray-700">${event.target.dataset.description}</p>
             <p class="text-gray-700">${event.target.dataset.isopen}</p>
-            <p class="text-gray-700">${event.target.dataset.price}</p>
-                
-                 `
-
+            <p class="text-gray-700">${event.target.dataset.price}</p>           
+                             `
         this.modalTarget.classList.remove("hidden")
     }
 
