@@ -8,6 +8,7 @@ export default class extends Controller {
         let modalBox = this.modalTarget.querySelector("div")
 
         modalBox.innerHTML = `
+        <img src="/images/${event.target.dataset.flag}" alt="${event.target.dataset.name}" class="mb-2 w-24 h-16 object-cover rounded">
 
             <h3 class="text-xl font-bold mb-2">${event.target.dataset.name}</h3>
             <p class="text-gray-700">${event.target.dataset.description}</p>

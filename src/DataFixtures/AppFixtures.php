@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
                 $course->setLevel($level);
                 $course->setDescription($description);
                 $course->setPrice($priceByLevel[$level]);
-                $course->setFlagPicture($language . '.png');
+                $course->setFlagPicture('courses/' . $language . '.png');
 
                 // alterner le statut ouvert / fermé
                 $isOpen = rand(0, 1) === 1;
@@ -272,68 +272,68 @@ class AppFixtures extends Fixture
         // === Professeurs d’anglais ===
         $prof1 = new Post();
         $prof1->setType($staff);
-        $prof1->setTitle('Emily Watson');
+        $prof1->setTitle('Emma Thompson');
         $prof1->setContent('Professeure d’anglais passionnée, spécialisée dans l’oral et les échanges culturels.');
-        $prof1->setImage('emily_watson.jpg');
+        $prof1->setImage('professors/emma_thompson.jpg');
         $prof1->setCreatedAt(new \DateTime());
         $manager->persist($prof1);
 
         $prof2 = new Post();
         $prof2->setType($staff);
-        $prof2->setTitle('John Miller');
+        $prof2->setTitle('James Carter');
         $prof2->setContent('Expert en grammaire anglaise et préparation aux certifications TOEIC et IELTS.');
-        $prof2->setImage('john_miller.jpg');
+        $prof2->setImage('professors/james_carter.jpg');
         $prof2->setCreatedAt(new \DateTime());
         $manager->persist($prof2);
 
         // === Professeurs d’arabe ===
         $prof3 = new Post();
         $prof3->setType($staff);
-        $prof3->setTitle('Mariam El Hadi');
+        $prof3->setTitle('Layla Al Fahad');
         $prof3->setContent('Spécialiste de l’arabe littéraire et des dialectes du Maghreb.');
-        $prof3->setImage('mariam_el_hadi.jpg');
+        $prof3->setImage('professors/layla_al_fahad.jpg');
         $prof3->setCreatedAt(new \DateTime());
         $manager->persist($prof3);
 
         $prof4 = new Post();
         $prof4->setType($staff);
-        $prof4->setTitle('Youssef Ben Ali');
+        $prof4->setTitle('Omar Hassan');
         $prof4->setContent('Enseignant expérimenté en arabe moderne, passionné de poésie classique.');
-        $prof4->setImage('youssef_ben_ali.jpg');
+        $prof4->setImage('professors/omar_hassan.jpg');
         $prof4->setCreatedAt(new \DateTime());
         $manager->persist($prof4);
 
         // === Professeurs d’espagnol ===
         $prof5 = new Post();
         $prof5->setType($staff);
-        $prof5->setTitle('Lucía Romero');
+        $prof5->setTitle('Maria Gonzales');
         $prof5->setContent('Née à Madrid, elle enseigne l’espagnol depuis 10 ans avec une approche ludique.');
-        $prof5->setImage('lucia_romero.jpg');
+        $prof5->setImage('professors/maria_gonzales.jpg');
         $prof5->setCreatedAt(new \DateTime());
         $manager->persist($prof5);
 
         $prof6 = new Post();
         $prof6->setType($staff);
-        $prof6->setTitle('Carlos Fernandez');
+        $prof6->setTitle('Carlos Ruiz');
         $prof6->setContent('Professeur d’espagnol spécialisé dans les affaires et la communication professionnelle.');
-        $prof6->setImage('carlos_fernandez.jpg');
+        $prof6->setImage('professors/carlos_ruiz.jpg');
         $prof6->setCreatedAt(new \DateTime());
         $manager->persist($prof6);
 
         // === Professeurs d’italien ===
         $prof7 = new Post();
         $prof7->setType($staff);
-        $prof7->setTitle('Giulia Bianchi');
+        $prof7->setTitle('Giulia Morettii');
         $prof7->setContent('Italienne native, elle enseigne la langue et la culture à travers la cuisine et la musique.');
-        $prof7->setImage('giulia_bianchi.jpg');
+        $prof7->setImage('professors/giulia_moretti.jpg');
         $prof7->setCreatedAt(new \DateTime());
         $manager->persist($prof7);
 
         $prof8 = new Post();
         $prof8->setType($staff);
-        $prof8->setTitle('Marco Rossi');
+        $prof8->setTitle('Luca Bianchi');
         $prof8->setContent('Professeur dynamique d’italien, adepte de méthodes immersives et interactives.');
-        $prof8->setImage('marco_rossi.jpg');
+        $prof8->setImage('professors/luca_bianchi.jpg');
         $prof8->setCreatedAt(new \DateTime());
         $manager->persist($prof8);
 
