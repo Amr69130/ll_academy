@@ -23,6 +23,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@stimulus-components/carousel": "^6.0.0",
         "@stimulus-components/password-visibility": "^3.0.0",
         "@tailwindcss/postcss": "^4.1.11",
         "autoprefixer": "^10.4.21",

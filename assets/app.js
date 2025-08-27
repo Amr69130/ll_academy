@@ -1,4 +1,5 @@
 import './bootstrap.js';
+import './controllers/carousel_controller.js';
 
 /*
  * Welcome to your app's main JavaScript file!
