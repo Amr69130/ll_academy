@@ -11,27 +11,21 @@
         <h2 class="text-2xl font-semibold mb-4">Informations du parent</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <!-- Colonne gauche : prénom + email -->
           <div class="space-y-2">
             <p><strong>Nom :</strong> {{ app.user.firstname }}</p>
             <p class="break-all"><strong>Email :</strong> {{ app.user.email }}</p>
           </div>
 
-          <!-- Colonne droite : téléphone + adresse -->
           <div class="space-y-2">
             <p><strong>Téléphone :</strong>
-            {% if app.user.phonenumber %}
-                {{ app.user.phonenumber }}</p>
+              {% if app.user.phonenumber %}
+                {{ app.user.phonenumber }}
               {% else %}
                 <span class="text-red-600 font-medium ml-1">À remplir</span>
               {% endif %}
+            </p>
 
-            {% set has_all_adress =
-            app.user.billingAddress
-            and app.user.billingCity
-            and app.user.billingZipCode
-            %}
-               
+            {% set has_all_adress = app.user.billingAddress and app.user.billingCity and app.user.billingZipCode %}
             <p class="break-words">
               <strong>Adresse :</strong>
               {% if has_all_adress %}
@@ -69,7 +63,7 @@
                   <a href="{{ path('student_show', {id: student.id}) }}" class="text-blue-600 hover:underline">Voir détails</a>
                   <a href="{{ path('student_edit', {id: student.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
                   <a href="{{ path('student_enroll', {id: student.id}) }}" class="text-green-600 hover:underline">Inscrire</a>
-                  <form method="post" action="{{ path('student_delete', {id: student.id}) }}" onsubmit="return confirm('Supprimer cet élève ?');">
+                  <form method="post" action="{{ path('student_delete', {id: student.id}) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
                     <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
                   </form>
