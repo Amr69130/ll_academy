@@ -27,6 +27,8 @@
         "@stimulus-components/password-visibility": "^3.0.0",
         "@tailwindcss/postcss": "^4.1.11",
         "autoprefixer": "^10.4.21",
+        "datatables.net-columncontrol-dt": "^1.0.7",
+        "datatables.net-dt": "^2.3.3",
         "postcss": "^8.5.6",
         "postcss-loader": "^8.1.1",
         "tailwindcss": "^4.1.11"
