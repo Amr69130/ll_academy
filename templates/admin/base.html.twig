@@ -13,11 +13,44 @@
 {% include 'admin/parts/sidebar.html.twig' %}
 
 <main class="flex-1 p-6 md:p-8 max-w-full overflow-x-auto">
+
+    {# Flash messages avec fade-out automatique #}
+    {% for type, messages in app.flashes %}
+        {% set color = {
+            'success': 'green',
+            'error': 'red',
+            'danger': 'red',
+            'warning': 'yellow',
+            'info': 'blue'
+        }[type]|default('gray') %}
+
+        <div class="fixed inset-x-0 top-6 flex flex-col items-center space-y-2 z-50">
+            {% for message in messages %}
+                <div class="flash-message w-full md:w-1/2 bg-{{ color }}-100 text-{{ color }}-800 border border-{{ color }}-300 rounded-md shadow-md px-4 py-3 opacity-100 transition-all duration-500">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
     {% block body %}{% endblock %}
+
 </main>
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.flash-message').forEach((el) => {
+                // fade-out automatique après 3 secondes avec slide-up
+                setTimeout(() => {
+                    el.classList.add('opacity-0', '-translate-y-4');
+                    setTimeout(() => el.remove(), 500);
+                }, 3000);
+            });
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

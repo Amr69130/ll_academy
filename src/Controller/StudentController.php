@@ -101,6 +101,13 @@ final class StudentController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete' . $student->getId(), $request->request->get('_token'))) {
+
+//            'ICI ON VA VERIFIER SI L'ETUDIANT N'AS PAS D'INSCRIPTIONS EN COURS, S'IL A -> IMPOSSIBLE DE SUPPRIMER'
+            if (count($student->getEnrollments()) > 0) {
+                $this->addFlash('error', 'Impossible de supprimer cet élève car il est encore inscrit à des cours.');
+                return $this->redirectToRoute('app_user_profile');
+            }
+
             $em->remove($student);
             $em->flush();
             $this->addFlash('success', 'Fiche élève supprimée avec succès.');
