@@ -91,11 +91,11 @@ final class UserController extends AbstractController
             $translator
         );
         if ($resultSendEmail) {
-            $this->addFlash('', 'Votre email est envoyer');
+            $this->addFlash('', 'Votre email est envoyé');
             return $this->redirectToRoute('app_user_profile_settings');
 
         }
-        $this->addFlash('', 'Email à déjà été envoyer');
+        $this->addFlash('', 'Email à déjà été envoyé');
         return $this->redirectToRoute('app_user_profile_settings');
     }
 
