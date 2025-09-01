@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -46,6 +47,14 @@ class Course
 
     #[ORM\Column]
     private ?bool $isOpen = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Merci de fournir un lien de paiement pour ce cours.")]
+    #[Assert\Regex(
+        pattern: "/^https:\/\/buy\.stripe\.com\/.+$/",
+        message: "Le lien de paiement n'est pas valide. Il doit provenir directement de Stripe.com."
+    )]
+    private ?string $paymentLinkUrl = null;
 
     public function __construct()
     {
@@ -188,6 +197,18 @@ class Course
     public function setIsOpen(bool $isOpen): static
     {
         $this->isOpen = $isOpen;
+
+        return $this;
+    }
+
+    public function getPaymentLinkUrl(): ?string
+    {
+        return $this->paymentLinkUrl;
+    }
+
+    public function setPaymentLinkUrl(string $paymentLinkUrl): static
+    {
+        $this->paymentLinkUrl = $paymentLinkUrl;
 
         return $this;
     }

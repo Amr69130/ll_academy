@@ -1,0 +1,32 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier le cours{% endblock %}
+
+{% block body %}
+    <section class="max-w-4xl mx-auto px-4 py-10">
+        <h1 class="text-3xl font-bold text-center mb-8">Modifier le cours</h1>
+
+        {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+        {% for field in ['name', 'description', 'level', 'price', 'flagPicture', 'isOpen', 'paymentLinkUrl'] %}
+            <div>
+                {{ form_label(attribute(form, field), null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {% set widgetAttr = {'class': 'w-full border border-gray-300 rounded-md p-2'} %}
+                {% if field == 'description' %} {% set widgetAttr = widgetAttr|merge({'rows': 4}) %} {% endif %}
+                {% if field == 'isOpen' %} {% set widgetAttr = {'class': 'mr-2'} %} {% endif %}
+                {{ form_widget(attribute(form, field), {'attr': widgetAttr}) }}
+                {% if form_errors(attribute(form, field)) %}
+                    <p class="text-red-600 text-sm mt-1">{{ form_errors(attribute(form, field)) }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="text-center">
+            <button type="submit" class="bg-green-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-green-700 transition">
+                Mettre à jour
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
