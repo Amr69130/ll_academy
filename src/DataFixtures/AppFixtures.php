@@ -73,6 +73,9 @@ class AppFixtures extends Fixture
                 $course->setPrice($priceByLevel[$level]);
                 $course->setFlagPicture('courses/' . $language . '.png');
 
+                // même lien de paiement pour tous les cours
+                $course->setPaymentLinkUrl('https://buy.stripe.com/dRm14n8bGaiX8p72UNawo01');
+
                 // alterner le statut ouvert / fermé
                 $isOpen = rand(0, 1) === 1;
                 $course->setIsOpen($isOpen);
@@ -81,6 +84,7 @@ class AppFixtures extends Fixture
                 $courses[] = $course;
             }
         }
+
 
 
 
