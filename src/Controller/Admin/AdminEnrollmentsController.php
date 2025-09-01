@@ -84,10 +84,9 @@ final class AdminEnrollmentsController extends AbstractController
         $enrollment->setStatus('approved'); // <- remplacé valid par approved
         $em->flush();
 
-        /** @var User $user */
-        $user = $this->getUser();
+
         $this->emailService->emailStudentValidated(
-            $user->getEmail(),
+            $enrollment,
             $mailer,
         );
 

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Enrollment;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -24,7 +25,7 @@ class EmailService
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager
     ) {
     }
     public function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): bool
@@ -81,11 +82,9 @@ class EmailService
         return true;
     }
 
-    public function emailStudentValidated(string $emailFormData, MailerInterface $mailer): bool
+    public function emailStudentValidated(Enrollment $enrollment, MailerInterface $mailer): bool
     {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy([
-            'email' => $emailFormData,
-        ]);
+
         $email = (new TemplatedEmail())
 
             // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
@@ -93,9 +92,12 @@ class EmailService
             // enlever messenger via cette commande "composer remove symfony/doctrine-messenger"
 
             ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
-            ->to((string) $user->getEmail())
+            ->to($enrollment->getUserEmail())
             ->subject('Votre enfant à été accepté')
-            ->htmlTemplate('email_notif/student_validated.html.twig');
+            ->htmlTemplate('email_notif/student_validated.html.twig')
+            ->context([
+                "enrollment" => $enrollment
+            ]);
 
         dump($email);
 
@@ -104,11 +106,9 @@ class EmailService
         return true;
     }
 
-    public function emailStudentRefuse(string $emailFormData, MailerInterface $mailer): bool
+    public function emailStudentRefuse(Enrollment $enrollment, MailerInterface $mailer): bool
     {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy([
-            'email' => $emailFormData,
-        ]);
+
         $email = (new TemplatedEmail())
 
             // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
@@ -116,9 +116,12 @@ class EmailService
             // enlever messenger via cette commande "composer remove symfony/doctrine-messenger"
 
             ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
-            ->to((string) $user->getEmail())
+            ->to($enrollment->getUserEmail())
             ->subject('Votre enfant à été refusé')
-            ->htmlTemplate('email_notif/student_refuse.html.twig');
+            ->htmlTemplate('email_notif/student_refuse.html.twig')
+            ->context([
+                "enrollment" => $enrollment
+            ]);
 
         dump($email);
 

@@ -52,6 +52,11 @@ class Enrollment
         return $this->id;
     }
 
+    public function getUserEmail(): ?string
+    {
+        return $this->getStudent()->getUser()->getEmail();
+    }
+
     public function getEnrollmentDate(): ?\DateTime
     {
         return $this->enrollmentDate;
