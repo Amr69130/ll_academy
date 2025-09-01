@@ -91,6 +91,10 @@ class Student
 
     public function setLastName(string $lastName): static
     {
+
+        $lastName = mb_strtoupper(mb_substr($lastName, 0, 1))
+            . mb_strtolower(mb_substr($lastName, 1, null));
+
         $this->lastName = $lastName;
 
         return $this;

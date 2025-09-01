@@ -1,51 +1,105 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .email-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f7f7f7;
-      font-family: Arial, sans-serif;
-      color: #333;
-      border: 1px solid #e2e2e2;
-      border-radius: 8px;
-    }
-    .email-container h1 {
-      font-size: 24px;
-      margin-bottom: 16px;
-      color: #1e293b;
-    }
-    .email-container p {
-      font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-    .email-container a {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #f97316;
-      color: #faf1dc;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-    .email-container a:hover {
-      background-color: #ea580c;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmation d'inscription</title>
 </head>
-<body>
-  <div class="email-container">
-    <h1>Bonjour !</h1>
+<body class="bg-gray-100">
+  <!-- Wrapper -->
+  <div class="w-full bg-gray-100 py-8">
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
 
-    <p>Votre enfant à été pris dans notre école félicitation</p>
+      <!-- Header -->
+      <div class="bg-[#1E293B] px-6 py-4">
+        <h1 class="text-[#FAF1DC] text-2xl font-semibold">
+          Confirmation d’inscription
+        </h1>
+        <p class="text-[#FAF1DC]/80 text-sm mt-1">
+          LL ACADEMY
+        </p>
+      </div>
 
-  
-    <p>Cordialement !</p>
+      <!-- Body -->
+      <div class="px-6 py-6 text-gray-800">
+        <p class="mb-4">Bonjour,</p>
+
+        <p class="mb-4">
+          Nous avons le plaisir de vous confirmer que le dossier de
+          <strong>{{ enrollment.student.fullName }}</strong> a été validé.
+        </p>
+
+        <div class="rounded-md border border-gray-200 p-4 mb-6">
+          <p class="text-sm text-gray-600">Récapitulatif :</p>
+          <ul class="mt-2 space-y-1 text-sm">
+            <li>
+              <span class="font-medium">Cours :</span>
+              {{ enrollment.course.name }}
+            </li>
+            <li>
+              <span class="font-medium">Période :</span>
+              {{ enrollment.enrollmentperiod.title }}
+            </li>
+            <li>
+              <span class="font-medium">Élève :</span>
+              {{ enrollment.student.firstName }}
+            </li>
+            <li>
+              <span class="font-medium">Montant à régler :</span>
+              {{ enrollment.course.price|number_format(2, ',', ' ') }} €
+            </li>
+          </ul>
+        </div>
+
+        <p class="mb-4">
+          Pour finaliser l’inscription, veuillez procéder au règlement sécurisé en cliquant sur le bouton ci-dessous.
+        </p>
+
+        <!-- CTA Paiement -->
+        <div class="mt-6 mb-8">
+          <a href="/"
+             class="inline-block bg-[#F97316] hover:bg-[#ea580c] text-white font-semibold px-6 py-3 rounded-md transition">
+            Accéder au paiement sécurisé
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-600 mb-6">
+          Si vous n’êtes pas à l’origine de cette demande ou si vous souhaitez annuler l’inscription,
+          vous pouvez utiliser le lien suivant :
+        </p>
+
+        <p class="mb-8">
+          <a href="{{ cancelUrl|default('#') }}"
+             class="text-[#F97316] hover:underline font-medium">
+            Annuler l’inscription
+          </a>
+        </p>
+
+        <p class="mb-2">Cordialement,</p>
+        <p class="text-gray-700 font-medium">L’équipe LL ACADEMY</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="bg-gray-50 px-6 py-5 text-xs text-gray-500">
+        <p class="mb-2">
+          Cet e-mail contient un lien de paiement sécurisé. Ne le partagez pas.
+          Si vous n’êtes pas le destinataire, merci d’ignorer ce message.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 text-[11px] mt-3">
+          <a href="{{ path('app_home') }}" class="hover:underline">Site</a>
+          <span class="text-gray-300">•</span>
+          <a href="" class="hover:underline">Mentions légales</a>
+          <span class="text-gray-300">•</span>
+          <a href="" class="hover:underline">Politique de confidentialité</a>
+          <span class="text-gray-300">•</span>
+          <a href="" class="hover:underline">CGU</a>
+        </div>
+        <p class="mt-3 text-[11px] text-gray-400">
+          © {{ "now"|date("Y") }} LL ACADEMY — Tous droits réservés.
+        </p>
+      </div>
+
+    </div>
   </div>
 </body>
 </html>
