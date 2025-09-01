@@ -35,10 +35,13 @@
                                 ({{ enrollment.enrollmentPeriod.title }}) –
                                 <em>Status : {{ enrollment.status }}</em>
                                 <p><em>Date d'inscription :</em> {{ enrollment.enrollmentDate|date('d/m/Y') }}</p>
+                                {% if enrollment.status == false %}
                                 <a href="{{ path('payment_new', { enrollment: enrollment.id }) }}"
                                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition inline-block mt-2">
                                     Payer maintenant
                                 </a>
+                                
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
