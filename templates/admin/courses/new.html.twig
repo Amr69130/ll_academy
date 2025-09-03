@@ -8,7 +8,7 @@
 
         {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
 
-        {% for field in ['name', 'description', 'level', 'price', 'flagPicture', 'isOpen', 'paymentLinkUrl'] %}
+        {% for field in ['name', 'description', 'level', 'price', 'flagPicture', 'isOpen'] %}
             <div>
                 {{ form_label(attribute(form, field), null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
                 {{ form_widget(attribute(form, field), {'attr': {'class': 'w-full border border-gray-300 rounded-md p-2'}}) }}

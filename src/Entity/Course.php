@@ -49,12 +49,20 @@ class Course
     private ?bool $isOpen = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Merci de fournir un lien de paiement pour ce cours.")]
     #[Assert\Regex(
         pattern: "/^https:\/\/buy\.stripe\.com\/.+$/",
         message: "Le lien de paiement n'est pas valide. Il doit provenir directement de Stripe.com."
     )]
     private ?string $paymentLinkUrl = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $stripeProductId = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $stripePriceId = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $stripePaymentLinkId = null;
 
     public function __construct()
     {
@@ -209,6 +217,42 @@ class Course
     public function setPaymentLinkUrl(string $paymentLinkUrl): static
     {
         $this->paymentLinkUrl = $paymentLinkUrl;
+
+        return $this;
+    }
+
+    public function getStripeProductId(): ?string
+    {
+        return $this->stripeProductId;
+    }
+
+    public function setStripeProductId(string $stripeProductId): static
+    {
+        $this->stripeProductId = $stripeProductId;
+
+        return $this;
+    }
+
+    public function getStripePriceId(): ?string
+    {
+        return $this->stripePriceId;
+    }
+
+    public function setStripePriceId(string $stripePriceId): static
+    {
+        $this->stripePriceId = $stripePriceId;
+
+        return $this;
+    }
+
+    public function getStripePaymentLinkId(): ?string
+    {
+        return $this->stripePaymentLinkId;
+    }
+
+    public function setStripePaymentLinkId(string $stripePaymentLinkId): static
+    {
+        $this->stripePaymentLinkId = $stripePaymentLinkId;
 
         return $this;
     }
