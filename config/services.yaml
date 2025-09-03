@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-  upload_profile_dir: '%kernel.project_dir%/public/uploads/profile'
+  upload_profile_dir: "%kernel.project_dir%/public/uploads/profile"
+  stripeSecretKey: "%env(STRIPE_API_KEY_TEST)%"
 
 services:
   # default configuration for services in *this* file
@@ -25,4 +26,8 @@ services:
 
   App\Service\FileUploader:
     arguments:
-      $targetDirectory: '%upload_profile_dir%'
+      $targetDirectory: "%upload_profile_dir%"
+
+  App\Service\StripeService:
+    arguments:
+      $stripeSecretKey: "%stripeSecretKey%"

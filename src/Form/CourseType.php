@@ -43,11 +43,6 @@ class CourseType extends AbstractType
                 'label' => 'Cours ouvert',
                 'required' => false,
                 'attr' => ['class' => 'mr-2'],
-            ])
-            ->add('paymentLinkUrl', TextType::class, [
-                'label' => 'Lien de paiement Stripe',
-                'required' => false,
-                'attr' => ['class' => 'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300'],
             ]);
     }
 
