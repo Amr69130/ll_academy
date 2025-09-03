@@ -277,7 +277,7 @@ class AppFixtures extends Fixture
         $prof1 = new Post();
         $prof1->setType($staff);
         $prof1->setTitle('Emma Thompson');
-        $prof1->setContent('Professeure d’anglais passionnée, spécialisée dans l’oral et les échanges culturels.');
+        $prof1->setContent('Professeure d’anglais spécialisée dans les échanges culturels.');
         $prof1->setImage('professors/emma_thompson.jpg');
         $prof1->setCreatedAt(new \DateTime());
         $manager->persist($prof1);
@@ -285,7 +285,7 @@ class AppFixtures extends Fixture
         $prof2 = new Post();
         $prof2->setType($staff);
         $prof2->setTitle('James Carter');
-        $prof2->setContent('Expert en grammaire anglaise et préparation aux certifications TOEIC et IELTS.');
+        $prof2->setContent('Expert en grammaire et préparation aux certifications TOEIC et IELTS.');
         $prof2->setImage('professors/james_carter.jpg');
         $prof2->setCreatedAt(new \DateTime());
         $manager->persist($prof2);
@@ -319,7 +319,7 @@ class AppFixtures extends Fixture
         $prof6 = new Post();
         $prof6->setType($staff);
         $prof6->setTitle('Carlos Ruiz');
-        $prof6->setContent('Professeur d’espagnol spécialisé dans les affaires et la communication professionnelle.');
+        $prof6->setContent('Professeur d’espagnol spécialisé dans la communication professionnelle.');
         $prof6->setImage('professors/carlos_ruiz.jpg');
         $prof6->setCreatedAt(new \DateTime());
         $manager->persist($prof6);
