@@ -53,12 +53,11 @@
                 <li>
                     <button
                             data-action="click->modal#openModal"
-                            data-name="{{ course.name }}"
-                            data-level="{{ course.level }}"
-                            data-description="{{ course.description }}"
-                            data-price="{{ course.price }}€"
-                            data-isopen="{{ course.isOpen ? 'Session ouverte' : 'Session Fermée' }}"
                             data-flag="{{ course.flagPicture }}"
+                            data-name="{{ course.name }}"
+                            data-description="{{ course.description }}"
+                            data-isopen="{{ course.isOpen ? 'Session ouverte' : 'Session Fermée' }}"
+                            data-price="{{ course.price }}€"
                             class="block p-8 rounded-lg shadow-md font-semibold cursor-pointer text-center bg-blue-100 text-blue-900 hover:scale-105 hover:shadow-xl"
                     >
                         {{ course.name }}
