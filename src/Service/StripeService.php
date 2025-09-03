@@ -13,10 +13,10 @@ class StripeService
 {
     private StripeClient $stripeClient;
 
-    public function __construct()
+    public function __construct(private string $stripeSecretKey)
     {
         // Clé secrete API stripe
-        $this->stripeClient = new StripeClient('sk_test_51S3G1i5CikMpfdPint6j2e2qOhFaoqeYiQex9hbs6FfBSTSOclNzXlRrsz4W7y2V2JRaXkIexTvZmM18hNPCYSbz00ULQ52Dja');
+        $this->stripeClient = new StripeClient($this->stripeSecretKey);
 
     }
     public function createProduct(Course $course): Product
