@@ -60,7 +60,7 @@ final class UserController extends AbstractController
             dump($form);
             $em->persist($user);
             $em->flush();
-            $this->addFlash("", "Votre profile à bien été modifier");
+            $this->addFlash("", "Votre profile a bien été modifié");
             return $this->redirectToRoute("app_user_profile");
         }
 

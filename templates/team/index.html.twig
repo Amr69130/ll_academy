@@ -3,48 +3,70 @@
 {% block title %}Notre équipe{% endblock %}
 
 {% block body %}
-    <section class="w-full max-w-6xl mx-auto px-4 py-10">
-        <h1 class="text-3xl md:text-4xl font-bold text-center mb-12">
-            Notre équipe pédagogique
-        </h1>
+  <section class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12">
+      Notre équipe pédagogique
+    </h1>
 
-        {# Carousel Swiper responsive #}
-        <div data-controller="carousel"
-             class="swiper relative"
-             data-carousel-options-value='{
-             "loop": true,
-             "slidesPerView": 1,
-             "spaceBetween": 20,
-             "pagination": { "el": ".swiper-pagination", "clickable": true },
-             "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" },
-             "breakpoints": {
-                 "640": { "slidesPerView": 1 },
-                 "768": { "slidesPerView": 2 },
-                 "1024": { "slidesPerView": 3 }
-             }
-         }'>
-
-            {# Wrapper des slides #}
-            <div class="swiper-wrapper">
-                {% for post in posts %}
-                    <div class="swiper-slide bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-center items-center transition-transform duration-300 hover:scale-105">
-                        <img src="{{ asset('images/' ~ post.image) }}"
-                             alt="{{ post.title }}"
-                             class="w-40 h-40 md:w-48 md:h-48 object-cover rounded-xl shadow-md mb-4">
-                        <h2 class="text-xl md:text-2xl font-semibold text-center mb-2">
-                            {{ post.title }}
-                        </h2>
-                        <p class="text-gray-700 text-center text-sm md:text-base leading-relaxed">
-                            {{ post.content }}
-                        </p>
-                    </div>
-                {% endfor %}
+    {# Carousel Swiper responsive #}
+    <div
+      data-controller="carousel"
+      class="swiper relative pb-14 sm:pb-12 [--swiper-theme-color:theme(colors.blue.600)] [--swiper-pagination-color:theme(colors.blue.600)] [--swiper-navigation-color:theme(colors.blue.600)]"
+      data-carousel-options-value='{
+        "loop": true,
+        "slidesPerView": 1,
+        "spaceBetween": 20,
+        "pagination": { "el": ".swiper-pagination", "clickable": true },
+        "navigation": { "nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev" },
+        "breakpoints": {
+          "640": { "slidesPerView": 1 },
+          "768": { "slidesPerView": 2 },
+          "1024": { "slidesPerView": 3 }
+        }
+      }'
+    >
+      {# Wrapper des slides #}
+      <div class="swiper-wrapper">
+        {% for post in posts %}
+          <div class="swiper-slide">
+            <div class="bg-white rounded-2xl shadow-lg p-6 h-full flex flex-col justify-start items-center text-center transition-transform duration-300 hover:scale-[1.02]">
+              <img
+                src="{{ asset('images/' ~ post.image) }}"
+                alt="{{ post.title }}"
+                class="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover rounded-xl shadow-md mb-4"
+              >
+              <h2 class="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
+                {{ post.title }}
+              </h2>
+              <p class="text-gray-700 text-sm sm:text-base leading-relaxed">
+                {{ post.content }}
+              </p>
             </div>
+          </div>
+        {% endfor %}
+      </div>
 
-            {# Pagination et navigation #}
-            <div class="swiper-pagination z-50 mt-6"></div>
-            <div class="swiper-button-prev z-50 cursor-pointer"></div>
-            <div class="swiper-button-next z-50 cursor-pointer"></div>
+      {# Pagination et navigation #}
+      <div class="swiper-pagination z-40 mt-6"></div>
+
+      <div class="swiper-button-prev z-40 !static !m-0">
+        <span class="sr-only">Précédent</span>
+      </div>
+      <div class="swiper-button-next z-40 !static !m-0">
+        <span class="sr-only">Suivant</span>
+      </div>
+
+      {# Positionnement des flèches sur mobile/desktop #}
+      <div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 hidden sm:block">
+        <div class="relative max-w-6xl mx-auto">
+          <div class="pointer-events-auto absolute left-2">
+            <button class="swiper-button-prev !w-10 !h-10 flex items-center justify-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+          </div>
+          <div class="pointer-events-auto absolute right-2">
+            <button class="swiper-button-next !w-10 !h-10 flex items-center justify-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}

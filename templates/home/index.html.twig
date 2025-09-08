@@ -1,140 +1,145 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="w-full py-8">
-        <!-- Titre centré -->
-        <h1 class="text-6xl font-extrabold mb-16 text-blue-800 text-center">L L ACADEMY</h1>
+  <div class="w-full py-8 px-4 sm:px-6 lg:px-8">
+    <!-- Titre centré -->
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-8 sm:mb-12 lg:mb-16 text-blue-800 text-center">
+      L L ACADEMY
+    </h1>
 
-        <!-- Image + Texte description sur la même ligne -->
-        <div class="flex flex-col md:flex-row items-center justify-center gap-10 px-2 md:px-12 mb-16">
-            <!-- Image bien à gauche -->
-            <div class="w-full flex justify-center md:justify-start opacity-70">
-                <img src="{{ asset('images/student_pic.jpg') }}" alt="Photo étudiant" class="w-[420px] h-[420px] object-cover shadow-lg border-4 border-blue-200">
-            </div>
-
-
-            <!-- Texte à droite -->
-            <div class="w-full text-gray-700 text-center md:text-left">
-                <p class="text-2xl leading-relaxed max-w-md mx-auto md:mx-0 font-medium">
-                    Bienvenue sur notre école de langues. Plongez dans des formations immersives, conçues pour vous faire progresser rapidement dans un cadre bienveillant et professionnel.
-                    Que vous soyez débutant ou confirmé, nos cours s’adaptent à votre rythme et à vos objectifs.
-                </p>
-
-                <!-- Bloc Nouveauté -->
-                <div class="mt-8 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-md">
-                    <p class="font-bold uppercase tracking-wide">🎉 Nouveauté</p>
-                    <p class="mt-1">Dès maintenant, découvrez notre tout nouveau <strong>cours d’italien</strong> ! Une surprise vous attend pour son lancement…</p>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Sous-titre centré -->
-        <h2 class="text-3xl font-semibold mb-8 text-gray-700 text-center">Voici nos cours</h2>
-
-    <!-- Section Cours -->
-    <div data-controller="modal">
-        <!-- Overlay + le contenu de modal -->
-        <div
-                data-modal-target="modal"
-                data-action="click->modal#closeModal"
-                class="fixed inset-0 flex items-center justify-center hidden z-50"
-                style="background-color: rgba(0,0,0,0.8);"
+    <!-- Image + Texte description sur la même ligne -->
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-center gap-6 sm:gap-10 md:gap-12 mb-12 sm:mb-16">
+      <!-- Image bien à gauche -->
+      <div class="w-full md:w-auto flex justify-center md:justify-start opacity-90">
+        <img
+          src="{{ asset('images/student_pic.jpg') }}"
+          alt="Photo étudiant"
+          class="w-full max-w-xs sm:max-w-sm md:w-[420px] md:h-[420px] h-auto object-cover shadow-lg border-4 border-blue-200 rounded-lg"
         >
-            <!-- Le Conteneur interne de la modal -->
-            <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full flex flex-col items-center gap-4">
-                <!-- Contenu injecté par Stimulus -->
-            </div>
-        </div>
+      </div>
 
-        <!-- La Grid des cours -->
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto px-4">
-            {% for course in courses %}
-                <li>
-                    <button
-                            data-action="click->modal#openModal"
-                            data-flag="{{ course.flagPicture }}"
-                            data-name="{{ course.name }}"
-                            data-description="{{ course.description }}"
-                            data-isopen="{{ course.isOpen ? 'Session ouverte' : 'Session Fermée' }}"
-                            data-price="{{ course.price }}€"
-                            class="block p-8 rounded-lg shadow-md font-semibold cursor-pointer text-center bg-blue-100 text-blue-900 hover:scale-105 hover:shadow-xl"
-                    >
-                        {{ course.name }}
-                    </button>
-                </li>
-            {% endfor %}
-        </ul>
+      <!-- Texte à droite -->
+      <div class="w-full max-w-2xl text-gray-700 text-center md:text-left">
+        <p class="text-base sm:text-lg md:text-2xl leading-relaxed md:leading-8 font-medium">
+          Bienvenue sur notre école de langues. Plongez dans des formations immersives, conçues pour vous faire progresser rapidement dans un cadre bienveillant et professionnel.
+          Que vous soyez débutant ou confirmé, nos cours s’adaptent à votre rythme et à vos objectifs.
+        </p>
+
+        <!-- Bloc Nouveauté -->
+        <div class="mt-6 sm:mt-8 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 sm:p-5 rounded shadow-md">
+          <p class="font-bold uppercase tracking-wide text-sm sm:text-base">🎉 Nouveauté</p>
+          <p class="mt-1 text-sm sm:text-base">
+            Dès maintenant, découvrez notre tout nouveau <strong>cours d’italien</strong> ! Une surprise vous attend pour son lancement…
+          </p>
+        </div>
+      </div>
     </div>
 
+    <!-- Sous-titre centré -->
+    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-700 text-center">Voici nos cours</h2>
 
+    <!-- Section Cours -->
+    <div data-controller="modal" class="max-w-5xl mx-auto">
+      <!-- Overlay + le contenu de modal -->
+      <div
+        data-modal-target="modal"
+        data-action="click->modal#closeModal"
+        class="fixed inset-0 flex items-center justify-center hidden z-50"
+        style="background-color: rgba(0,0,0,0.8);"
+      >
+        <!-- Le Conteneur interne de la modal -->
+        <div class="bg-white p-5 sm:p-6 rounded-lg shadow-xl w-[92%] max-w-md flex flex-col items-center gap-4 text-center mx-4">
+          <!-- Contenu injecté par Stimulus -->
+        </div>
+      </div>
 
-
-
-
-
+      <!-- La Grid des cours -->
+      <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        {% for course in courses %}
+          <li>
+            <button
+              data-action="click->modal#openModal"
+              data-flag="{{ course.flagPicture }}"
+              data-name="{{ course.name }}"
+              data-description="{{ course.description }}"
+              data-isopen="{{ course.isOpen ? 'Session ouverte' : 'Session Fermée' }}"
+              data-price="{{ course.price }}€"
+              class="block w-full p-5 sm:p-6 rounded-lg shadow-md font-semibold cursor-pointer text-center bg-blue-100 text-blue-900 hover:scale-[1.02] hover:shadow-xl transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            >
+              {{ course.name }}
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
 
     <!-- Section Nouveautés -->
-    <div class="mt-16 max-w-5xl mx-auto px-4">
-        <h2 class="text-3xl font-semibold mb-8 text-gray-700 text-center">🎉 Nouveautés</h2>
+    <div class="mt-12 sm:mt-16 max-w-5xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-700 text-center">🎉 Nouveautés</h2>
 
-        <div class="flex flex-col md:flex-row items-center justify-center gap-10 bg-blue-50 p-6 rounded-lg shadow-md">
-            <!-- Image à gauche -->
-            <div class="w-full md:w-1/2 flex justify-center md:justify-start">
-                <img src="{{ asset('images/rome.jpg') }}" alt="Nouvelle expérience Italie" class="w-[400px] h-[300px] object-cover rounded-lg shadow-lg border-4 border-blue-200">
-            </div>
-
-            <!-- Texte à droite -->
-            <div class="w-full md:w-1/2 text-gray-700 text-center md:text-left">
-                <p class="text-xl leading-relaxed mb-4 font-medium">
-                    Depuis 2025, découvrez notre tout nouveau <strong>cours d’italien</strong> ! Plongez dans une expérience linguistique unique et préparez-vous à enrichir vos compétences avec des activités immersives.
-                </p>
-                <p class="text-lg leading-relaxed mb-4 font-medium">
-                    Pour célébrer son lancement, nous offrons à nos nouveaux inscrits un <strong>voyage immersif de 5 jours à Rome !</strong>, tout compris pour seulement <strong>250€</strong> ! Profitez d’un séjour exceptionnel avec visites, ateliers et moments conviviaux.
-                </p>
-                <p class="text-md font-semibold text-red-600">
-                    ⚠️ Places limitées, réservez vite !
-                </p>
-            </div>
+      <div class="flex flex-col md:flex-row items-center md:items-stretch justify-center gap-6 sm:gap-10 bg-blue-50 p-5 sm:p-6 rounded-lg shadow-md">
+        <!-- Image à gauche -->
+        <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+          <img
+            src="{{ asset('images/rome.jpg') }}"
+            alt="Nouvelle expérience Italie"
+            class="w-full max-w-sm sm:max-w-md md:max-w-none md:w-full h-auto object-cover rounded-lg shadow-lg border-4 border-blue-200"
+          >
         </div>
+
+        <!-- Texte à droite -->
+        <div class="w-full md:w-1/2 text-gray-700 text-center md:text-left">
+          <p class="text-base sm:text-lg md:text-xl leading-relaxed mb-3 sm:mb-4 font-medium">
+            Depuis 2025, découvrez notre tout nouveau <strong>cours d’italien</strong> ! Plongez dans une expérience linguistique unique et préparez-vous à enrichir vos compétences avec des activités immersives.
+          </p>
+          <p class="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4 font-medium">
+            Pour célébrer son lancement, nous offrons à nos nouveaux inscrits un <strong>voyage immersif de 5 jours à Rome !</strong>, tout compris pour seulement <strong>250€</strong> !
+          </p>
+          <p class="text-sm sm:text-base font-semibold text-red-600">
+            ⚠️ Places limitées, réservez vite !
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Section À VENIR EN 2026 -->
-    <div class="mt-16 max-w-5xl mx-auto px-4">
-        <h2 class="text-3xl font-semibold mb-8 text-gray-700 text-center">✨ À VENIR EN 2026</h2>
+    <div class="mt-12 sm:mt-16 max-w-5xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-700 text-center">✨ À VENIR EN 2026</h2>
 
-        <div class="flex flex-col md:flex-row-reverse items-center justify-center gap-10 bg-green-50 p-6 rounded-lg shadow-md">
-            <!-- Image à droite -->
-            <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-                <img src="{{ asset('images/signn.jpeg') }}" alt="Apprentissage langue des signes" class="w-[500px] h-[350px] object-cover rounded-lg shadow-lg border-4 border-green-200">
-            </div>
-
-            <!-- Texte à gauche -->
-            <div class="w-full md:w-1/2 text-gray-700 text-center md:text-left">
-                <p class="text-xl leading-relaxed mb-4 font-medium">
-                    Découvrez notre nouveau projet innovant pour 2026 : <strong>Apprentissage de la Langue des Signes</strong> ! Une opportunité unique pour développer vos compétences de communication et mieux comprendre la communauté sourde et malentendante.
-                </p>
-                <p class="text-lg leading-relaxed mb-4 font-medium">
-                    Ce programme immersif combine cours interactifs, ateliers pratiques et activités culturelles pour apprendre la langue des signes française dans un cadre dynamique et bienveillant. Adapté à tous les niveaux, débutants comme avancés.
-                </p>
-                <p class="text-md font-semibold text-green-600">
-                    🌟 Ouverture des inscriptions dès octobre 2026.
-                </p>
-            </div>
+      <div class="flex flex-col md:flex-row-reverse items-center md:items-stretch justify-center gap-6 sm:gap-10 bg-green-50 p-5 sm:p-6 rounded-lg shadow-md">
+        <!-- Image à droite -->
+        <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+          <img
+            src="{{ asset('images/signn.jpeg') }}"
+            alt="Apprentissage langue des signes"
+            class="w-full max-w-md md:max-w-none md:w-full h-auto object-cover rounded-lg shadow-lg border-4 border-green-200"
+          >
         </div>
-    </div>
 
+        <!-- Texte à gauche -->
+        <div class="w-full md:w-1/2 text-gray-700 text-center md:text-left">
+          <p class="text-base sm:text-lg md:text-xl leading-relaxed mb-3 sm:mb-4 font-medium">
+            Découvrez notre nouveau projet innovant pour 2026 : <strong>Apprentissage de la Langue des Signes</strong> !
+          </p>
+          <p class="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4 font-medium">
+            Programme immersif avec cours interactifs et ateliers pratiques, adapté à tous les niveaux.
+          </p>
+          <p class="text-sm sm:text-base font-semibold text-green-600">
+            🌟 Ouverture des inscriptions dès octobre 2026.
+          </p>
+        </div>
+      </div>
+    </div>
 
     {# Liste des posts #}
-    <div class="max-w-5xl mx-auto px-4 mt-12 space-y-6">
-        {% for post in posts %}
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-2xl font-semibold text-gray-900">{{ post.title }}</h2>
-                <p class="mt-2 text-gray-70 0">{{ post.content }}</p>
-                <p class="mt-3 text-sm text-gray-500">{{ post.createdat|date('d-m-Y') }}</p>
-            </div>
-
-        {% endfor %}
+    <div class="max-w-5xl mx-auto mt-10 sm:mt-12 space-y-4 sm:space-y-6">
+      {% for post in posts %}
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">{{ post.title }}</h2>
+          <p class="mt-2 text-gray-700 text-sm sm:text-base">{{ post.content }}</p>
+          <p class="mt-3 text-xs sm:text-sm text-gray-500">{{ post.createdat|date('d-m-Y') }}</p>
+        </div>
+      {% endfor %}
     </div>
-
+  </div>
 {% endblock %}

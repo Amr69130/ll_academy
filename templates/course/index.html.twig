@@ -3,75 +3,75 @@
 {% block title %}Nos cours de langue{% endblock %}
 
 {% block body %}
-    <section class="max-w-7xl mx-auto px-6 py-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-center text-blue-800 mb-14">
-             Nos cours de langue
-        </h1>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-blue-800 mb-8 sm:mb-12 md:mb-14">
+      Nos cours de langue
+    </h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <!-- Anglais -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="{{ asset('images/courses/anglais.png') }}" alt="Drapeau Anglais" class="w-10 h-10 rounded-full object-cover">
-                    <h2 class="text-2xl font-semibold text-gray-800">Anglais</h2>
-                </div>
-                <p class="text-gray-600 mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
-                <ul class="text-gray-700 mb-3 list-disc list-inside">
-                    <li><strong>Compétences visées :</strong> Expression orale, écrite, compréhension et conversation.</li>
-                    <li><strong>Durée :</strong> 10 séances de 1h30 chacune.</li>
-                    <li><strong>Méthode :</strong> Immersive et interactive avec support audio-visuel.</li>
-                    <li><strong>Exemples de contenus :</strong> Dialogues pratiques, exercices de grammaire, jeux interactifs.</li>
-                    <li><strong>Public :</strong> Enfants, adolescents et adultes.</li>
-                </ul>
-            </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+      <!-- Anglais -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-7 md:p-8 hover:shadow-2xl transition will-change-[transform,box-shadow] flex flex-col h-full">
+        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <img src="{{ asset('images/courses/anglais.png') }}" alt="Drapeau Anglais" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">Anglais</h2>
+        </div>
+        <p class="text-gray-600 mb-2 sm:mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
+        <ul class="text-gray-700 mb-0 sm:mb-1 md:mb-2 list-disc list-inside space-y-1.5 sm:space-y-2 text-sm sm:text-base">
+          <li><strong>Compétences visées :</strong> Expression orale, écrite, compréhension et conversation.</li>
+          <li><strong>Durée :</strong> 10 séances de 1h30 chacune.</li>
+          <li><strong>Méthode :</strong> Immersive et interactive avec support audio-visuel.</li>
+          <li><strong>Exemples de contenus :</strong> Dialogues pratiques, exercices de grammaire, jeux interactifs.</li>
+          <li><strong>Public :</strong> Enfants, adolescents et adultes.</li>
+        </ul>
+      </div>
 
-            <!-- Italien -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="{{ asset('images/courses/italien.png') }}" alt="Drapeau Italien" class="w-10 h-10 rounded-full object-cover">
-                    <h2 class="text-2xl font-semibold text-gray-800">Italien</h2>
-                </div>
-                <p class="text-gray-600 mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
-                <ul class="text-gray-700 mb-3 list-disc list-inside">
-                    <li><strong>Compétences visées :</strong> Expression orale et écrite, compréhension de dialogues, conversation.</li>
-                    <li><strong>Durée :</strong> 8 séances de 2h chacune.</li>
-                    <li><strong>Méthode :</strong> Culturelle et immersive, utilisation de films et musiques italiennes.</li>
-                    <li><strong>Exemples de contenus :</strong> Jeux de rôle, lectures courtes, dialogues pratiques.</li>
-                    <li><strong>Public :</strong> Adolescents et adultes.</li>
-                </ul>
-            </div>
+      <!-- Italien -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-7 md:p-8 hover:shadow-2xl transition will-change-[transform,box-shadow] flex flex-col h-full">
+        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <img src="{{ asset('images/courses/italien.png') }}" alt="Drapeau Italien" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">Italien</h2>
+        </div>
+        <p class="text-gray-600 mb-2 sm:mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
+        <ul class="text-gray-700 mb-0 sm:mb-1 md:mb-2 list-disc list-inside space-y-1.5 sm:space-y-2 text-sm sm:text-base">
+          <li><strong>Compétences visées :</strong> Expression orale et écrite, compréhension de dialogues, conversation.</li>
+          <li><strong>Durée :</strong> 8 séances de 2h chacune.</li>
+          <li><strong>Méthode :</strong> Culturelle et immersive, utilisation de films et musiques italiennes.</li>
+          <li><strong>Exemples de contenus :</strong> Jeux de rôle, lectures courtes, dialogues pratiques.</li>
+          <li><strong>Public :</strong> Adolescents et adultes.</li>
+        </ul>
+      </div>
 
-            <!-- Arabe -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="{{ asset('images/courses/arabe.png') }}" alt="Drapeau Arabe" class="w-10 h-10 rounded-full object-cover">
-                    <h2 class="text-2xl font-semibold text-gray-800">Arabe</h2>
-                </div>
-                <p class="text-gray-600 mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
-                <ul class="text-gray-700 mb-3 list-disc list-inside">
-                    <li><strong>Compétences visées :</strong> Lecture, écriture, expression orale et compréhension.</li>
-                    <li><strong>Durée :</strong> 12 séances de 1h30 chacune.</li>
-                    <li><strong>Méthode :</strong> Approche communicative avec exercices d’écriture et oral.</li>
-                    <li><strong>Exemples de contenus :</strong> Exercices d’écriture, dialogues quotidiens, vidéos culturelles.</li>
-                    <li><strong>Public :</strong> Adolescents et adultes.</li>
-                </ul>
-            </div>
+      <!-- Arabe -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-7 md:p-8 hover:shadow-2xl transition will-change-[transform,box-shadow] flex flex-col h-full">
+        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <img src="{{ asset('images/courses/arabe.png') }}" alt="Drapeau Arabe" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">Arabe</h2>
+        </div>
+        <p class="text-gray-600 mb-2 sm:mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
+        <ul class="text-gray-700 mb-0 sm:mb-1 md:mb-2 list-disc list-inside space-y-1.5 sm:space-y-2 text-sm sm:text-base">
+          <li><strong>Compétences visées :</strong> Lecture, écriture, expression orale et compréhension.</li>
+          <li><strong>Durée :</strong> 12 séances de 1h30 chacune.</li>
+          <li><strong>Méthode :</strong> Approche communicative avec exercices d’écriture et oral.</li>
+          <li><strong>Exemples de contenus :</strong> Exercices d’écriture, dialogues quotidiens, vidéos culturelles.</li>
+          <li><strong>Public :</strong> Adolescents et adultes.</li>
+        </ul>
+      </div>
 
-            <!-- Espagnol -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <img src="{{ asset('images/courses/espagnol.png') }}" alt="Drapeau Espagnol" class="w-10 h-10 rounded-full object-cover">
-                    <h2 class="text-2xl font-semibold text-gray-800">Espagnol</h2>
-                </div>
-                <p class="text-gray-600 mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
-                <ul class="text-gray-700 mb-3 list-disc list-inside">
-                    <li><strong>Compétences visées :</strong> Conversation, lecture, écriture et compréhension.</li>
-                    <li><strong>Durée :</strong> 10 séances de 2h chacune.</li>
-                    <li><strong>Méthode :</strong> Ludique et immersive avec activités culturelles hispanophones.</li>
-                    <li><strong>Exemples de contenus :</strong> Dialogues pratiques, jeux interactifs, lectures courtes.</li>
-                    <li><strong>Public :</strong> Enfants, adolescents et adultes.</li>
-                </ul>
-            </div>
-        </div> <!-- fin grid -->
-    </section>
+      <!-- Espagnol -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-7 md:p-8 hover:shadow-2xl transition will-change-[transform,box-shadow] flex flex-col h-full">
+        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <img src="{{ asset('images/courses/espagnol.png') }}" alt="Drapeau Espagnol" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shrink-0">
+          <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">Espagnol</h2>
+        </div>
+        <p class="text-gray-600 mb-2 sm:mb-3 font-medium">Niveaux : <strong>A1 → B2</strong></p>
+        <ul class="text-gray-700 mb-0 sm:mb-1 md:mb-2 list-disc list-inside space-y-1.5 sm:space-y-2 text-sm sm:text-base">
+          <li><strong>Compétences visées :</strong> Conversation, lecture, écriture et compréhension.</li>
+          <li><strong>Durée :</strong> 10 séances de 2h chacune.</li>
+          <li><strong>Méthode :</strong> Ludique et immersive avec activités culturelles hispanophones.</li>
+          <li><strong>Exemples de contenus :</strong> Dialogues pratiques, jeux interactifs, lectures courtes.</li>
+          <li><strong>Public :</strong> Enfants, adolescents et adultes.</li>
+        </ul>
+      </div>
+    </div> <!-- fin grid -->
+  </section>
 {% endblock %}
