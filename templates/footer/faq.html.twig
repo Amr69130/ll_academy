@@ -4,154 +4,107 @@
 {% block title %}FAQ{% endblock %}
 
 {% block body %}
-
-   {# Liste des posts #}
-    <div class="max-w-5xl mx-auto px-4 mt-12 space-y-6">
-        {% for post in posts %} 
-
-            <div class="bg-white rounded-lg shadow p-6">
-
-                <h2 class="text-2xl font-semibold text-gray-900">{{ post.title }}</h2>
-                <p class="mt-2 text-gray-70 0">{{ post.content }}</p>
-                <p class="mt-3 text-sm text-gray-500">{{ post.createdat|date('d-m-Y') }}</p>
-
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="mt-4">
-                        <a href="{{ path('admin_post_edit', { 'id': post.id }) }}"
-                           class="inline-flex items-center px-4 py-2 rounded bg-[#f97316] text-white font-medium hover:bg-[#ea580c] transition">
-                            Modifier
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-
-<main class="min-h-screen bg-[#1E293B] px-4 py-12">
-  <div class="max-w-5xl mx-auto">
-
+<main class="min-h-screen w-full bg-[#1E293B] px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+  <div class="max-w-5xl mx-auto space-y-8 sm:space-y-10">
     {# Header #}
-    <header class="text-center mb-10">
-      <h1 class="text-4xl font-bold text-white">Foire aux questions</h1>
-      <p class="mt-3 text-[#FAF1DC]/80">Trouvez rapidement des réponses sur le compte, les cours et les paiements.</p>
+    <header class="text-center">
+      <h1 class="text-3xl sm:text-4xl font-bold text-white">Foire aux questions</h1>
+      <p class="mt-3 text-[#FAF1DC]/80 text-sm sm:text-base">
+        Trouvez rapidement des réponses sur le compte, les cours et les paiements.
+      </p>
     </header>
 
-    {# Barre “recherche” (visuelle) #}
-    <div class="max-w-xl mx-auto mb-10">
-      <div class="flex items-center gap-2 bg-white rounded-lg shadow px-4 py-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
-        <input type="search" placeholder="Rechercher dans la FAQ…" class="w-full outline-none text-gray-700 placeholder-gray-400">
+    {# Barre de recherche #}
+    <div class="max-w-xl mx-auto">
+      <div class="flex items-center gap-2 bg-white/90 rounded-lg shadow px-3 sm:px-4 py-2.5 sm:py-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
+        <input type="search" placeholder="Rechercher dans la FAQ…" class="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 text-sm sm:text-base">
       </div>
     </div>
 
     {# Grille FAQ #}
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
       {# Bloc : Compte #}
-      <article class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Compte</h2>
+      {% for post in posts %}
+  <div class="bg-[#1E293B] rounded-xl shadow p-5 sm:p-6 text-center">
+    <h2 class="text-xl sm:text-2xl font-semibold text-white">{{ post.title }}</h2>
+    <p class="mt-2 text-white text-sm sm:text-base">{{ post.content }}</p>
+    <p class="mt-3 text-xs sm:text-sm text-gray-300 text-right">{{ post.createdat|date('d-m-Y') }}</p>
 
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
+    {% if is_granted('ROLE_ADMIN') %}
+      <div class="mt-4">
+        <a href="{{ path('admin_post_edit', { 'id': post.id }) }}"
+           class="inline-flex items-center px-4 py-2 rounded-md bg-[#f97316] text-white font-medium hover:bg-[#ea580c] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E293B]">
+          Modifier
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+  
+      <article class="bg-[#1E293B] border border-gray-600/40 rounded-xl p-5 sm:p-6">
+        <h2 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Compte</h2>
+
+        <details class="group border-t border-gray-600/50 py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-gray-200 font-medium select-none">
             Comment créer un compte parent ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
+            <svg class="h-5 w-5 text-gray-400 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
           </summary>
-          <div class="mt-3 text-gray-600">
+          <div class="mt-3 text-gray-300 text-sm sm:text-base">
             Rendez-vous sur la page <a href="{{ path('app_register') }}" class="text-[#F97316] underline">Inscription</a>, complétez le formulaire puis validez. Un e-mail de confirmation vous sera envoyé.
           </div>
         </details>
 
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
+        <details class="group border-t border-gray-600/50 py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-gray-200 font-medium select-none">
             J’ai oublié mon mot de passe, que faire ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
+            <svg class="h-5 w-5 text-gray-400 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
           </summary>
-          <div class="mt-3 text-gray-600">
+          <div class="mt-3 text-gray-300 text-sm sm:text-base">
             Allez sur <a href="{{ path('app_forgot_password_request') }}" class="text-[#F97316] underline">Mot de passe oublié</a>, saisissez votre e-mail et suivez le lien reçu.
-          </div>
-        </details>
-
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
-            Comment mettre à jour mon adresse et mon numéro de téléphone ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
-          </summary>
-          <div class="mt-3 text-gray-600">
-            Depuis <a href="{{ path('app_user_profile_settings') }}" class="text-[#F97316] underline">Paramètres du compte</a>, modifiez vos coordonnées puis enregistrez.
           </div>
         </details>
       </article>
 
       {# Bloc : Cours #}
-      <article class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Cours</h2>
+      <article class="bg-[#1E293B] border border-gray-600/40 rounded-xl p-5 sm:p-6">
+        <h2 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Cours</h2>
 
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
+        <details class="group border-t border-gray-600/50 py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-gray-200 font-medium select-none">
             Comment inscrire mon enfant à un cours ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
+            <svg class="h-5 w-5 text-gray-400 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
           </summary>
-          <div class="mt-3 text-gray-600">
+          <div class="mt-3 text-gray-300 text-sm sm:text-base">
             Créez d’abord une fiche élève, puis choisissez un cours dans la liste et confirmez l’inscription.
-          </div>
-        </details>
-
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
-            Où consulter les horaires ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
-          </summary>
-          <div class="mt-3 text-gray-600">
-            Les horaires sont affichés sur la page du cours et synchronisés dans votre espace élève/parent.
-          </div>
-        </details>
-
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
-            Peut-on changer de niveau en cours d’année ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
-          </summary>
-          <div class="mt-3 text-gray-600">
-            Oui, selon l’évaluation du professeur et les places disponibles.
           </div>
         </details>
       </article>
 
       {# Bloc : Paiements #}
-      <article class="bg-white rounded-xl shadow p-6 md:col-span-2">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Paiements</h2>
+      <article class="bg-[#1E293B] border border-gray-600/40 rounded-xl p-5 sm:p-6 md:col-span-2">
+        <h2 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Paiements</h2>
 
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
+        <details class="group border-t border-gray-600/50 py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-gray-200 font-medium select-none">
             Quels moyens de paiement sont acceptés ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
+            <svg class="h-5 w-5 text-gray-400 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
           </summary>
-          <div class="mt-3 text-gray-600">
+          <div class="mt-3 text-gray-300 text-sm sm:text-base">
             Carte bancaire, paiement en plusieurs fois selon le type d’inscription, et virement le cas échéant.
-          </div>
-        </details>
-
-        <details class="group border-t border-gray-200 py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-gray-800 font-medium">
-            Où retrouver mes factures ?
-            <svg class="h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 0 1 .92 1.17l-4.25 3.37a.75.75 0 0 1-.92 0L5.21 8.4a.75.75 0 0 1 .02-1.19Z" clip-rule="evenodd"/></svg>
-          </summary>
-          <div class="mt-3 text-gray-600">
-            Depuis votre espace, rubrique <em>Paiements</em>, vous pouvez télécharger chaque facture au format PDF.
           </div>
         </details>
       </article>
     </section>
 
     {# CTA contact #}
-    <div class="mt-10 text-center">
-      <p class="text-[#FAF1DC]/80">Vous n’avez pas trouvé la réponse à votre question ?</p>
+    <div class="text-center">
+      <p class="text-[#FAF1DC]/80 text-sm sm:text-base">Vous n’avez pas trouvé la réponse à votre question ?</p>
       <a href=""
-         class="inline-flex items-center mt-3 px-5 py-3 rounded-md bg-[#F97316] text-white font-semibold hover:bg-[#ea580c] transition">
+         class="inline-flex items-center mt-3 px-5 py-3 rounded-md bg-[#F97316] text-white font-semibold hover:bg-[#ea580c] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E293B]">
         Contacter le support
       </a>
     </div>
-
   </div>
 </main>
 {% endblock %}
