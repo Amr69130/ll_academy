@@ -117,7 +117,7 @@ final class UserController extends AbstractController
             (new TemplatedEmail())
                 ->from(new Address('yukamiro2@gmail.com', 'll-academy'))
                 ->to((string) $user->getEmail())
-                ->subject('Please Confirm your Email')
+                ->subject('Confirmez votre adresse e-mail')
                 ->htmlTemplate('registration/confirmation_email.html.twig')
         );
 

@@ -7,11 +7,13 @@ use App\Form\StudentType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class StudentController extends AbstractController
 {
@@ -102,7 +104,7 @@ final class StudentController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete' . $student->getId(), $request->request->get('_token'))) {
 
-//            'ICI ON VA VERIFIER SI L'ETUDIANT N'AS PAS D'INSCRIPTIONS EN COURS, S'IL A -> IMPOSSIBLE DE SUPPRIMER'
+            //            'ICI ON VA VERIFIER SI L'ETUDIANT N'AS PAS D'INSCRIPTIONS EN COURS, S'IL A -> IMPOSSIBLE DE SUPPRIMER'
             if (count($student->getEnrollments()) > 0) {
                 $this->addFlash('error', 'Impossible de supprimer cet élève car il est encore inscrit à des cours.');
                 return $this->redirectToRoute('app_user_profile');
