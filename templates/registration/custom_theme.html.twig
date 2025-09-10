@@ -1,0 +1,143 @@
+{% use "form_div_layout.html.twig" %}
+
+{# ---------- erreurs en rouge ---------- #}
+{% block form_errors %}
+  {% if errors|length > 0 %}
+    <ul class="text-red-500 text-xs sm:text-sm mt-1 space-y-1 list-none">
+      {% for error in errors %}
+        <li>{{ error.message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+{# ---------- rangée standard ---------- #}
+{% block form_row %}
+  <div class="space-y-2">
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+  </div>
+{% endblock %}
+
+{# ---------- label (sans parent, en posant attr pour block('attributes')) ---------- #}
+{% block form_label %}
+  {% if label is not same as(false) %}
+    {% set label_attr = label_attr|merge({
+      class: (label_attr.class|default('') ~ ' block text-sm sm:text-base font-medium text-white')|trim
+    }) %}
+    {% set attr = label_attr %}
+    <label {{ block('attributes') }}>
+      {{ (label is empty ? name|humanize : label)|trans({}, translation_domain) }}
+    </label>
+  {% endif %}
+{% endblock %}
+
+{# ---------- input simple ---------- #}
+{% block form_widget_simple %}
+  {% set base = 'w-full px-4 py-3 sm:py-3.5 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316] text-sm sm:text-base' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
+  <input type="{{ type|default('text') }}" {{ block('widget_attributes') }}{% if value is not same as('') and value is not null %} value="{{ value }}"{% endif %}>
+{% endblock %}
+
+{# ---------- textarea ---------- #}
+{% block textarea_widget %}
+  {% set base = 'w-full px-4 py-3 rounded-md bg-white text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316] text-sm sm:text-base' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
+  <textarea {{ block('widget_attributes') }}>{{ value|default('') }}</textarea>
+{% endblock %}
+
+{# ---------- select (sans "with" après block(...)) ---------- #}
+{% block choice_widget_collapsed %}
+  {% set base = 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316] text-sm sm:text-base' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
+  <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    {% if placeholder is not null %}
+      <option value=""{% if required and (value is empty) %} selected="selected"{% endif %}>
+        {{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) : '' }}
+      </option>
+    {% endif %}
+
+    {% if preferred_choices is not empty %}
+      {% with { choices: preferred_choices } %}
+        {{ block('choice_widget_options') }}
+      {% endwith %}
+      {% if choices is not empty and separator is not null %}
+        <option disabled="disabled">{{ separator }}</option>
+      {% endif %}
+    {% endif %}
+
+    {% with { choices: choices } %}
+      {{ block('choice_widget_options') }}
+    {% endwith %}
+  </select>
+{% endblock %}
+
+{# --- case à cocher avec texte personnalisé --- #}
+{% block checkbox_row %}
+  <div class="flex items-start gap-3">
+    {{ form_widget(form, { attr: {
+      class: 'h-4 w-4 mt-1 text-[#f97316] border-gray-300 rounded focus:ring-[#f97316]'
+    }}) }}
+    <label for="{{ id }}" class="text-xs sm:text-sm text-white leading-5">
+      En cochant cette case, je confirme avoir pris connaissance et accepté les conditions générales d’inscription.
+    </label>
+  </div>
+  {{ form_errors(form) }}
+{% endblock %}
+
+
+{% block checkbox_widget %}
+  {% set base = 'h-4 w-4 text-[#f97316] border-gray-300 rounded focus:ring-[#f97316]' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
+  <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined and value not in ['', null] %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+{% endblock %}
+
+{# ---------- radio ---------- #}
+{% block radio_row %}
+  <div class="flex items-start gap-3">
+    {{ form_widget(form, { attr: {
+      class: (attr.class|default('') ~ ' h-4 w-4 shrink-0 text-[#f97316] focus:ring-[#f97316] border-gray-300')|trim
+    }}) }}
+    <div class="mt-[-1px]">
+      {{ form_label(form, null, { label_attr: {
+        class: (label_attr.class|default('') ~ ' text-xs sm:text-sm leading-5 text-white')|trim
+      }}) }}
+      {{ form_errors(form) }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block radio_widget %}
+  {% set base = 'h-4 w-4 text-[#f97316] border-gray-300 focus:ring-[#f97316]' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
+  <input type="radio" {{ block('widget_attributes') }}{% if value is defined and value not in ['', null] %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+{% endblock %}
+
+{# ---------- boutons ---------- #}
+{% block button_widget %}
+  {% set type = type|default('button') %}
+  {% set base = 'inline-flex items-center justify-center px-4 py-3 sm:py-3.5 rounded-md bg-[#f97316] text-white font-semibold hover:bg-[#ea580c] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1e293b] text-sm sm:text-base' %}
+  {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim, type: type }) %}
+  <button {{ block('button_attributes') }}>
+    {{ label is empty ? name|humanize : label|trans({}, translation_domain) }}
+  </button>
+{% endblock %}
+
+{% block submit_widget %}
+  {% set type = 'submit' %}
+  {{ block('button_widget') }}
+{% endblock %}
+
+{# ---------- fieldset composé ---------- #}
+{% block form_widget_compound %}
+  <div {{ block('widget_container_attributes') }}>
+    {% if form is rootform %}
+      {{ form_errors(form) }}
+    {% endif %}
+    {% for child in form %}
+      {{ form_row(child) }}
+    {% endfor %}
+  </div>
+{% endblock %}
+    
