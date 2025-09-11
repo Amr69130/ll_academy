@@ -144,7 +144,7 @@ class ResetPasswordController extends AbstractController
         ]);
 
         // Do not reveal whether a user account was found or not.
-        dump($user);
+
         if (!$user) {
             return $this->redirectToRoute('app_check_email');
         }
@@ -161,12 +161,12 @@ class ResetPasswordController extends AbstractController
             //     $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
             //     $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
             // ));
-            dump($e);
+
 
             return $this->redirectToRoute('app_check_email');
         }
 
-        dump("email");
+
         $email = (new TemplatedEmail())
 
             // Modifier le from en fonction du mail dans le MAILER_DSN qui se trouve dans notre .env.local
@@ -181,10 +181,8 @@ class ResetPasswordController extends AbstractController
                 'resetToken' => $resetToken,
             ]);
 
-        dump($email);
-
         $mailer->send($email);
-        dump($email);
+
         // Store the token object in session for retrieval in check-email route.
         $this->setTokenObjectInSession($resetToken);
 
