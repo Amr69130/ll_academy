@@ -3,22 +3,47 @@
 {% block title %}Inscrire un élève{% endblock %}
 
 {% block body %}
-    <main class="min-h-screen bg-gray-100 text-gray-900 px-4 py-8">
-        <div class="max-w-2xl mx-auto space-y-6">
-            <h1 class="text-2xl font-bold text-center">Inscrire {{ student.firstname }} {{ student.lastname }}</h1>
+  {% form_theme form 'form_div_layout.html.twig' %}
 
-            {{ form_start(form) }}
-            {{ form_row(form.enrollmentPeriod) }}
-            {{ form_row(form.course) }}
+  <main class="min-h-screen w-full bg-[#1e293b] text-white px-4 sm:px-6 lg:px-8 py-10">
+    <div class="w-full max-w-xl mx-auto">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center mb-8">
+        Inscrire {{ student.firstname }} {{ student.lastname }}
+      </h1>
 
-            <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                Valider l'inscription
-            </button>
-            {{ form_end(form) }}
+      {{ form_start(form, {
+        attr: { class: 'bg-[#1e293b] border border-gray-600/50 rounded-xl shadow-lg p-5 sm:p-6 space-y-6' }
+      }) }}
 
-            <div class="mt-6 text-center">
-                <a href="{{ path('app_user_profile') }}" class="text-blue-500 hover:underline">← Retour au profil</a>
-            </div>
-        </div>
-    </main>
+        {# --- Période d'inscription affichée en lecture seule sans border ni flèche --- #}
+        {{ form_row(form.enrollmentPeriod, {
+          attr: {
+            class: 'w-full px-0 py-0 bg-transparent text-white text-sm sm:text-base appearance-none pointer-events-none'
+          }
+        }) }}
+
+        {# --- Champ cours (sélecteur actif) --- #}
+        {{ form_row(form.course, {
+          label_attr: { class: 'block text-sm sm:text-base font-medium text-white' },
+          attr: {
+            class: 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316] text-sm sm:text-base'
+          }
+        }) }}
+
+        {# --- Bouton submit --- #}
+        {{ form_row(form.submit, {
+          attr: {
+            class: 'w-full inline-flex items-center justify-center px-4 py-3 sm:py-3.5 rounded-md bg-[#f97316] text-white font-semibold hover:bg-[#ea580c] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1e293b] text-sm sm:text-base'
+          }
+        }) }}
+
+      {{ form_end(form) }}
+
+      <div class="mt-6 text-center">
+        <a href="{{ path('app_user_profile') }}" class="text-[#f97316] hover:underline">
+          ← Retour au profil
+        </a>
+      </div>
+    </div>
+  </main>
 {% endblock %}

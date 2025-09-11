@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\EnrollmentPeriod;
+use App\Entity\Student;
 use App\Entity\User;
 use App\Form\ChangePhoneNumberType;
 use App\Form\Settings\ChangePasswordFormType;
@@ -27,22 +29,39 @@ final class UserController extends AbstractController
     {
     }
 
-    #[Route('/', name: 'app_user_profile')]
-    public function profile(): Response
+    #[Route('', name: 'app_user_profile')]
+    public function profile(Request $request): Response
     {
+
         /** @var User $user */
         $user = $this->getUser();
-
         if (!$user) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour voir cette page.');
         }
 
-        // Récupérer les élèves liés au parent (User)
+        // ICI ON VERIFIE SI LE STUDENT N'EST PAS DEJA INSCRIT QUELQUE PART
         $students = $user->getStudents();
+
+        $existingEnrollment = null;
+
+        foreach ($students as $student) {
+            foreach ($student->getEnrollments() as $enrollment) {
+                $course = $enrollment->getCourse()->getName();
+                $period = $enrollment->getEnrollmentPeriod()->getTitle();
+                if (in_array($enrollment->getStatus(), ['pending', 'confirmed'], true)) {
+                    $existingEnrollment = $enrollment;
+                    break 2; // quitte les deux boucles directement
+                }
+            }
+        }
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'students' => $students,
+            "existingEnrollment" => $existingEnrollment,
+            "course" => $course,
+            "period" => $period
+
         ]);
     }
 
@@ -55,9 +74,9 @@ final class UserController extends AbstractController
         $form = $this->createForm(UserSettingType::class, $user);
 
         $form->handleRequest($request);
-        dump($form);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);
+
             $em->persist($user);
             $em->flush();
             $this->addFlash("", "Votre profile a bien été modifié");

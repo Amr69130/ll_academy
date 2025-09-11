@@ -20,14 +20,15 @@ class EnrollmentType extends AbstractType
                 'class' => EnrollmentPeriod::class,
                 'choice_label' => 'title',
                 'label' => 'Période d\'inscription',
-                'query_builder' => fn ($er) => $er->createQueryBuilder('e')
+                'query_builder' => fn($er) => $er->createQueryBuilder('e')
                     ->where('e.isOpen = true'),
+                'disabled' => $options['lock_period'], // ⬅️ ICI
             ])
             ->add('course', EntityType::class, [
                 'class' => Course::class,
-                'choice_label' => fn ($course) => $course->getName() . ' (' . $course->getLevel() . ')',
+                'choice_label' => fn($course) => $course->getName() . ' (' . $course->getLevel() . ')',
                 'label' => 'Cours',
-                'query_builder' => fn ($er) => $er->createQueryBuilder('c')
+                'query_builder' => fn($er) => $er->createQueryBuilder('c')
                     ->where('c.isOpen = true'),
             ])
             ->add('submit', SubmitType::class, [
@@ -39,6 +40,8 @@ class EnrollmentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Enrollment::class,
+            'lock_period' => false, // ⬅️ défaut
         ]);
+        $resolver->setAllowedTypes('lock_period', 'bool');
     }
 }
