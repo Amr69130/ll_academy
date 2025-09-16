@@ -1,6 +1,11 @@
 @use "tailwindcss";
 @source not "../../public";
 
+@theme {
+  --breakpoint-sm: 476px;
+  --breakpoint-md: 1150px;
+}
+
 body {
     /*background-color: lightgrey;*/
 }
