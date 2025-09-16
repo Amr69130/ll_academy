@@ -1,41 +1,86 @@
-{# templates/parts/header.html.twig #}
-<header class="bg-gray-800 text-[#FAF1DC] py-6 px-4 font-sans text-sm">
-  <div class="mx-auto flex justify-between items-center">
+<header class="bg-gray-800 text-[#FAF1DC] py-4 px-4 font-sans text-sm">
+    <div class="mx-auto flex justify-between items-center">
 
-    <!-- Logo -->
-    <div class="flex items-center pl-10">
-      <img src="{{ asset('images/logo_circle_llacademy.png') }}" alt="LL Academy" class="h-10 w-auto mr-3" />
-      <span class="font-serif text-2xl font-semibold">LL Academy</span>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="flex space-x-6 pr-25">
-      <a href="{{ path('app_home') }}" class="hover:underline hover:text-white transition">Accueil</a>
-      <a href="{{ path('course_index') }}" class="hover:underline hover:text-white transition">Nos Cours de Langues</a>
-      <a href="{{ path('team') }}" class="hover:underline hover:text-white transition">Notre équipe</a>
-    </nav>
-
-    <!-- Utilisateur connecté / non connecté -->
-    <div class="flex items-center mr-4">
-      {% if app.user %}
-        <div class="flex flex-col items-center space-y-1">
-          <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
-          <div class="w-full border-b border-gray-500"></div>
-          <nav class="flex items-center space-x-2 text-sm pt-1">
-
-            {% if 'ROLE_ADMIN' in app.user.roles %}
-              <a href="{{ path('admin_dashboard_index') }}" class="hover:underline hover:text-white transition">Admin</a>
-            {% else %}
-              <a href="{{ path('app_user_profile') }}" class="hover:underline hover:text-white transition">Mon Compte</a>
-            {% endif %}
-            <span class="border-l border-gray-500 h-4"></span>
-            <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
-          </nav>
+        <!-- Logo -->
+        <div class="flex items-center pl-4">
+            <img src="{{ asset('images/logo_circle_llacademy.png') }}" alt="LL Academy" class="h-10 w-auto mr-3" />
+            <span class="font-serif text-2xl font-semibold">LL Academy</span>
         </div>
-      {% else %}
-        <a href="{{ path('app_login') }}" class="hover:underline hover:text-white transition pr-20">Se connecter</a>
-      {% endif %}
+
+        <!-- Bouton burger (mobile) -->
+        <div class="md:hidden">
+            <button id="menu-btn" class="text-[#FAF1DC] focus:outline-none">
+                <!-- Icône burger -->
+                <svg id="menu-open" class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <!-- Icône croix (hidden par défaut) -->
+                <svg id="menu-close" class="h-8 w-8 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation desktop -->
+        <nav class="hidden md:flex space-x-6 pr-10">
+            <a href="{{ path('app_home') }}" class="hover:underline hover:text-white transition">Accueil</a>
+            <a href="{{ path('course_index') }}" class="hover:underline hover:text-white transition">Nos cours de langues</a>
+            <a href="{{ path('team') }}" class="hover:underline hover:text-white transition">Notre équipe</a>
+        </nav>
+
+        <!-- Utilisateur connecté / non connecté (desktop) -->
+        <div class="hidden md:flex items-center mr-4">
+            {% if app.user %}
+                <div class="flex flex-col items-center space-y-1">
+                    <span class="text-sm">Bienvenue {{ app.user.firstname }}</span>
+                    <div class="w-full border-b border-gray-500"></div>
+                    <nav class="flex items-center space-x-2 text-sm pt-1">
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <a href="{{ path('admin_dashboard_index') }}" class="hover:underline hover:text-white transition">Admin</a>
+                        {% else %}
+                            <a href="{{ path('app_user_profile') }}" class="hover:underline hover:text-white transition">Mon Compte</a>
+                        {% endif %}
+                        <span class="border-l border-gray-500 h-4"></span>
+                        <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
+                    </nav>
+                </div>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="hover:underline hover:text-white transition pr-10">Se connecter</a>
+            {% endif %}
+        </div>
     </div>
 
-  </div>
+    <!-- Menu mobile (hidden par défaut) -->
+    <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-4 mt-4 px-6">
+        <a href="{{ path('app_home') }}" class="hover:underline hover:text-white transition">Accueil</a>
+        <a href="{{ path('course_index') }}" class="hover:underline hover:text-white transition">Nos cours de langues</a>
+        <a href="{{ path('team') }}" class="hover:underline hover:text-white transition">Notre équipe</a>
+
+        {% if app.user %}
+            <hr class="border-gray-600" />
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+                <a href="{{ path('admin_dashboard_index') }}" class="hover:underline hover:text-white transition">Admin</a>
+            {% else %}
+                <a href="{{ path('app_user_profile') }}" class="hover:underline hover:text-white transition">Mon Compte</a>
+            {% endif %}
+            <a href="{{ path('app_logout') }}" class="hover:underline hover:text-white transition">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="hover:underline hover:text-white transition">Se connecter</a>
+        {% endif %}
+    </div>
 </header>
+
+<script>
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('menu-open');
+    const closeIcon = document.getElementById('menu-close');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        openIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+    });
+</script>
