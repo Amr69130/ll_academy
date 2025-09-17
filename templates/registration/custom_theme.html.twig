@@ -20,7 +20,7 @@
   </div>
 {% endblock %}
 
-{# ---------- label (sans parent, en posant attr pour block('attributes')) ---------- #}
+{# ---------- label (sans parent) ---------- #}
 {% block form_label %}
   {% if label is not same as(false) %}
     {% set label_attr = label_attr|merge({
@@ -47,7 +47,7 @@
   <textarea {{ block('widget_attributes') }}>{{ value|default('') }}</textarea>
 {% endblock %}
 
-{# ---------- select (sans "with" après block(...)) ---------- #}
+{# ---------- select (FIX: passer "options" au block choice_widget_options) ---------- #}
 {% block choice_widget_collapsed %}
   {% set base = 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:border-[#f97316] text-sm sm:text-base' %}
   {% set attr = attr|merge({ class: (attr.class|default('') ~ ' ' ~ base)|trim }) %}
@@ -59,7 +59,7 @@
     {% endif %}
 
     {% if preferred_choices is not empty %}
-      {% with { choices: preferred_choices } %}
+      {% with { options: preferred_choices } %}
         {{ block('choice_widget_options') }}
       {% endwith %}
       {% if choices is not empty and separator is not null %}
@@ -67,7 +67,7 @@
       {% endif %}
     {% endif %}
 
-    {% with { choices: choices } %}
+    {% with { options: choices } %}
       {{ block('choice_widget_options') }}
     {% endwith %}
   </select>
@@ -79,13 +79,12 @@
     {{ form_widget(form, { attr: {
       class: 'h-4 w-4 mt-1 text-[#f97316] border-gray-300 rounded focus:ring-[#f97316]'
     }}) }}
-    <label for="{{ id }}" class="text-xs sm:text-sm text-white leading-5">
+    <label for="{{ form.vars.id }}" class="text-xs sm:text-sm text-white leading-5">
       En cochant cette case, je confirme avoir pris connaissance et accepté les conditions générales d’inscription.
     </label>
   </div>
   {{ form_errors(form) }}
 {% endblock %}
-
 
 {% block checkbox_widget %}
   {% set base = 'h-4 w-4 text-[#f97316] border-gray-300 rounded focus:ring-[#f97316]' %}
@@ -140,4 +139,3 @@
     {% endfor %}
   </div>
 {% endblock %}
-    
