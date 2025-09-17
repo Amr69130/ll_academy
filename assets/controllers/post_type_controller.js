@@ -6,7 +6,7 @@ export default class extends Controller {
     static targets = ["row"];
 
 
-    post(event) {
+    filterPost(event) {
         console.log(event.target.index);
         console.log(event.type);
         console.log(this.targets.dataset);
