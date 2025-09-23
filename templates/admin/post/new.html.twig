@@ -1,72 +1,4 @@
-{# templates/admin/post/new.html.twig #}
-{% extends 'admin/base.html.twig' %}
-
-{% block title %}Créer un Post{% endblock %}
-
-{% block body %}
-<main class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-sm mt-10">
-  <h1 class="text-2xl font-bold text-gray-800 mb-6">Créer une nouvelle publication</h1>
-
-  {# thème : erreurs rouges + inputs propres (celui qu’on a préparé) #}
-  {% form_theme form 'registration/custom_theme.html.twig' %}
-
- {{ form_start(form, { attr: { class: 'space-y-6' } }) }}
-
-  {# Titre #}
-  {{ form_row(form.title, {
-    label: 'Titre',
-    label_attr: { class: 'block text-sm font-medium text-gray-800' },
-    attr: {
-      placeholder: 'Titre de la publication',
-      class: 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600'
-    }
-  }) }}
-
-  {# Contenu #}
-  {{ form_row(form.content, {
-    label: 'Contenu',
-    label_attr: { class: 'block text-sm font-medium text-gray-800' },
-    attr: {
-      rows: 8,
-      placeholder: 'Écrivez votre contenu…',
-      class: 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600'
-    }
-  }) }}
-
-  {# Image (si c'est une URL/texte, ça rendra un input texte ; si plus tard vous passez en FileType, le style est prêt) #}
-  {{ form_row(form.image, {
-    label: 'Image',
-    label_attr: { class: 'block text-sm font-medium text-gray-800' },
-    attr: {
-      placeholder: 'Sélection de fichier',
-      class: 'block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100
-                   px-4 py-3 rounded-md bg-white border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600'
-    }
-  }) }}
-
-  {# Date de création #}
-  {{ form_row(form.created_at, {
-    label: 'Date de création',
-    label_attr: { class: 'block text-sm font-medium text-gray-800' },
-    attr: {
-      class: 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600'
-    }
-  }) }}
-
-  {# Type (EntityType PostType) #}
-  {{ form_row(form.type, {
-    label: 'Type de post',
-    label_attr: { class: 'block text-sm font-medium text-gray-800' },
-    attr: {
-      class: 'w-full px-4 py-3 rounded-md bg-white text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600'
-    }
-  }) }}
-
-  <div class="flex items-center justify-end gap-3 pt-2">
-    <a href="{{ path('admin_post_index') }}"
-       class="inline-flex items-center px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50">
-      Annuler
-    </a>
+{{ include('admin/post/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
     {# Bouton submit (si ton FormType n’a pas de bouton, on rend celui-ci) #}
     <button type="submit"
@@ -76,11 +8,3 @@
   </div>
 
 {{ form_end(form) }}
-
-  <div class="mt-6">
-    <a href="{{ path('admin_post_index') }}" class="text-blue-600 hover:text-blue-700 hover:underline">
-      ← Retour à la liste
-    </a>
-  </div>
-</main>
-{% endblock %}
