@@ -14,7 +14,9 @@ export default class extends Controller {
 
         let post = event.target.value;
 
+        // Récupérations de toute les targets (row)
         this.rowTargets.forEach(row => {
+            // row represente une ligne du tableau de donnée (un post)
             let rowType = row.dataset.typeId
             console.log("Type de l'id", rowType)
 
